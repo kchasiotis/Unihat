@@ -7,6 +7,7 @@
 import React, {Component} from 'react';
 import {Container, Header, Title, Content, Button, Left, Right, Body, Icon} from 'native-base';
 import LessonList from './src/lessonList/lessonList'
+import Login from './src/login/Login'
 
 import {
     AppRegistry,
@@ -32,7 +33,7 @@ export default class IcarusAegean extends Component {
                 </Header>
 
                 <Content>
-                    <LessonList/>
+                    <Login/>
                 </Content>
 
             </Container>
