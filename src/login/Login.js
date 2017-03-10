@@ -1,30 +1,54 @@
 import React, {Component} from 'react';
-import View from 'react-native';
-import {Content, Item, Input, Text} from 'native-base';
+import {Content, Item, Input, Button, Text} from 'native-base';
 import IcarusCrawler from '../icarusCrawler/IcarusCrawler'
+import userCredentials from '../icarusCrawler/.user'
 
 export default class Login extends Component {
-    constructor(props){
-        super(props);
-        this.state = {resp: 'nothing'};
-        this.onLoad = this.onLoad.bind(this);
+    icarusCrawler = null;
 
-        new IcarusCrawler().fetchPage(this.onLoad);
+    constructor(props) {
+        super(props);
+        // this.state = {username: '', password: ''};
+        this.state = {username: userCredentials.username, password: userCredentials.password};
+
+        this.icarusCrawler = new IcarusCrawler();
+        this.icarusCrawler.logout();
+
+        this.login = this.login.bind(this);
+        this.handleUsername = this.handleUsername.bind(this);
+        this.handlePassword = this.handlePassword.bind(this);
+        this.onLoginResponse = this.onLoginResponse.bind(this);
     }
 
-    onLoad(val){
-        this.setState({resp: val});
+    onLoginResponse(state){
+        this.props.onLogin(state);
+    }
+
+    login() {
+        this.icarusCrawler.fetchPage(this.state.username, this.state.password, this.onLoginResponse);
+    }
+
+    handleUsername(text) {
+        this.setState({username: text})
+    }
+
+    handlePassword(text) {
+        this.setState({password: text})
     }
 
     render() {
         return (
             <Content>
                 <Item regular>
-                    <Input placeholder={this.state.resp}/>
+                    <Input value={this.state.username} onChangeText={this.handleUsername} placeholder='Username'/>
                 </Item>
                 <Item regular>
-                    <Input placeholder='Regular Textbox'/>
+                    <Input value={this.state.password} onChangeText={this.handlePassword} secureTextEntry
+                           placeholder='Password'/>
                 </Item>
+                <Button onPress={this.login}>
+                    <Text>Login</Text>
+                </Button>
             </Content>
         );
     }

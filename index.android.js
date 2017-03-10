@@ -1,9 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, {Component} from 'react';
 import {Container, Header, Title, Content, Button, Left, Right, Body, Icon} from 'native-base';
 import LessonList from './src/lessonList/lessonList'
@@ -17,7 +11,20 @@ import {
 } from 'react-native';
 
 export default class IcarusAegean extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {logged: false};
+
+        this.onLogin = this.onLogin.bind(this);
+    }
+
+    onLogin(state) {
+        this.setState({logged: state});
+        console.log(state ? 'Logged in' : 'Log in failed');
+    }
+
     render() {
+        let main = this.state.logged ? <LessonList/> : <Login onLogin={this.onLogin}/>;
         return (
             <Container>
                 <Header>
@@ -33,7 +40,7 @@ export default class IcarusAegean extends Component {
                 </Header>
 
                 <Content>
-                    <Login/>
+                    {main}
                 </Content>
 
             </Container>

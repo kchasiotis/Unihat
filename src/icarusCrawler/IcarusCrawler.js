@@ -1,5 +1,3 @@
-import userCredentials from './.user'
-
 let cheerio = require('cheerio-without-node-native');
 let axios = require('axios');
 
@@ -33,10 +31,16 @@ export default class IcarusCrawler {
         this.fetchPage = this.fetchPage.bind(this);
     }
 
-    parseHtml(data) {
+    parseHtml(data, onResponse) {
+        // Initialize query mechanism
         let $ = cheerio.load(data, {
             decodeEntities: false
         });
+
+        // Check if user logged in
+        let loggedIn = $('#analytic_grades').length >= 1;
+        onResponse(loggedIn);
+        if (!loggedIn) return;
 
         // User data
         let user = new User();
@@ -66,7 +70,7 @@ export default class IcarusCrawler {
         console.log(this.analyticGrading.length);
     }
 
-    fetchPage(onLoad) {
+    fetchPage(username, password, onResponse) {
         console.log('logging in');
         let parseHtml = this.parseHtml;
 
@@ -74,8 +78,8 @@ export default class IcarusCrawler {
         let url = 'https://icarus-icsd.aegean.gr/authentication.php';
 
         let details = {
-            username: userCredentials.username,
-            pwd: userCredentials.password,
+            username: username,
+            pwd: password,
         };
 
         let formBody = [];
@@ -97,12 +101,27 @@ export default class IcarusCrawler {
             },
             responseType: 'arraybuffer',
             data: formBody
-        })
-            .then(function (response) {
-                console.log('Page loaded');
-                let data = iconv.decode(new Buffer(response.data), 'iso-8859-7');
-                parseHtml(data);
-            });
+        }).then(function (response) {
+            console.log('Page loaded');
+            let data = iconv.decode(new Buffer(response.data), 'iso-8859-7');
+            parseHtml(data, onResponse);
+        });
+    }
+
+    logout() {
+        console.log('Logging out');
+        let url = 'https://icarus-icsd.aegean.gr/logout.php';
+
+        axios({
+            url: url,
+            method: 'POST',
+            responseType: 'arraybuffer'
+        }).then(function (response) {
+            console.log('Page loaded');
+            let data = iconv.decode(new Buffer(response.data), 'iso-8859-7');
+            if (response.status === 200)
+                console.log('Successful logout')
+        });
     }
 
 }
