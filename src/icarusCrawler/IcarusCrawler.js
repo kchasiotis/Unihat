@@ -24,8 +24,6 @@ class Lesson {
 }
 
 export default class IcarusCrawler {
-    analyticGrading = [];
-
     constructor() {
         this.parseHtml = this.parseHtml.bind(this);
         this.fetchPage = this.fetchPage.bind(this);
@@ -39,8 +37,10 @@ export default class IcarusCrawler {
 
         // Check if user logged in
         let loggedIn = $('#analytic_grades').length >= 1;
-        onResponse(loggedIn);
-        if (!loggedIn) return;
+        if (!loggedIn) {
+            onResponse(loggedIn);
+            return;
+        }
 
         // User data
         let user = new User();
@@ -49,25 +49,22 @@ export default class IcarusCrawler {
         // Lessons data
         let parseAnalyticGrades = $('#analytic_grades > tbody').children();
 
-        let temp = parseAnalyticGrades;
+        let analyticGrading = [];
         for (let i = 0; i < parseAnalyticGrades.length; i++) {
             let lesson = new Lesson();
+            let temp = parseAnalyticGrades.eq(i).children();
 
-            // console.log('-------')
-            lesson.id = temp.children().eq(1).text();
-            lesson.title = temp.children().eq(2).text();
-            lesson.grade = temp.children().eq(3).text();
-            lesson.semester = temp.children().eq(4).text();
-            lesson.enrollDate = temp.children().eq(5).text();
-            lesson.examDate = temp.children().eq(6).text();
-            lesson.state = temp.children().eq(7).text();
-            // console.log(lesson.toString());
+            lesson.id = temp.eq(1).text().trim();
+            lesson.title = temp.eq(2).text().trim();
+            lesson.grade = temp.eq(3).text().trim();
+            lesson.semester = temp.eq(4).text().trim();
+            lesson.enrollDate = temp.eq(5).text().trim();
+            lesson.examDate = temp.eq(6).text().trim();
+            lesson.state = temp.eq(7).text().trim();
 
-            this.analyticGrading.push(lesson);
-
-            temp = temp.next();
+            analyticGrading.push(lesson);
         }
-        console.log(this.analyticGrading.length);
+        onResponse(loggedIn, analyticGrading);
     }
 
     fetchPage(username, password, onResponse) {

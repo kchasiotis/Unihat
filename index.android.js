@@ -13,18 +13,24 @@ import {
 export default class IcarusAegean extends Component {
     constructor(props) {
         super(props);
-        this.state = {logged: false};
+        this.state = {logged: false, analyticGrading: [], screenName: 'Icarus Aegean'};
 
         this.onLogin = this.onLogin.bind(this);
     }
 
-    onLogin(state) {
+    onLogin(state, analGrades) {
         this.setState({logged: state});
         console.log(state ? 'Logged in' : 'Log in failed');
+        if(analGrades){
+            this.setState({analyticGrading: analGrades, screenName: 'Βαθμοί'});
+        }
     }
 
     render() {
-        let main = this.state.logged ? <LessonList/> : <Login onLogin={this.onLogin}/>;
+        let main = this.state.logged ?
+            <LessonList analyticGrading={this.state.analyticGrading}/> :
+            <Login onLogin={this.onLogin}/>;
+
         return (
             <Container>
                 <Header>
@@ -34,7 +40,7 @@ export default class IcarusAegean extends Component {
                         </Button>
                     </Left>
                     <Body>
-                    <Title>Header</Title>
+                    <Title>{this.state.screenName}</Title>
                     </Body>
                     <Right />
                 </Header>

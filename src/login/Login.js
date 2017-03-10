@@ -17,15 +17,10 @@ export default class Login extends Component {
         this.login = this.login.bind(this);
         this.handleUsername = this.handleUsername.bind(this);
         this.handlePassword = this.handlePassword.bind(this);
-        this.onLoginResponse = this.onLoginResponse.bind(this);
-    }
-
-    onLoginResponse(state){
-        this.props.onLogin(state);
     }
 
     login() {
-        this.icarusCrawler.fetchPage(this.state.username, this.state.password, this.onLoginResponse);
+        this.icarusCrawler.fetchPage(this.state.username, this.state.password, this.props.onLogin);
     }
 
     handleUsername(text) {

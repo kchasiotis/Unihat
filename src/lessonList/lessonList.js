@@ -1,19 +1,29 @@
 import React, {Component} from 'react';
-import {Content, ListItem, Right, Text, Badge} from 'native-base';
+import {Content, ListItem, Right, Text, Badge, Card, CardItem, Body} from 'native-base';
 
 
 class LessonList extends Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
+        const listItems = this.props.analyticGrading.map((lesson) =>
+            <ListItem key={lesson.id}>
+                <Body>
+                <Text>{lesson.title}</Text>
+                </Body>
+                <Right>
+                    <Badge success={lesson.grade>=5} danger={lesson.grade<5}>
+                        <Text>{lesson.grade}</Text>
+                    </Badge>
+                </Right>
+            </ListItem>
+        );
+
         return (
             <Content>
-                <ListItem>
-                    <Text>Λογική Σχεδίαση</Text>
-                    <Right>
-                        <Badge success>
-                            <Text>9</Text>
-                        </Badge>
-                    </Right>
-                </ListItem>
+                {listItems}
             </Content>
         );
     }
