@@ -9,7 +9,7 @@ export default class Login extends Component {
         this.state = {resp: 'nothing'};
         this.onLoad = this.onLoad.bind(this);
 
-        IcarusCrawler.fetchPage(this.onLoad);
+        new IcarusCrawler().fetchPage(this.onLoad);
     }
 
     onLoad(val){
