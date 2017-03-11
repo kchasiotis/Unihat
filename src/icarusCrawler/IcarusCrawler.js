@@ -54,7 +54,7 @@ export default class IcarusCrawler {
             let lesson = new Lesson();
             let temp = parseAnalyticGrades.eq(i).children();
 
-            lesson.id = temp.eq(1).text().trim();
+            lesson.id = temp.eq(0).text().trim() + '-' + temp.eq(1).text().trim();
             lesson.title = temp.eq(2).text().trim();
             lesson.grade = temp.eq(3).text().trim();
             lesson.semester = temp.eq(4).text().trim();

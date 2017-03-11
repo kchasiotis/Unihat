@@ -1,33 +1,57 @@
+// React imports
 import React, {Component} from 'react';
-import {Container, Header, Title, Content, Button, Left, Right, Body, Icon} from 'native-base';
-import LessonList from './src/lessonList/lessonList'
-import Login from './src/login/Login'
-
 import {
     AppRegistry,
     StyleSheet,
     Text,
     View
 } from 'react-native';
+var ReactNative = require('react-native');
+var {
+    AsyncStorage,
+} = ReactNative;
+
+// UI componets imports
+import {Container, Header, Title, Content, Button, Left, Right, Body, Icon} from 'native-base';
+import Spinner from 'react-native-loading-spinner-overlay';
+import LessonList from './src/lessonList/lessonList'
+import Login from './src/login/Login'
 
 export default class IcarusAegean extends Component {
     constructor(props) {
         super(props);
-        this.state = {logged: false, analyticGrading: [], screenName: 'Icarus Aegean'};
+        this.state = {loading: true, logged: false, analyticGrading: [], screenName: 'Icarus Aegean'};
 
         this.onLogin = this.onLogin.bind(this);
+        AsyncStorage.getItem('analyticGrades', (err, result) => {
+            this.setState({loading: false});
+            if(err) {
+                console.log(err);
+                return;
+            }
+
+            this.setState({analyticGrading: JSON.parse(result)});
+        });
     }
 
     onLogin(state, analGrades) {
         this.setState({logged: state});
         console.log(state ? 'Logged in' : 'Log in failed');
-        if(analGrades){
+        if (analGrades) {
             this.setState({analyticGrading: analGrades, screenName: 'Βαθμοί'});
+            AsyncStorage.setItem('analyticGrades', JSON.stringify(analGrades));
         }
     }
 
     render() {
-        let main = this.state.logged ?
+        if (this.state.loading)
+            return (
+                <View style={{ flex: 1 }}>
+                    <Spinner visible={true} textContent={"Loading..."} textStyle={{color: '#FFF'}}/>
+                </View>
+            );
+
+        let main = this.state.logged || this.state.analyticGrading.length > 0 ?
             <LessonList analyticGrading={this.state.analyticGrading}/> :
             <Login onLogin={this.onLogin}/>;
 

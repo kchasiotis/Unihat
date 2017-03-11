@@ -8,11 +8,10 @@ export default class Login extends Component {
 
     constructor(props) {
         super(props);
-        // this.state = {username: '', password: ''};
-        this.state = {username: userCredentials.username, password: userCredentials.password};
+        this.state = {username: '', password: ''};
+        // this.state = {username: userCredentials.username, password: userCredentials.password};
 
         this.icarusCrawler = new IcarusCrawler();
-        this.icarusCrawler.logout();
 
         this.login = this.login.bind(this);
         this.handleUsername = this.handleUsername.bind(this);
