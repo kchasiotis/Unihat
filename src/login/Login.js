@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
-import {Content, Item, Input, Button, Text} from 'native-base';
+import {
+    View
+} from 'react-native';
+
+import {Content, Item, Input, Button, Text, Badge, Body} from 'native-base';
+import Spinner from 'react-native-loading-spinner-overlay';
+import Br from '../br/Br';
+
 import IcarusCrawler from '../icarusCrawler/IcarusCrawler'
 import userCredentials from '../icarusCrawler/.user'
 
@@ -8,18 +15,31 @@ export default class Login extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {username: '', password: ''};
-        // this.state = {username: userCredentials.username, password: userCredentials.password};
+        // this.state = {username: '', password: '', loading: false};
+        this.state = {
+            username: userCredentials.username,
+            password: userCredentials.password,
+            loading: false,
+            loginState: null
+        };
 
         this.icarusCrawler = new IcarusCrawler();
+        // this.icarusCrawler.logout();
 
         this.login = this.login.bind(this);
         this.handleUsername = this.handleUsername.bind(this);
         this.handlePassword = this.handlePassword.bind(this);
+        this.onLoginHandle = this.onLoginHandle.bind(this);
     }
 
     login() {
-        this.icarusCrawler.fetchPage(this.state.username, this.state.password, this.props.onLogin);
+        this.setState({loading: true});
+        this.icarusCrawler.fetchPage(this.state.username, this.state.password, this.onLoginHandle);
+    }
+
+    onLoginHandle(response, aGrading) {
+        this.setState({loading: false, loginState: response});
+        this.props.onLogin(response, aGrading);
     }
 
     handleUsername(text) {
@@ -31,18 +51,39 @@ export default class Login extends Component {
     }
 
     render() {
+        if (this.state.loading)
+            return (
+                <View style={{ flex: 1 }}>
+                    <Spinner visible={true} textContent={"Loading..."} textStyle={{color: '#FFF'}}/>
+                </View>
+            );
+
         return (
             <Content>
-                <Item regular>
-                    <Input value={this.state.username} onChangeText={this.handleUsername} placeholder='Username'/>
-                </Item>
-                <Item regular>
-                    <Input value={this.state.password} onChangeText={this.handlePassword} secureTextEntry
-                           placeholder='Password'/>
-                </Item>
-                <Button onPress={this.login}>
-                    <Text>Login</Text>
-                </Button>
+                <View style={{alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
+                    <Br/>
+                    {
+                        this.state.loginState === false ?
+                            <View>
+                                <Badge danger>
+                                    <Text>Τα στοιχεία που εισάγατε είναι λάθος</Text>
+                                </Badge>
+                            </View> :
+                            <Br/>
+                    }
+                    <Item regular>
+                        <Input value={this.state.username} onChangeText={this.handleUsername} placeholder='Username'/>
+                    </Item>
+                    <Item regular>
+                        <Input value={this.state.password} onChangeText={this.handlePassword} secureTextEntry
+                               placeholder='Password'/>
+                    </Item>
+                    <View>
+                        <Button onPress={this.login}>
+                            <Text>Login</Text>
+                        </Button>
+                    </View>
+                </View>
             </Content>
         );
     }
