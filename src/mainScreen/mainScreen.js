@@ -40,7 +40,7 @@ export default class MainScreen extends Component{
                     onClose={() => this.closeDrawer()}
                 >
                     <Content>
-                        <LessonList aGrades={this.props.aGrades}/>
+                        <LessonList aGrades={this.props.allGrades.aGrades}/>
                     </Content>
                 </Drawer>
 

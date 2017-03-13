@@ -27,6 +27,7 @@ export default class IcarusCrawler {
     constructor() {
         this.parseHtml = this.parseHtml.bind(this);
         this.fetchPage = this.fetchPage.bind(this);
+        this.parseGrades = this.parseGrades.bind(this);
     }
 
     parseHtml(data, onResponse) {
@@ -46,13 +47,33 @@ export default class IcarusCrawler {
         let user = new User();
         user.username = $('#header_login[style="display:inline"] > u').text();
 
-        // Lessons data
-        let parseAnalyticGrades = $('#analytic_grades > tbody').children();
+        // Analytic grades tBody
+        let abody = $('#analytic_grades > tbody').children();
 
+        // Succeeded grades tBody
+        let sbody = $('#succeeded_grades > tbody').children();
+
+        // Exetastiki grades tBody
+        let exbody = $('#exetastiki_grades > tbody').children();
+
+        // Emvolimi grades tBody
+        let embody = $('#exetastiki_grades_emvolimi > tbody').children();
+
+        let allGrades = {
+            aGrades: this.parseGrades(abody),
+            sGrades: this.parseGrades(sbody),
+            exGrades: this.parseGrades(exbody),
+            emGrades: this.parseGrades(embody)
+        };
+
+        onResponse(loggedIn, allGrades);
+    }
+
+    parseGrades(tBody) {
         let analyticGrading = [];
-        for (let i = 0; i < parseAnalyticGrades.length; i++) {
+        for (let i = 0; i < tBody.length; i++) {
             let lesson = new Lesson();
-            let temp = parseAnalyticGrades.eq(i).children();
+            let temp = tBody.eq(i).children();
 
             lesson.id = temp.eq(0).text().trim() + '-' + temp.eq(1).text().trim();
             lesson.title = temp.eq(2).text().trim();
@@ -64,7 +85,7 @@ export default class IcarusCrawler {
 
             analyticGrading.push(lesson);
         }
-        onResponse(loggedIn, analyticGrading);
+        return analyticGrading;
     }
 
     fetchPage(username, password, onResponse) {

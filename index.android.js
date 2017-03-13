@@ -12,18 +12,18 @@ import IcarusCrawler from './src/icarusCrawler/IcarusCrawler'
 export default class IcarusAegean extends Component {
     constructor(props) {
         super(props);
-        this.state = {logged: false, analyticGrading: []};
+        this.state = {logged: false, allGrades: null};
 
         this.onLogin = this.onLogin.bind(this);
         this.logout = this.logout.bind(this);
     }
 
-    onLogin(state, aGrades) {
+    onLogin(state, allGrades) {
+        if (allGrades) {
+            this.setState({allGrades: allGrades});
+        }
         this.setState({logged: state});
         console.log(state ? 'Logged in' : 'Log in failed');
-        if (aGrades) {
-            this.setState({analyticGrading: aGrades});
-        }
     }
 
     logout(){
@@ -33,7 +33,7 @@ export default class IcarusAegean extends Component {
 
     render() {
         if (this.state.logged) {
-            return <MainScreen logout={this.logout} aGrades={this.state.analyticGrading}/>
+            return <MainScreen logout={this.logout} allGrades={this.state.allGrades}/>
         }
 
         return (
