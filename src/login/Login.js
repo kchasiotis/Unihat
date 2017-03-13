@@ -3,7 +3,7 @@ import {
     View
 } from 'react-native';
 
-import {Content, Item, Input, Button, Text, Badge, Body} from 'native-base';
+import {Container, Header, Content, Title, Item, Input, Button, Text, Badge, Body} from 'native-base';
 import Spinner from 'react-native-loading-spinner-overlay';
 import Br from '../br/Br';
 
@@ -37,6 +37,10 @@ export default class Login extends Component {
         this.icarusCrawler.fetchPage(this.state.username, this.state.password, this.onLoginHandle);
     }
 
+    logout(){
+        this.icarusCrawler.logout();
+    }
+
     onLoginHandle(response, aGrading) {
         this.setState({loading: false, loginState: response});
         this.props.onLogin(response, aGrading);
@@ -59,32 +63,40 @@ export default class Login extends Component {
             );
 
         return (
-            <Content>
-                <View style={{alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
-                    <Br/>
-                    {
-                        this.state.loginState === false ?
-                            <View>
-                                <Badge danger>
-                                    <Text>Τα στοιχεία που εισάγατε είναι λάθος</Text>
-                                </Badge>
-                            </View> :
-                            <Br/>
-                    }
-                    <Item regular>
-                        <Input value={this.state.username} onChangeText={this.handleUsername} placeholder='Username'/>
-                    </Item>
-                    <Item regular>
-                        <Input value={this.state.password} onChangeText={this.handlePassword} secureTextEntry
-                               placeholder='Password'/>
-                    </Item>
-                    <View>
-                        <Button onPress={this.login}>
-                            <Text>Login</Text>
-                        </Button>
+            <Container>
+                <Header>
+                    <Body>
+                    <Title>Icarus Aegean</Title>
+                    </Body>
+                </Header>
+                <Content>
+                    <View style={{alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
+                        <Br/>
+                        {
+                            this.state.loginState === false ?
+                                <View>
+                                    <Badge danger>
+                                        <Text>Τα στοιχεία που εισάγατε είναι λάθος</Text>
+                                    </Badge>
+                                </View> :
+                                <Br/>
+                        }
+                        <Item regular>
+                            <Input value={this.state.username} onChangeText={this.handleUsername}
+                                   placeholder='Username'/>
+                        </Item>
+                        <Item regular>
+                            <Input value={this.state.password} onChangeText={this.handlePassword} secureTextEntry
+                                   placeholder='Password'/>
+                        </Item>
+                        <View>
+                            <Button onPress={this.login}>
+                                <Text>Login</Text>
+                            </Button>
+                        </View>
                     </View>
-                </View>
-            </Content>
+                </Content>
+            </Container>
         );
     }
 }

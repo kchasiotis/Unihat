@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Content, ListItem, Right, Text, Badge, Card, CardItem, Body} from 'native-base';
+import {Content, ListItem, Right, Text, Badge, Body} from 'native-base';
 
 
 class LessonList extends Component {
@@ -8,7 +8,7 @@ class LessonList extends Component {
     }
 
     render() {
-        const listItems = this.props.analyticGrading.map((lesson) =>
+        const listItems = this.props.aGrades.map((lesson) =>
             <ListItem key={lesson.id}>
                 <Body>
                 <Text>{lesson.title}</Text>
