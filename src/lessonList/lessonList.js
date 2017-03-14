@@ -14,9 +14,13 @@ class LessonList extends Component {
                 <Text>{lesson.title}</Text>
                 </Body>
                 <Right>
-                    <Badge success={lesson.grade>=5} danger={lesson.grade<5}>
-                        <Text>{lesson.grade}</Text>
-                    </Badge>
+                    {
+                        lesson.grade !== '' ?
+                            <Badge success={lesson.grade>=5} danger={lesson.grade<5}>
+                                <Text>{lesson.grade}</Text>
+                            </Badge> :
+                            null
+                    }
                 </Right>
             </ListItem>
         );

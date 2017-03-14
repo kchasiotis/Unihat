@@ -62,11 +62,11 @@ export default class IcarusAegean extends Component {
                     </Header>
 
                     <Drawer
-                        type="displace"
+                        type="overlay"
                         openDrawerOffset={0.4}
                         panCloseMask={0.4}
                         ref={(ref) => { this._drawer = ref; }}
-                        content={<MenuContent closeMenu={this.closeDrawer} setMenuItem={this.setMenuItem} logout={this.props.logout}/>}
+                        content={<MenuContent closeMenu={this.closeDrawer} setMenuItem={this.setMenuItem} logout={this.logout}/>}
                         onClose={() => this.closeDrawer()}
                     >
                         <Content>

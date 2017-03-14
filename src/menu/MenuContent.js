@@ -10,10 +10,10 @@ export default class MenuContent extends Component {
 
     menuItemHandler(choice){
         let func = this.props.setMenuItem;
-        let closeMenu = this.props.closeMenu;
+        // let closeMenu = this.props.closeMenu;
         return function () {
-            closeMenu();
             func(choice);
+            // closeMenu();
         };
     }
 
