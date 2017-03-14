@@ -8,7 +8,7 @@ class LessonList extends Component {
     }
 
     render() {
-        const listItems = this.props.aGrades.map((lesson) =>
+        const listItems = this.props.grades.map((lesson) =>
             <ListItem key={lesson.id}>
                 <Body>
                 <Text>{lesson.title}</Text>
