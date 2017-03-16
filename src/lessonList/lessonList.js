@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Content, ListItem, Right, Text, Badge, Body} from 'native-base';
+import {Content, ListItem, Right, Text, Badge, Body, List} from 'native-base';
 
 
 class LessonList extends Component {
@@ -27,7 +27,9 @@ class LessonList extends Component {
 
         return (
             <Content>
-                {listItems}
+                <List>
+                    {listItems}
+                </List>
             </Content>
         );
     }

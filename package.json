@@ -17,6 +17,7 @@
     "react-native": "0.41.2",
     "react-native-fetch-blob": "^0.10.2",
     "react-native-loading-spinner-overlay": "^0.4.2",
+    "react-navigation": "^1.0.0-beta.7",
     "stream": "0.0.2"
   },
   "devDependencies": {
