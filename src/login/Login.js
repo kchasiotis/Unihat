@@ -3,7 +3,7 @@ import {
     View
 } from 'react-native';
 
-import {Container, Header, Content, Title, Item, Input, Button, Text, Badge, Body} from 'native-base';
+import {Item, Input, Button, Text, Badge} from 'native-base';
 import Spinner from 'react-native-loading-spinner-overlay';
 import Br from '../br/Br';
 
@@ -12,6 +12,9 @@ import userCredentials from '../icarusCrawler/.user'
 
 export default class Login extends Component {
     icarusCrawler = null;
+    static navigationOptions = {
+        title: 'Icarus Aegean',
+    };
 
     constructor(props) {
         super(props);
@@ -24,7 +27,6 @@ export default class Login extends Component {
         };
 
         this.icarusCrawler = new IcarusCrawler();
-        // this.icarusCrawler.logout();
 
         this.login = this.login.bind(this);
         this.handleUsername = this.handleUsername.bind(this);
@@ -37,13 +39,15 @@ export default class Login extends Component {
         this.icarusCrawler.fetchPage(this.state.username, this.state.password, this.onLoginHandle);
     }
 
-    logout(){
+    logout() {
         this.icarusCrawler.logout();
     }
 
     onLoginHandle(response, aGrading) {
         this.setState({loading: false, loginState: response});
-        this.props.onLogin(response, aGrading);
+        const { navigate } = this.props.navigation;
+
+        navigate('Main', {allGrades: aGrading});
     }
 
     handleUsername(text) {
@@ -63,40 +67,31 @@ export default class Login extends Component {
             );
 
         return (
-            <Container>
-                <Header>
-                    <Body>
-                    <Title>Icarus Aegean</Title>
-                    </Body>
-                </Header>
-                <Content>
-                    <View style={{alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
-                        <Br/>
-                        {
-                            this.state.loginState === false ?
-                                <View>
-                                    <Badge danger>
-                                        <Text>Τα στοιχεία που εισάγατε είναι λάθος</Text>
-                                    </Badge>
-                                </View> :
-                                <Br/>
-                        }
-                        <Item regular>
-                            <Input value={this.state.username} onChangeText={this.handleUsername}
-                                   placeholder='Username'/>
-                        </Item>
-                        <Item regular>
-                            <Input value={this.state.password} onChangeText={this.handlePassword} secureTextEntry
-                                   placeholder='Password'/>
-                        </Item>
+            <View style={{alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
+                <Br/>
+                {
+                    this.state.loginState === false ?
                         <View>
-                            <Button onPress={this.login}>
-                                <Text>Login</Text>
-                            </Button>
-                        </View>
-                    </View>
-                </Content>
-            </Container>
+                            <Badge danger>
+                                <Text>Τα στοιχεία που εισάγατε είναι λάθος</Text>
+                            </Badge>
+                        </View> :
+                        <Br/>
+                }
+                <Item regular>
+                    <Input value={this.state.username} onChangeText={this.handleUsername}
+                           placeholder='Username'/>
+                </Item>
+                <Item regular>
+                    <Input value={this.state.password} onChangeText={this.handlePassword} secureTextEntry
+                           placeholder='Password'/>
+                </Item>
+                <View>
+                    <Button onPress={this.login}>
+                        <Text>Login</Text>
+                    </Button>
+                </View>
+            </View>
         );
     }
 }
