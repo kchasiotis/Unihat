@@ -8,15 +8,13 @@
   },
   "dependencies": {
     "axios": "^0.15.3",
+    "buffer": "^5.0.5",
     "cheerio-without-node-native": "^0.20.2",
-    "jQuery": "^1.7.4",
-    "jquery": "^3.1.1",
-    "min-jquery": "^1.7.0",
     "native-base": "^2.0.12",
     "react": "15.4.2",
     "react-native": "0.41.2",
-    "react-native-fetch-blob": "^0.10.2",
     "react-native-loading-spinner-overlay": "^0.4.2",
+    "react-native-pathjs-charts": "0.0.26",
     "react-navigation": "^1.0.0-beta.7",
     "stream": "0.0.2"
   },
