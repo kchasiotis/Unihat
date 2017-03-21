@@ -50,9 +50,6 @@ export default class IcarusCrawler {
         // Analytic grades tBody
         let abody = $('#analytic_grades > tbody').children();
 
-        // Succeeded grades tBody
-        let sbody = $('#succeeded_grades > tbody').children();
-
         // Exetastiki grades tBody
         let exbody = $('#exetastiki_grades > tbody').children();
 
@@ -61,7 +58,6 @@ export default class IcarusCrawler {
 
         let allGrades = {
             aGrades: this.parseGrades(abody),
-            sGrades: this.parseGrades(sbody),
             exGrades: this.parseGrades(exbody),
             emGrades: this.parseGrades(embody)
         };

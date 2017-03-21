@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {ListItem, Right, Text, Badge, Body} from 'native-base';
-import {ScrollView, ListView} from 'react-native';
+import {ListView} from 'react-native';
 
 function screenGrades(routeName, allGrades) {
     let grades;
@@ -59,7 +59,8 @@ class LessonList extends Component {
                             }
                         </Right>
                     </ListItem>
-}
+                }
+                initialListSize={4}
             />
         );
     }

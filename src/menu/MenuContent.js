@@ -1,39 +1,50 @@
 import React, {Component} from 'react';
 import {ListItem, Left, Text, Body, Icon, Content} from 'native-base';
+import IcarusCrawler from '../icarusCrawler/IcarusCrawler';
 
 export default class MenuContent extends Component {
+    IcarusClient = new IcarusCrawler();
     constructor(props){
         super(props);
 
         this.menuItemHandler = this.menuItemHandler.bind(this);
+        this.logout = this.logout.bind(this);
     }
 
     menuItemHandler(choice){
-        let func = this.props.setMenuItem;
-        // let closeMenu = this.props.closeMenu;
+        let pr = this.props;
+        let screen;
+        switch (choice){
+            case 1:
+                screen = 'aGrades';
+                break;
+            case 2:
+                screen = 'exGrades';
+                break;
+            case 3:
+                screen = 'emGrades';
+                break;
+        }
         return function () {
-            func(choice);
-            // closeMenu();
+            pr.navigation.navigate('DrawerClose');
+            pr.navigation.navigate(screen);
         };
+    }
+
+    logout(){
+        this.props.loginRoute();
+        this.IcarusClient.logout();
     }
 
     render() {
         return (
             <Content style={{backgroundColor: 'white'}}>
-                <ListItem icon onPress={this.menuItemHandler(0)}>
-                    <Left>
-                        <Icon name="md-sunny"/>
-                    </Left>
-                    <Body>
-                    <Text>Αναλυτική βαθμολογία</Text>
-                    </Body>
-                </ListItem>
                 <ListItem icon onPress={this.menuItemHandler(1)}>
                     <Left>
                         <Icon name="md-sunny"/>
                     </Left>
                     <Body>
-                    <Text>Περασμένα μαθήματα</Text>
+                    <Text>Αναλυτική βαθμολογία</Text>
                     </Body>
                 </ListItem>
                 <ListItem icon onPress={this.menuItemHandler(2)}>
@@ -52,7 +63,7 @@ export default class MenuContent extends Component {
                     <Text>Εμβόλιμη</Text>
                     </Body>
                 </ListItem>
-                <ListItem icon onPress={this.props.logout}>
+                <ListItem icon onPress={this.logout}>
                     <Left>
                         <Icon name="log-out"/>
                     </Left>
