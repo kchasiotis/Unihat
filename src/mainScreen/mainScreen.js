@@ -27,17 +27,18 @@ export default class MainScreen extends Component {
         MenuContent.defaultProps = {loginRoute: this.loginRoute};
 
         let source = this.props.navigation.state.params.allGrades;
+        let aGrades = InitializeLessonList(source.aGrades);
+        let exGrades = InitializeLessonList(source.exGrades);
+
         const MyApp = DrawerNavigator({
-            aGrades: {screen: InitializeLessonList('aGrades')},
-            // sGrades: {screen: InitializeLessonList('sGrades')},
-            exGrades: {screen: InitializeLessonList('exGrades')},
-            emGrades: {screen: InitializeLessonList('emGrades')},
+            aGrades: {screen: aGrades},
+            exGrades: {screen: exGrades},
         }, {
             contentComponent: MenuContent,
             drawerWidth: 200
         });
 
 
-        return <MyApp screenProps={{allGrades:source}}/>;
+        return <MyApp/>;
     }
 }

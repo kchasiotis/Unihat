@@ -2,29 +2,8 @@ import React, {Component} from 'react';
 import {ListItem, Right, Text, Badge, Body} from 'native-base';
 import {ListView} from 'react-native';
 
-function screenGrades(routeName, allGrades) {
-    let grades;
-    switch (routeName) {
-        case 'aGrades':
-            grades = allGrades.aGrades;
-            break;
-        case 'sGrades':
-            grades = allGrades.sGrades;
-            break;
-        case 'exGrades':
-            grades = allGrades.exGrades;
-            break;
-        case 'emGrades':
-            grades = allGrades.emGrades;
-            break;
-    }
-    return grades;
-}
-
-function InitializeLessonList(gradesStr) {
+function InitializeLessonList(grades) {
     return function LessonListEm(props) {
-        let grades = screenGrades(gradesStr, props.screenProps.allGrades);
-        //todo: remove grades of other views
         return (
             <LessonList grades={grades}/>
         )

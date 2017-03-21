@@ -21,9 +21,6 @@ export default class MenuContent extends Component {
             case 2:
                 screen = 'exGrades';
                 break;
-            case 3:
-                screen = 'emGrades';
-                break;
         }
         return function () {
             pr.navigation.navigate('DrawerClose');
@@ -53,14 +50,6 @@ export default class MenuContent extends Component {
                     </Left>
                     <Body>
                     <Text>Εξεταστική</Text>
-                    </Body>
-                </ListItem>
-                <ListItem icon onPress={this.menuItemHandler(3)}>
-                    <Left>
-                        <Icon name="md-snow"/>
-                    </Left>
-                    <Body>
-                    <Text>Εμβόλιμη</Text>
                     </Body>
                 </ListItem>
                 <ListItem icon onPress={this.logout}>

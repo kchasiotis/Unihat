@@ -3,6 +3,7 @@ let axios = require('axios');
 
 let iconv = require('iconv-lite');
 import {Buffer} from 'buffer';
+import htmlData from './mockPage';
 global.Buffer = Buffer;
 
 class User {
@@ -17,9 +18,10 @@ class Lesson {
     enrollDate = null;
     examDate = null;
     state = null;
+    label = null;
 
     toString() {
-        return this.id + ' ' + this.title + ' ' + this.grade + ' ' + this.semester + ' ' + this.enrollDate + ' ' + this.examDate + ' ' + this.state;
+        return this.id + ' ' + this.title + ' ' + this.grade + ' ' + this.semester + ' ' + this.enrollDate + ' ' + this.examDate + ' ' + this.state + ' ' + this.label;
     }
 }
 
@@ -57,15 +59,14 @@ export default class IcarusCrawler {
         let embody = $('#exetastiki_grades_emvolimi > tbody').children();
 
         let allGrades = {
-            aGrades: this.parseGrades(abody),
-            exGrades: this.parseGrades(exbody),
-            emGrades: this.parseGrades(embody)
+            aGrades: this.parseGrades(abody, 'aGrades'),
+            exGrades: this.parseGrades(exbody, 'exGrades').concat(this.parseGrades(embody, 'emGrades')),
         };
 
         onResponse(loggedIn, allGrades);
     }
 
-    parseGrades(tBody) {
+    parseGrades(tBody, label) {
         let analyticGrading = [];
         for (let i = 0; i < tBody.length; i++) {
             let lesson = new Lesson();
@@ -78,10 +79,15 @@ export default class IcarusCrawler {
             lesson.enrollDate = temp.eq(5).text().trim();
             lesson.examDate = temp.eq(6).text().trim();
             lesson.state = temp.eq(7).text().trim();
+            lesson.label = label;
 
             analyticGrading.push(lesson);
         }
         return analyticGrading;
+    }
+
+    fetchMockPage(onResponse){
+        this.parseHtml(htmlData, onResponse);
     }
 
     fetchPage(username, password, onResponse) {

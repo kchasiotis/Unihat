@@ -36,7 +36,10 @@ export default class Login extends Component {
 
     login() {
         this.setState({loading: true});
-        this.icarusCrawler.fetchPage(this.state.username, this.state.password, this.onLoginHandle);
+        if ('debug' === 'debug') {
+            this.icarusCrawler.fetchMockPage(this.onLoginHandle)
+        } else
+            this.icarusCrawler.fetchPage(this.state.username, this.state.password, this.onLoginHandle);
     }
 
     logout() {
@@ -45,7 +48,7 @@ export default class Login extends Component {
 
     onLoginHandle(response, aGrading) {
         this.setState({loading: false, loginState: response});
-        const { navigate } = this.props.navigation;
+        const {navigate} = this.props.navigation;
 
         navigate('Main', {allGrades: aGrading});
     }
