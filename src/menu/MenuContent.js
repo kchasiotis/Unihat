@@ -16,10 +16,10 @@ export default class MenuContent extends Component {
         let screen;
         switch (choice){
             case 1:
-                screen = 'aGrades';
+                screen = 'exGrades';
                 break;
             case 2:
-                screen = 'exGrades';
+                screen = 'aGrades';
                 break;
         }
         return function () {

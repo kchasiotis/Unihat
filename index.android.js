@@ -22,7 +22,7 @@ export default class IcarusAegean extends Component {
             Main: {screen: MainScreen, navigationOptions: navOptions},
         });
 
-        return <MainNavigator navigationBarStyle='5067FF'/>;
+        return <MainNavigator/>;
     }
 }
 
