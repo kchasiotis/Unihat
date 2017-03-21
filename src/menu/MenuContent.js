@@ -11,17 +11,9 @@ export default class MenuContent extends Component {
         this.logout = this.logout.bind(this);
     }
 
-    menuItemHandler(choice){
+    menuItemHandler(screen){
         let pr = this.props;
-        let screen;
-        switch (choice){
-            case 1:
-                screen = 'exGrades';
-                break;
-            case 2:
-                screen = 'aGrades';
-                break;
-        }
+
         return function () {
             pr.navigation.navigate('DrawerClose');
             pr.navigation.navigate(screen);
@@ -36,20 +28,20 @@ export default class MenuContent extends Component {
     render() {
         return (
             <Content style={{backgroundColor: 'white'}}>
-                <ListItem icon onPress={this.menuItemHandler(1)}>
-                    <Left>
-                        <Icon name="md-sunny"/>
-                    </Left>
-                    <Body>
-                    <Text>Αναλυτική βαθμολογία</Text>
-                    </Body>
-                </ListItem>
-                <ListItem icon onPress={this.menuItemHandler(2)}>
+                <ListItem icon onPress={this.menuItemHandler('exGrades')}>
                     <Left>
                         <Icon name="md-snow"/>
                     </Left>
                     <Body>
                     <Text>Εξεταστική</Text>
+                    </Body>
+                </ListItem>
+                <ListItem icon onPress={this.menuItemHandler('aGrades')}>
+                    <Left>
+                        <Icon name="md-sunny"/>
+                    </Left>
+                    <Body>
+                    <Text>Αναλυτική βαθμολογία</Text>
                     </Body>
                 </ListItem>
                 <ListItem icon onPress={this.logout}>
