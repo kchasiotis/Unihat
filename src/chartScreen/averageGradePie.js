@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {Pie} from 'react-native-pathjs-charts'
 
+// todo: Rename
 export default class AverageGradePie extends Component {
     render() {
-        if ( this.props.width === 0) return null;
+        if ( this.props.size === 0) return null;
 
         let data = [{
             "name": this.props.value,
@@ -21,11 +22,11 @@ export default class AverageGradePie extends Component {
                 right: 20,
                 bottom: 20
             },
-            width: this.props.width,
-            height: this.props.width,
+            width: this.props.size,
+            height: this.props.size,
             color: '#2980B9',
-            r: this.props.width / 8,
-            R: this.props.width / 2.5,
+            r: this.props.size / 8,
+            R: this.props.size / 2.5,
             legendPosition: 'topLeft',
             animate: {
                 type: 'oneByOne',

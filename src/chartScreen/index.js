@@ -25,27 +25,42 @@ class ChartScreen extends Component {
         average = average.toPrecision(3);
         // endregion
 
-        this.state = {grades: grades, average: average, lessonsNumber: counter}
+        let screenSize = Dimensions.get('window');
+        this.state = {grades: grades, average: average, lessonsNumber: counter, screenSize: screenSize};
+
+        this.orientationChange = this.orientationChange.bind(this);
+        this.orientation = (screenSize.width > screenSize.height) ? 'LANDSCAPE' : 'PORTRAIT';
+    }
+
+    orientationChange() {
+        let screenSize = Dimensions.get('window');
+
+        let orientation = (screenSize.width > screenSize.height) ? 'LANDSCAPE' : 'PORTRAIT';
+        if (this.orientation === orientation) return;
+
+        this.orientation = orientation;
+        this.setState({screenSize: screenSize});
     }
 
     render() {
-        let pieSize = Dimensions.get('window').width / 2;
+        let pieSize = this.state.screenSize.width / 2;
+        let barWidth = this.state.screenSize.width * 0.85;
 
         // todo: Review implementation of UI logic to pie component
         return (
-            <ScrollView>
+            <ScrollView onLayout={this.orientationChange}>
                 <View style={{flexDirection: 'row'}}>
                     <View style={{flex: 1}}>
                         <Text style={{fontWeight: 'bold'}}>Μέσος όρος</Text>
                         <View style={{height: pieSize}}>
-                            <AverageGradePie width={pieSize}
+                            <AverageGradePie size={pieSize}
                                              value={this.state.average} total={10}/>
                         </View>
                     </View>
                     <View style={{flex: 1}}>
                         <Text style={{fontWeight: 'bold'}}>Περασμένα μαθήματα</Text>
                         <View style={{height: pieSize}}>
-                            <AverageGradePie width={pieSize}
+                            <AverageGradePie size={pieSize}
                                              pallete={[{'r':255,'g':98,'b':7}, {'r':181,'g':181,'b':181}]}
                                              value={this.state.lessonsNumber} total={55}/>
                         </View>
@@ -53,7 +68,7 @@ class ChartScreen extends Component {
                 </View>
                 <View style={{flex: 1}}>
                     <Text style={{fontWeight: 'bold'}}>Πλήθος μαθημάτων ανά βαθμολογία</Text>
-                    <BarChart grades={this.state.grades}/>
+                    <BarChart width={barWidth} grades={this.state.grades}/>
                 </View>
             </ScrollView>
         );

@@ -39,7 +39,7 @@ export default class BarChart extends Component {
 
         // Graph options
         let options = {
-            width: 300,
+            width: this.props.width,
             height: 300,
             margin: {
                 top: 20,
