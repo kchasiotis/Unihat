@@ -10,6 +10,8 @@ import Br from '../br/Br';
 import IcarusCrawler from '../icarusCrawler/IcarusCrawler'
 import userCredentials from '../icarusCrawler/.user'
 
+var env = {debug: true};
+
 export default class Login extends Component {
     icarusCrawler = null;
     static navigationOptions = {
@@ -32,11 +34,15 @@ export default class Login extends Component {
         this.handleUsername = this.handleUsername.bind(this);
         this.handlePassword = this.handlePassword.bind(this);
         this.onLoginHandle = this.onLoginHandle.bind(this);
+        if (env.debug === true) {
+            this.componentDidMount = () => this.login();
+            this.componentDidMount = this.componentDidMount.bind(this);
+        }
     }
 
     login() {
         this.setState({loading: true});
-        if ('debug' === '') {
+        if (env.debug === true) {
             this.icarusCrawler.fetchMockPage(this.onLoginHandle)
         } else
             this.icarusCrawler.fetchPage(this.state.username, this.state.password, this.onLoginHandle);
