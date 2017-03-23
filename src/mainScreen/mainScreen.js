@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import InitializeLessonList from '../lessonList/lessonList'
 import MenuContent from '../menu/MenuContent'
+import ChartScreen from '../chartScreen/index'
 import {DrawerNavigator, NavigationActions} from 'react-navigation';
 
 export default class MainScreen extends Component {
@@ -24,15 +25,18 @@ export default class MainScreen extends Component {
     }
 
     render() {
-        MenuContent.defaultProps = {loginRoute: this.loginRoute};
-
         let source = this.props.navigation.state.params.allGrades;
+
+        MenuContent.defaultProps = {loginRoute: this.loginRoute};
+        ChartScreen.defaultProps = {allGrades: source};
+
         let aGrades = InitializeLessonList(source.aGrades);
         let exGrades = InitializeLessonList(source.exGrades);
 
         const MyApp = DrawerNavigator({
             exGrades: {screen: exGrades},
             aGrades: {screen: aGrades},
+            chartScreen: {screen: ChartScreen},
         }, {
             contentComponent: MenuContent,
             drawerWidth: 200

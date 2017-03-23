@@ -44,6 +44,14 @@ export default class MenuContent extends Component {
                     <Text>Αναλυτική βαθμολογία</Text>
                     </Body>
                 </ListItem>
+                <ListItem icon onPress={this.menuItemHandler('chartScreen')}>
+                    <Left>
+                        <Icon name="md-sunny"/>
+                    </Left>
+                    <Body>
+                    <Text>Γραφήματα</Text>
+                    </Body>
+                </ListItem>
                 <ListItem icon onPress={this.logout}>
                     <Left>
                         <Icon name="log-out"/>
