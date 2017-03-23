@@ -3,7 +3,7 @@ import {Pie} from 'react-native-pathjs-charts'
 
 export default class AverageGradePie extends Component {
     render() {
-        if (this.props.layout.height === 0 || this.props.layout.width === 0) return null;
+        if ( this.props.width === 0) return null;
 
         let data = [{
             "name": this.props.value,
@@ -13,6 +13,7 @@ export default class AverageGradePie extends Component {
             "value": (this.props.total - this.props.value) * 100
         }];
 
+        // todo: check size formulas with width
         let options = {
             margin: {
                 top: 20,
@@ -20,11 +21,11 @@ export default class AverageGradePie extends Component {
                 right: 20,
                 bottom: 20
             },
-            width: this.props.layout.width,
-            height: this.props.layout.width,
+            width: this.props.width,
+            height: this.props.width,
             color: '#2980B9',
-            r: this.props.layout.width / 8,
-            R: this.props.layout.width / 2.5,
+            r: this.props.width / 8,
+            R: this.props.width / 2.5,
             legendPosition: 'topLeft',
             animate: {
                 type: 'oneByOne',
