@@ -9,8 +9,7 @@ import Br from '../br/Br';
 
 import IcarusCrawler from '../icarusCrawler/IcarusCrawler'
 import userCredentials from '../icarusCrawler/.user'
-
-var env = {debug: true};
+import env from '../environment/index'
 
 export default class Login extends Component {
     icarusCrawler = null;
@@ -20,23 +19,25 @@ export default class Login extends Component {
 
     constructor(props) {
         super(props);
-        // this.state = {username: '', password: '', loading: false};
-        this.state = {
-            username: userCredentials.username,
-            password: userCredentials.password,
-            loading: false,
-            loginState: null
-        };
-
         this.icarusCrawler = new IcarusCrawler();
 
         this.login = this.login.bind(this);
         this.handleUsername = this.handleUsername.bind(this);
         this.handlePassword = this.handlePassword.bind(this);
         this.onLoginHandle = this.onLoginHandle.bind(this);
+
         if (env.debug === true) {
             this.componentDidMount = () => this.login();
             this.componentDidMount = this.componentDidMount.bind(this);
+
+            this.state = {
+                username: userCredentials.username,
+                password: userCredentials.password,
+                loading: false,
+                loginState: null
+            };
+        } else {
+            this.state = {username: '', password: '', loading: false};
         }
     }
 
