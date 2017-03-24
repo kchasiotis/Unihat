@@ -10,6 +10,7 @@ import Br from '../br/Br';
 import IcarusCrawler from '../icarusCrawler/IcarusCrawler'
 import userCredentials from '../icarusCrawler/.user'
 import env from '../environment/index'
+import * as Keychain from 'react-native-keychain';
 
 export default class Login extends Component {
     icarusCrawler = null;
@@ -25,6 +26,7 @@ export default class Login extends Component {
         this.handleUsername = this.handleUsername.bind(this);
         this.handlePassword = this.handlePassword.bind(this);
         this.onLoginHandle = this.onLoginHandle.bind(this);
+        this.loadCredentials = this.loadCredentials.bind(this);
 
         if (env.debug === true) {
             this.componentDidMount = () => this.login();
@@ -38,7 +40,20 @@ export default class Login extends Component {
             };
         } else {
             this.state = {username: '', password: '', loading: false};
+            this.loadCredentials();
         }
+    }
+
+    loadCredentials() {
+        Keychain
+            .getGenericPassword()
+            .then(function (credentials) {
+                console.log('Credentials successfully loaded for user ' + credentials.username);
+                this.setState({username: credentials.username, password: credentials.password})
+            }.bind(this))
+            .catch(function (error) {
+                console.log('Keychain couldn\'t be accessed! Maybe no value set?', error);
+            });
     }
 
     login() {
@@ -55,9 +70,16 @@ export default class Login extends Component {
 
     onLoginHandle(response, aGrading) {
         this.setState({loading: false, loginState: response});
-        const {navigate} = this.props.navigation;
+        if (response === true) {
+            Keychain
+                .setGenericPassword(this.state.username, this.state.password)
+                .then(function () {
+                    console.log('Credentials saved successfully!');
+                });
 
-        navigate('Main', {allGrades: aGrading});
+            const {navigate} = this.props.navigation;
+            navigate('Main', {allGrades: aGrading});
+        }
     }
 
     handleUsername(text) {
@@ -71,7 +93,7 @@ export default class Login extends Component {
     render() {
         if (this.state.loading)
             return (
-                <View style={{ flex: 1 }}>
+                <View style={{flex: 1}}>
                     <Spinner visible={true} textContent={"Loading..."} textStyle={{color: '#FFF'}}/>
                 </View>
             );
