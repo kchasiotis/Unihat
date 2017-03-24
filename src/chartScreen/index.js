@@ -1,7 +1,7 @@
 'use strict';
 
 import React, {Component} from 'react';
-import {View, Text, ScrollView} from 'react-native';
+import {View, Text, ScrollView, StyleSheet} from 'react-native';
 import BarChart from './barChart'
 import AverageGradePie from './averageGradePie'
 const Dimensions = require('Dimensions');
@@ -44,6 +44,7 @@ class ChartScreen extends Component {
 
     render() {
         let pieSize = this.state.screenSize.width / 2;
+        // todo: change formula when flex functionality is supported from package
         let barWidth = this.state.screenSize.width * 0.85;
 
         // todo: Review implementation of UI logic to pie component
@@ -51,28 +52,36 @@ class ChartScreen extends Component {
             <ScrollView onLayout={this.orientationChange}>
                 <View style={{flexDirection: 'row'}}>
                     <View style={{flex: 1}}>
-                        <Text style={{fontWeight: 'bold'}}>Μέσος όρος</Text>
+                        <Text style={styles.header}>Μέσος όρος</Text>
                         <View style={{height: pieSize}}>
                             <AverageGradePie size={pieSize}
                                              value={this.state.average} total={10}/>
                         </View>
                     </View>
                     <View style={{flex: 1}}>
-                        <Text style={{fontWeight: 'bold'}}>Περασμένα μαθήματα</Text>
+                        <Text style={styles.header}>Περασμένα μαθήματα</Text>
                         <View style={{height: pieSize}}>
                             <AverageGradePie size={pieSize}
-                                             pallete={[{'r':255,'g':98,'b':7}, {'r':181,'g':181,'b':181}]}
+                                             pallete={[{'r': 255, 'g': 98, 'b': 7}, {'r': 181, 'g': 181, 'b': 181}]}
                                              value={this.state.lessonsNumber} total={55}/>
                         </View>
                     </View>
                 </View>
                 <View style={{flex: 1}}>
-                    <Text style={{fontWeight: 'bold'}}>Πλήθος μαθημάτων ανά βαθμολογία</Text>
+                    <Text style={styles.header}>Πλήθος μαθημάτων ανά βαθμολογία</Text>
                     <BarChart width={barWidth} grades={this.state.grades}/>
                 </View>
             </ScrollView>
         );
     }
 }
+
+var styles = StyleSheet.create({
+    header: {
+        color: 'black',
+        fontWeight: 'bold'
+    }
+});
+
 
 export default ChartScreen;

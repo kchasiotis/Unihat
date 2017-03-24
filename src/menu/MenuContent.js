@@ -46,7 +46,7 @@ export default class MenuContent extends Component {
                 </ListItem>
                 <ListItem icon onPress={this.menuItemHandler('chartScreen')}>
                     <Left>
-                        <Icon name="md-sunny"/>
+                        <Icon name="md-pulse"/>
                     </Left>
                     <Body>
                     <Text>Γραφήματα</Text>
