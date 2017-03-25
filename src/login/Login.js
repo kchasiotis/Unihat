@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
-import {
-    View
-} from 'react-native';
+import {View, AsyncStorage} from 'react-native';
 
-import {Item, Input, Button, Text, Badge} from 'native-base';
+import {Item, Input, Button, Text, Badge, ListItem, CheckBox} from 'native-base';
 import Spinner from 'react-native-loading-spinner-overlay';
 import Br from '../br/Br';
 
@@ -27,6 +25,7 @@ export default class Login extends Component {
         this.handlePassword = this.handlePassword.bind(this);
         this.onLoginHandle = this.onLoginHandle.bind(this);
         this.loadCredentials = this.loadCredentials.bind(this);
+        this.handleCheckbox = this.handleCheckbox.bind(this);
 
         if (env.debug === true) {
             this.componentDidMount = () => this.login();
@@ -39,8 +38,27 @@ export default class Login extends Component {
                 loginState: null
             };
         } else {
-            this.state = {username: '', password: '', loading: false};
-            this.loadCredentials();
+            this.state = {username: '', password: '', loading: false, credentialCheckBox: false};
+
+            // todo: set manual render on load
+            // Load checkbox value
+            AsyncStorage.getItem('credentialCheckBox', (err, result) => {
+                if (result === null || err) return;
+
+                let toBoolean = result === 'true';
+                this.setState({credentialCheckBox: toBoolean});
+
+                // Load user credentials
+                if (toBoolean === true) this.loadCredentials();
+                else {
+                    // Reset checkbox value
+                    Keychain
+                        .resetGenericPassword()
+                        .then(function () {
+                            console.log('Credentials successfully deleted');
+                        });
+                }
+            });
         }
     }
 
@@ -48,7 +66,6 @@ export default class Login extends Component {
         Keychain
             .getGenericPassword()
             .then(function (credentials) {
-                console.log('Credentials successfully loaded for user ' + credentials.username);
                 this.setState({username: credentials.username, password: credentials.password})
             }.bind(this))
             .catch(function (error) {
@@ -71,11 +88,13 @@ export default class Login extends Component {
     onLoginHandle(response, aGrading) {
         this.setState({loading: false, loginState: response});
         if (response === true) {
-            Keychain
-                .setGenericPassword(this.state.username, this.state.password)
-                .then(function () {
-                    console.log('Credentials saved successfully!');
-                });
+            if (this.state.credentialCheckBox === true) {
+                Keychain
+                    .setGenericPassword(this.state.username, this.state.password)
+                    .then(function () {
+                        console.log('Credentials saved successfully!');
+                    });
+            }
 
             const {navigate} = this.props.navigation;
             navigate('Main', {allGrades: aGrading});
@@ -88,6 +107,12 @@ export default class Login extends Component {
 
     handlePassword(text) {
         this.setState({password: text})
+    }
+
+    handleCheckbox() {
+        let value = !this.state.credentialCheckBox;
+        this.setState({credentialCheckBox: value});
+        AsyncStorage.setItem('credentialCheckBox', JSON.stringify(value));
     }
 
     render() {
@@ -112,15 +137,19 @@ export default class Login extends Component {
                 }
                 <Item regular>
                     <Input value={this.state.username} onChangeText={this.handleUsername}
-                           placeholder='Username'/>
+                           placeholder='Όνομα χρήστη'/>
                 </Item>
                 <Item regular>
                     <Input value={this.state.password} onChangeText={this.handlePassword} secureTextEntry
-                           placeholder='Password'/>
+                           placeholder='Κωδικός'/>
                 </Item>
+                <ListItem>
+                    <CheckBox onPress={this.handleCheckbox} checked={this.state.credentialCheckBox}/>
+                    <Text> Αποθήκευση στοιχείων</Text>
+                </ListItem>
                 <View>
                     <Button onPress={this.login}>
-                        <Text>Login</Text>
+                        <Text>Είσοδος</Text>
                     </Button>
                 </View>
             </View>
