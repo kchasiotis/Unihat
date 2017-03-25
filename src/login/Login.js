@@ -56,6 +56,9 @@ export default class Login extends Component {
                         .resetGenericPassword()
                         .then(function () {
                             console.log('Credentials successfully deleted');
+                        })
+                        .catch(function (error) {
+                            console.log('Keychain couldn\'t be accessed! Maybe no value set?', error);
                         });
                 }
             });
