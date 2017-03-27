@@ -11,16 +11,15 @@ export default class MenuContent extends Component {
         this.logout = this.logout.bind(this);
     }
 
-    menuItemHandler(screen){
+    menuItemHandler(screen) {
         let pr = this.props;
 
         return function () {
-            pr.navigation.navigate('DrawerClose');
             pr.navigation.navigate(screen);
         };
     }
 
-    logout(){
+    logout() {
         this.props.loginRoute();
         this.IcarusClient.logout();
     }
@@ -30,7 +29,7 @@ export default class MenuContent extends Component {
             <Content style={{backgroundColor: 'white'}}>
                 <ListItem icon onPress={this.menuItemHandler('exGrades')}>
                     <Left>
-                        <Icon name="md-snow"/>
+                        <Icon name="snow"/>
                     </Left>
                     <Body>
                     <Text>Εξεταστική</Text>
@@ -38,7 +37,7 @@ export default class MenuContent extends Component {
                 </ListItem>
                 <ListItem icon onPress={this.menuItemHandler('aGrades')}>
                     <Left>
-                        <Icon name="md-sunny"/>
+                        <Icon name="sunny"/>
                     </Left>
                     <Body>
                     <Text>Αναλυτική βαθμολογία</Text>
@@ -46,7 +45,7 @@ export default class MenuContent extends Component {
                 </ListItem>
                 <ListItem icon onPress={this.menuItemHandler('chartScreen')}>
                     <Left>
-                        <Icon name="md-pulse"/>
+                        <Icon name="pulse"/>
                     </Left>
                     <Body>
                     <Text>Γραφήματα</Text>
