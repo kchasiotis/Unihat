@@ -3,7 +3,7 @@ let axios = require('axios');
 
 let iconv = require('iconv-lite');
 import {Buffer} from 'buffer';
-import htmlData from './mockPage';
+import htmlData from './mockExamsClosed';
 global.Buffer = Buffer;
 
 class User {
