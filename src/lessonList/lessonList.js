@@ -41,6 +41,7 @@ class LessonList extends Component {
                         </Right>
                     </ListItem>
                 }
+                initialListSize={7}
             />
         );
     }

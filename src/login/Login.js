@@ -10,6 +10,7 @@ import IcarusCrawler from '../icarusCrawler/IcarusCrawler'
 import userCredentials from '../icarusCrawler/.user'
 import env from '../environment/index'
 import * as Keychain from 'react-native-keychain'
+import 'react-native-console-time-polyfill';
 
 export default class Login extends Component {
     icarusCrawler = null;
@@ -45,6 +46,8 @@ export default class Login extends Component {
     }
 
     login() {
+        !env.debug || console.time("fetch");
+
         this.setState({loading: true});
         if (env.debug === true) {
             this.icarusCrawler.fetchMockPage(this.onLoginHandle)
@@ -57,6 +60,8 @@ export default class Login extends Component {
     }
 
     onLoginHandle(response, aGrading) {
+        !env.debug || console.timeEnd("fetch");
+
         this.setState({loading: false, loginState: response});
         if (response === true) {
             // Save credentials
