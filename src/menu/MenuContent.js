@@ -27,20 +27,20 @@ export default class MenuContent extends Component {
     render() {
         return (
             <Content style={{backgroundColor: 'white'}}>
-                <ListItem icon onPress={this.menuItemHandler('exGrades')}>
-                    <Left>
-                        <Icon name="snow"/>
-                    </Left>
-                    <Body>
-                    <Text>Εξεταστική</Text>
-                    </Body>
-                </ListItem>
                 <ListItem icon onPress={this.menuItemHandler('aGrades')}>
                     <Left>
                         <Icon name="sunny"/>
                     </Left>
                     <Body>
                     <Text>Αναλυτική βαθμολογία</Text>
+                    </Body>
+                </ListItem>
+                <ListItem icon onPress={this.menuItemHandler('exGrades')}>
+                    <Left>
+                        <Icon name="snow"/>
+                    </Left>
+                    <Body>
+                    <Text>Εξεταστική</Text>
                     </Body>
                 </ListItem>
                 <ListItem icon onPress={this.menuItemHandler('chartScreen')}>

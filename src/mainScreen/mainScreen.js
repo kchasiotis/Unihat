@@ -34,8 +34,8 @@ export default class MainScreen extends Component {
         let exGrades = InitializeLessonList(source.exGrades);
 
         const MyApp = DrawerNavigator({
-            exGrades: {screen: exGrades},
             aGrades: {screen: aGrades},
+            exGrades: {screen: exGrades},
             chartScreen: {screen: ChartScreen},
         }, {
             contentComponent: MenuContent,

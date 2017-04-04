@@ -20,6 +20,8 @@ class LessonList extends Component {
     }
 
     render() {
+        if(this.props.grades.length === 0 ) return <Text>Άδεια λίστα μαθημάτων</Text>;
+
         return (
             <ListView
                 dataSource={this.state.dataSource}
@@ -39,7 +41,6 @@ class LessonList extends Component {
                         </Right>
                     </ListItem>
                 }
-                initialListSize={4}
             />
         );
     }
