@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {ListItem, Left, Text, Body, Icon, Content} from 'native-base';
+import {ListItem, Left, Text, Body, Icon, Content, Thumbnail} from 'native-base';
+import {View} from 'react-native';
 import IcarusCrawler from '../icarusCrawler/IcarusCrawler';
 
 export default class MenuContent extends Component {
@@ -27,6 +28,9 @@ export default class MenuContent extends Component {
     render() {
         return (
             <Content style={{backgroundColor: 'white'}}>
+                <View style={{paddingTop:10,paddingBottom:10,alignItems:'center'}}>
+                    <Thumbnail source={require('./icarus.png')} large/>
+                </View>
                 <ListItem icon onPress={this.menuItemHandler('aGrades')}>
                     <Left>
                         <Icon name="sunny"/>

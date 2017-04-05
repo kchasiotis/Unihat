@@ -9,17 +9,18 @@ import {StackNavigator} from 'react-navigation';
 
 export default class IcarusAegean extends Component {
     render() {
-        let navOptions = {
+        let loginNavOptions = {
             header: {
                 style: {backgroundColor: '#3F51B5'},
                 titleStyle: {color: 'white'},
                 left: null
             }
         };
+        let mainNavOptions = {header: {visible: false}};
 
         const MainNavigator = StackNavigator({
-            Login: {screen: Login, navigationOptions: navOptions},
-            Main: {screen: MainScreen, navigationOptions: navOptions},
+            Login: {screen: Login, navigationOptions: loginNavOptions},
+            Main: {screen: MainScreen, navigationOptions: mainNavOptions},
         });
 
         return <MainNavigator/>;

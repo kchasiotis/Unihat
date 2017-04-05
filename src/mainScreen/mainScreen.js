@@ -2,13 +2,16 @@ import React, {Component} from 'react';
 import InitializeLessonList from '../lessonList/lessonList'
 import MenuContent from '../menu/MenuContent'
 import ChartScreen from '../chartScreen/index'
-import {DrawerNavigator, NavigationActions} from 'react-navigation';
+import {DrawerNavigator, StackNavigator, NavigationActions} from 'react-navigation';
+import {Icon} from "native-base";
+
+function MenuIcon(props) {
+    return (
+        <Icon name="menu" style={{paddingLeft:15, color:'white'}} onPress={() => props.navigation.navigate('DrawerOpen')}/>
+    );
+}
 
 export default class MainScreen extends Component {
-    static navigationOptions = {
-        title: 'Βαθμοί'
-    };
-
     constructor(props) {
         super(props);
         this.loginRoute = this.loginRoute.bind(this);
@@ -33,16 +36,29 @@ export default class MainScreen extends Component {
         let aGrades = InitializeLessonList(source.aGrades);
         let exGrades = InitializeLessonList(source.exGrades);
 
-        const MyApp = DrawerNavigator({
+        const HomeNavigator = StackNavigator({
             aGrades: {screen: aGrades},
             exGrades: {screen: exGrades},
             chartScreen: {screen: ChartScreen},
+        }, {
+            navigationOptions: {
+                header: navigation => ({
+                    title: 'Βαθμοί',
+                    left: <MenuIcon navigation={navigation}/>,
+                    style: {backgroundColor: '#3F51B5'},
+                    titleStyle: {color: 'white'},
+                }),
+            },
+        });
+
+        const DrawerOverlay = DrawerNavigator({
+            myApp: {screen: HomeNavigator}
         }, {
             contentComponent: MenuContent,
             drawerWidth: 200
         });
 
 
-        return <MyApp/>;
+        return <DrawerOverlay/>;
     }
 }
