@@ -16,7 +16,6 @@
     "react-dom": "^15.4.2",
     "react-native": "0.42.3",
     "react-native-console-time-polyfill": "0.0.6",
-    "react-native-fetch-blob": "^0.10.4",
     "react-native-keychain": "^1.1.0",
     "react-native-loading-spinner-overlay": "^0.4.2",
     "react-native-pathjs-charts": "0.0.26",
