@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "postStart": "./watchmanIncreaseLimits.sh && ncu && $ANDROID_HOME/tools/emulator -avd First"
+    "postStart": "./watchmanIncreaseLimits.sh && $ANDROID_HOME/tools/emulator -avd First & ncu"
   },
   "dependencies": {
     "axios": "^0.16.0",
