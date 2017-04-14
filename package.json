@@ -8,16 +8,19 @@
     "checkupdates": "ncu"
   },
   "dependencies": {
-    "axios": "^0.15.3",
+    "axios": "^0.16.0",
     "buffer": "^5.0.5",
     "cheerio-without-node-native": "^0.20.2",
-    "native-base": "^2.0.12",
-    "react": "15.4.2",
+    "native-base": "2.0.12",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
     "react-native": "0.42.3",
     "react-native-console-time-polyfill": "0.0.6",
+    "react-native-fetch-blob": "^0.10.4",
     "react-native-keychain": "^1.1.0",
     "react-native-loading-spinner-overlay": "^0.4.2",
     "react-native-pathjs-charts": "0.0.26",
+    "react-native-vector-icons": "^4.0.1",
     "react-navigation": "^1.0.0-beta.7",
     "stream": "0.0.2"
   },
@@ -25,7 +28,7 @@
     "babel-jest": "19.0.0",
     "babel-preset-react-native": "1.9.1",
     "jest": "19.0.2",
-    "react-test-renderer": "15.4.2"
+    "react-test-renderer": "15.5.4"
   },
   "jest": {
     "preset": "react-native"
