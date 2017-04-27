@@ -7,7 +7,8 @@ import {Icon} from "native-base";
 
 function MenuIcon(props) {
     return (
-        <Icon name="menu" style={{paddingLeft:15, color:'white'}} onPress={() => props.navigation.navigate('DrawerOpen')}/>
+        <Icon name="menu" style={{paddingLeft: 15, color: 'white'}}
+              onPress={() => props.navigation.navigate('DrawerOpen')}/>
     );
 }
 
@@ -58,6 +59,6 @@ export default class MainScreen extends Component {
         });
 
 
-        return <DrawerOverlay/>;
+        return <DrawerOverlay onNavigationStateChange={null}/>;
     }
 }

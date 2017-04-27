@@ -22,7 +22,7 @@ export default class IcarusAegean extends Component {
             Main: {screen: MainScreen, navigationOptions: mainNavOptions},
         });
 
-        return <MainNavigator/>;
+        return <MainNavigator onNavigationStateChange={null}/>;
     }
 }
 
