@@ -41,14 +41,13 @@ export default class MainScreen extends Component {
             exGrades: {screen: exGrades},
             chartScreen: {screen: ChartScreen},
         }, {
-            navigationOptions: {
-                header: navigation => ({
-                    title: 'Βαθμοί',
-                    left: <MenuIcon navigation={navigation}/>,
-                    style: {backgroundColor: '#3F51B5'},
-                    titleStyle: {color: 'white'},
-                }),
-            },
+            navigationOptions: ({navigation}) => ({
+                headerTitle: 'Βαθμοί',
+                // headerLeft: null,
+                headerLeft: <MenuIcon navigation={navigation}/>,
+                headerStyle: {backgroundColor: '#3F51B5'},
+                headerTitleStyle: {color: 'white'},
+            }),
         });
 
         const DrawerOverlay = DrawerNavigator({
