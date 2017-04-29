@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {AsyncStorage} from 'react-native'
-import * as Keychain from 'react-native-keychain'
+import CredentialStorage from '../tools/credentialStorage'
 
 import {ListItem, CheckBox, Text} from 'native-base'
 
@@ -25,27 +25,13 @@ export default class CredentialCheckbox extends Component {
             // Load user credentials
             if (toBoolean === false) {
                 // Reset checkbox value
-                Keychain
-                    .resetGenericPassword()
-                    .then(function () {
-                        console.log('Credentials successfully deleted');
-                    })
-                    .catch(function (error) {
-                        console.log('Reset failed! Maybe no value set?', error);
-                    });
+                CredentialStorage.reset();
             }
         })
     }
 
     loadCredentials(onLoad) {
-        Keychain
-            .getGenericPassword()
-            .then(function (credentials) {
-                onLoad(credentials.username, credentials.password);
-            }.bind(this))
-            .catch(function (error) {
-                console.log('Load credentials failed! Maybe no value set?', error);
-            }.bind(this));
+        CredentialStorage.load(onLoad);
     }
 
     handleCheckbox() {
