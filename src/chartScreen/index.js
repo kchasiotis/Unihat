@@ -1,7 +1,7 @@
 'use strict';
 
 import React, {Component} from 'react';
-import {View, Text, ScrollView, StyleSheet} from 'react-native';
+import {View, Text, ScrollView, StyleSheet, AsyncStorage} from 'react-native';
 import BarChart from './barChart'
 import AverageGradePie from './averageGradePie'
 const Dimensions = require('Dimensions');
@@ -9,27 +9,34 @@ const Dimensions = require('Dimensions');
 class ChartScreen extends Component {
     constructor(props) {
         super(props);
-        // region Calculate succeeded grades average
-        let grades = this.props.allGrades.sGrades.concat(this.props.allGrades.exGrades);
-
-        let sum = 0;
-        let counter = 0;
-        for (let i = 0; i < grades.length; i++) {
-            if (parseFloat(grades[i].grade) >= 5 && grades[i].state === 'Επιτυχία') {
-                sum += parseFloat(grades[i].grade);
-                counter++;
-            }
-        }
-
-        let average = sum / counter;
-        average = average.toPrecision(3);
-        // endregion
-
         let screenSize = Dimensions.get('window');
-        this.state = {grades: grades, average: average, lessonsNumber: counter, screenSize: screenSize};
+        this.state = {grades: [], average: 0, lessonsNumber: 0, screenSize: screenSize};
 
         this.orientationChange = this.orientationChange.bind(this);
         this.orientation = (screenSize.width > screenSize.height) ? 'LANDSCAPE' : 'PORTRAIT';
+    }
+
+    componentDidMount(){
+        AsyncStorage.getItem('allGrades', (error, result) => {
+            if (error) console.log(error);
+            // region Calculate succeeded grades average
+            let grades = JSON.parse(result);
+
+            let sum = 0;
+            let counter = 0;
+            for (let i = 0; i < grades.length; i++) {
+                if (parseFloat(grades[i].grade) >= 5 && grades[i].state === 'Επιτυχία') {
+                    sum += parseFloat(grades[i].grade);
+                    counter++;
+                }
+            }
+
+            let average = sum / counter;
+            average = average.toPrecision(3);
+            // endregion
+
+            this.setState({grades: grades, average: average, lessonsNumber: counter});
+        });
     }
 
     orientationChange() {

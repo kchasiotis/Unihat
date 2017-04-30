@@ -1,5 +1,6 @@
 let cheerio = require('cheerio-without-node-native');
 let axios = require('axios');
+import {AsyncStorage} from 'react-native';
 
 let iconv = require('iconv-lite');
 import {Buffer} from 'buffer';
@@ -90,7 +91,7 @@ export default class IcarusCrawler {
         return analyticGrading;
     }
 
-    fetchMockPage(onResponse){
+    fetchMockPage(onResponse) {
         this.parseHtml(htmlData, onResponse);
     }
 

@@ -22,4 +22,12 @@ export default class CredentialStorage{
                 console.log('Reset failed! Maybe no value set?', error);
             });
     }
+
+    static save(username, password){
+        Keychain
+            .setGenericPassword(username, password)
+            .then(function () {
+                console.log('Credentials saved successfully!');
+            });
+    }
 }

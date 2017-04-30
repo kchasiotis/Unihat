@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import {ListItem, Right, Text, Badge, Body} from 'native-base';
-import {FlatList} from 'react-native';
+import {FlatList, AsyncStorage} from 'react-native';
 
 import IcarusCrawler from '../icarusCrawler/IcarusCrawler';
 import CredentialStorage from '../tools/credentialStorage';
 
-function InitializeLessonList(grades) {
+function InitializeLessonList() {
     return function LessonListEm(props) {
         return (
-            <LessonList grades={grades} routeName={props.navigation.state.routeName}/>
+            <LessonList routeName={props.navigation.state.routeName}/>
         )
     }
 }
@@ -16,9 +16,16 @@ function InitializeLessonList(grades) {
 class LessonList extends Component {
     constructor(props) {
         super(props);
-        this.state = {grades: this.props.grades, refreshing: false};
+        this.state = {grades: [], refreshing: false};
         this.crawler = new IcarusCrawler();
         this.refreshLessons = this.refreshLessons.bind(this);
+    }
+
+    componentWillMount(){
+        AsyncStorage.getItem(this.props.routeName, (error, result) => {
+            if (error) console.log(error);
+            this.setState({grades: JSON.parse(result)})
+        });
     }
 
     refreshLessons() {

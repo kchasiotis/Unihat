@@ -6,6 +6,9 @@ import {Bar} from 'react-native-pathjs-charts'
 export default class BarChart extends Component {
     render() {
         let grades = this.props.grades;
+        if (grades.length === 0) return null;
+
+        // Sort by grade
         grades.sort(function (lesson1, lesson2) {
             return lesson1.grade - lesson2.grade;
         });

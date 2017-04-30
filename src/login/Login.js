@@ -9,7 +9,7 @@ import CredentialCheckbox from './credentialCheckbox';
 import IcarusCrawler from '../icarusCrawler/IcarusCrawler'
 import userCredentials from '../icarusCrawler/.user'
 import env from '../environment/index'
-import * as Keychain from 'react-native-keychain'
+import CredentialStorage from '../tools/credentialStorage'
 import 'react-native-console-time-polyfill';
 
 export default class Login extends Component {
@@ -59,22 +59,22 @@ export default class Login extends Component {
         this.icarusCrawler.logout();
     }
 
-    onLoginHandle(response, aGrading) {
+    async onLoginHandle(response, allGrades) {
         !env.debug || console.timeEnd("fetch");
 
         this.setState({loading: false, loginState: response});
         if (response === true) {
             // Save credentials
             if (this.state.credentialCheckBox === true) {
-                Keychain
-                    .setGenericPassword(this.state.username, this.state.password)
-                    .then(function () {
-                        console.log('Credentials saved successfully!');
-                    });
+                CredentialStorage.save(this.state.username, this.state.password);
             }
 
+            await AsyncStorage.setItem('aGrades', JSON.stringify(allGrades.aGrades));
+            AsyncStorage.setItem('exGrades', JSON.stringify(allGrades.exGrades));
+            AsyncStorage.setItem('allGrades', JSON.stringify(allGrades.aGrades.concat(allGrades.exGrades)));
+
             const {navigate} = this.props.navigation;
-            navigate('Main', {allGrades: aGrading});
+            navigate('Main');
         }
     }
 

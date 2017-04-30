@@ -29,13 +29,10 @@ export default class MainScreen extends Component {
     }
 
     render() {
-        let source = this.props.navigation.state.params.allGrades;
-
         MenuContent.defaultProps = {loginRoute: this.loginRoute};
-        ChartScreen.defaultProps = {allGrades: source};
 
-        let aGrades = InitializeLessonList(source.aGrades);
-        let exGrades = InitializeLessonList(source.exGrades);
+        let aGrades = InitializeLessonList();
+        let exGrades = InitializeLessonList();
 
         const HomeNavigator = StackNavigator({
             aGrades: {screen: aGrades},
@@ -44,7 +41,6 @@ export default class MainScreen extends Component {
         }, {
             navigationOptions: ({navigation}) => ({
                 headerTitle: 'Βαθμοί',
-                // headerLeft: null,
                 headerLeft: <MenuIcon navigation={navigation}/>,
                 headerStyle: {backgroundColor: '#3F51B5'},
                 headerTitleStyle: {color: 'white'},
