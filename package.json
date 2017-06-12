@@ -5,8 +5,6 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "link": "react-native link",
-    "log-android": "react-native log-android",
     "clean": "rm -rf node_modules && npm install && watchman watch-del-all && cd android && ./gradlew clean && cd ../ && npm start --reset-cache",
     "build": "cd android && ./gradlew clean && cd ../ && npm start --reset-cache",
     "init": "npm install && mkdir android/app/src/main/assets && react-native link",
@@ -14,10 +12,10 @@
     "bundle": "react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/ && cd android && ./gradlew assembleRelease"
   },
   "dependencies": {
-    "axios": "0.16.0",
-    "buffer": "5.0.5",
-    "cheerio-without-node-native": "0.20.2",
-    "native-base": "2.1.3",
+    "axios": "^0.16.0",
+    "buffer": "^5.0.5",
+    "cheerio-without-node-native": "^0.20.2",
+    "native-base": "2.1.5",
     "react": "16.0.0-alpha.6",
     "react-dom": "15.4.2",
     "react-native": "0.43.4",
@@ -25,9 +23,9 @@
     "react-native-keychain": "1.1.0",
     "react-native-loading-spinner-overlay": "0.4.2",
     "react-native-pathjs-charts": "0.0.27",
-    "react-native-vector-icons": "4.0.1",
-    "react-navigation": "1.0.0-beta.9",
-    "stream": "0.0.2"
+    "react-native-vector-icons": "4.2.0",
+    "react-navigation": "1.0.0-beta.11",
+    "stream": "^0.0.2"
   },
   "devDependencies": {
     "babel-jest": "19.0.0",

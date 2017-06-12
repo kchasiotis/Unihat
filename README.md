@@ -37,6 +37,8 @@ https://facebook.github.io/react-native/blog/2017/03/13/better-list-views.html
 # Useful commands
 ```bash
 react-native unlink $package
+
+react-native-git-upgrade
 ```
 
 ## Clean project
