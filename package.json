@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "clean": "rm -rf node_modules && npm install && watchman watch-del-all && cd android && ./gradlew clean && cd ../ && npm start --reset-cache",
+    "clean": "react-native unlink && rm -rf node_modules && npm install && watchman watch-del-all && react-native link && react-native run-android",
     "build": "cd android && ./gradlew clean && cd ../ && npm start --reset-cache",
     "init": "npm install && mkdir android/app/src/main/assets && react-native link",
     "preStart": "./watchmanIncreaseLimits.sh && ncu && $ANDROID_HOME/tools/emulator -avd First",
@@ -23,7 +23,6 @@
     "react-native-keychain": "1.1.0",
     "react-native-loading-spinner-overlay": "0.4.2",
     "react-native-pathjs-charts": "0.0.27",
-    "react-native-vector-icons": "4.0.1",
     "react-navigation": "1.0.0-beta.11",
     "stream": "^0.0.2"
   },
