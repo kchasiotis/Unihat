@@ -39,6 +39,8 @@ https://facebook.github.io/react-native/blog/2017/03/13/better-list-views.html
 react-native unlink $package
 
 react-native-git-upgrade
+
+react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/ && cd android && ./gradlew assembleRelease
 ```
 
 ## Clean project
