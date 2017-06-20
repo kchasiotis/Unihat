@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, AsyncStorage} from 'react-native';
+import {View, Image} from 'react-native';
 
 import {Item, Icon, Input, Button, Text, Badge, ListItem, CheckBox} from 'native-base';
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -103,34 +103,39 @@ export default class Login extends Component {
             );
 
         return (
-            <View style={style.main}>
-                {
-                    this.state.loginState === false ?
-                        <View>
-                            <Badge danger>
-                                <Text>Τα στοιχεία που εισάγατε είναι λάθος</Text>
-                            </Badge>
-                        </View> :
-                        null
-                }
-                <Item regular>
-                    <Icon active name='person'/>
-                    <Input value={this.state.username} onChangeText={this.handleUsername}
-                           placeholder='Όνομα χρήστη'/>
-                </Item>
-                <Item regular>
-                    <Icon active name='key'/>
-                    <Input value={this.state.password} onChangeText={this.handlePassword} secureTextEntry
-                           placeholder='Κωδικός'/>
-                </Item>
-                <View style={style.logButton.wrapper}>
-                    <Button rounded style={style.logButton.button} onPress={this.login}>
-                        <Text style={style.logButton.buttonText}>ΕΙΣΟΔΟΣ</Text>
-                    </Button>
+            <Image source={require('./background.png')} style={style.backgroundImage}>
+                <View style={style.main}>
+                    <View style={style.content}>
+                        {
+                            this.state.loginState === false ?
+                                <View style={style.errorMessage}>
+                                    <Badge danger>
+                                        <Text>Τα στοιχεία που εισάγατε είναι λάθος</Text>
+                                    </Badge>
+                                </View> :
+                                null
+                        }
+                        <Item regular style={style.input}>
+                            <Icon active style={style.icon} name='person'/>
+                            <Input value={this.state.username} onChangeText={this.handleUsername}
+                                   placeholder='Όνομα χρήστη'/>
+                        </Item>
+                        <Item regular style={style.input}>
+                            <Icon active style={style.icon} name='key'/>
+                            <Input value={this.state.password} onChangeText={this.handlePassword} secureTextEntry
+                                   placeholder='Κωδικός'/>
+                        </Item>
+                        <View style={style.logButton.wrapper}>
+                            <Button full onPress={this.login}>
+                                <Text style={style.logButton.buttonText}>ΕΙΣΟΔΟΣ</Text>
+                            </Button>
+                        </View>
+                        <CredentialCheckbox
+                            ref='credentialCkb' handleCheckbox={this.handleCheckbox}
+                                            onLoad={this.onCredentialsLoad}/>
+                    </View>
                 </View>
-                <CredentialCheckbox ref='credentialCkb' handleCheckbox={this.handleCheckbox}
-                                    onLoad={this.onCredentialsLoad}/>
-            </View>
+            </Image>
         );
     }
 }
@@ -141,21 +146,39 @@ let style = {
         justifyContent: 'center',
         flexDirection: 'column',
         height: '100%',
-        backgroundColor:'white',
         paddingLeft: 40,
         paddingRight: 40
+    },
+    content: {
+        marginTop: -110,
+        alignItems: 'center'
+    },
+    backgroundImage: {
+        flex: 1,
+        width: '100%',
+        resizeMode: 'stretch', // or 'stretch'
+        backgroundColor: 'white',
+    },
+    errorMessage: {
+        marginTop: -60,
+        marginBottom: 20
     },
     logButton: {
         wrapper: {
             width: '100%',
             paddingTop: 20
         },
-        button: {
-            width: '100%',
-        },
         buttonText: {
             width: '100%',
-            textAlign: 'center'
+            textAlign: 'center',
+            fontWeight: 'bold',
+            paddingTop: 1
         }
+    },
+    input: {
+        backgroundColor: 'white'
+    },
+    icon: {
+        color: '#3F51B5'
     }
 };

@@ -44,8 +44,8 @@ export default class CredentialCheckbox extends Component {
     render() {
         return (
             <ListItem style={{borderBottomWidth: 0}}>
-                <CheckBox onPress={this.handleCheckbox} checked={this.state.credentialCheckBox}/>
-                <Text> Αποθήκευση στοιχείων</Text>
+                <CheckBox  onPress={this.handleCheckbox} checked={this.state.credentialCheckBox}/>
+                <Text style={{backgroundColor: 'white', color:'#3F51B5', fontWeight: 'bold'}}> Αποθήκευση στοιχείων</Text>
             </ListItem>
         );
     }
