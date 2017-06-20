@@ -73,8 +73,9 @@ export default class Login extends Component {
                     });
             }
 
+            this.props.setGrades(aGrading);
             const {navigate} = this.props.navigation;
-            navigate('Main', {allGrades: aGrading});
+            navigate('Main');
         }
     }
 

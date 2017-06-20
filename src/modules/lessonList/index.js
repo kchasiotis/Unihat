@@ -1,3 +1,3 @@
-import InitializeLessonList from './components/lessonList'
+import InitializeLessonList from './components/initializeLessonList'
 
 export {InitializeLessonList};

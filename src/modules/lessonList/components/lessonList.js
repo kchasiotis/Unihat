@@ -5,18 +5,10 @@ import {FlatList} from 'react-native';
 import IcarusCrawler from '../../../tools/icarusCrawler/index';
 import CredentialStorage from '../../../tools/credentialStorage';
 
-function InitializeLessonList(grades) {
-    return function LessonListEm(props) {
-        return (
-            <LessonList grades={grades} routeName={props.navigation.state.routeName}/>
-        )
-    }
-}
-
 class LessonList extends Component {
     constructor(props) {
         super(props);
-        this.state = {grades: this.props.grades, refreshing: false};
+        this.state = {refreshing: false};
         this.crawler = new IcarusCrawler();
         this.refreshLessons = this.refreshLessons.bind(this);
     }
@@ -25,11 +17,8 @@ class LessonList extends Component {
         this.setState({refreshing: true});
 
         let onResponse = (loggedIn, allGrades) => {
-            let state = {refreshing: false, grades: null};
-
-            if (this.props.routeName === 'aGrades') state.grades = allGrades.aGrades;
-            else if (this.props.routeName === 'exGrades') state.grades = allGrades.exGrades;
-            this.setState(state);
+            this.setState({refreshing: false});
+            if(loggedIn) this.props.updateGrades(allGrades);
         };
         onResponse = onResponse.bind(this);
 
@@ -46,7 +35,7 @@ class LessonList extends Component {
                 keyExtractor={(item) => (item.id)}
                 onRefresh={this.refreshLessons}
                 refreshing={this.state.refreshing}
-                data={this.state.grades}
+                data={this.props.grades}
                 renderItem={({item}) =>
                     <ListItem>
                         <Body>
@@ -68,4 +57,4 @@ class LessonList extends Component {
     }
 }
 
-export default InitializeLessonList;
+export default LessonList;
