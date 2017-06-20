@@ -1,3 +1,3 @@
-1import IcarusCrawler from './IcarusCrawler'
+import IcarusCrawler from './IcarusCrawler'
 
 export default IcarusCrawler;
