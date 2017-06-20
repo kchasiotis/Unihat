@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import InitializeLessonList from '../lessonList/lessonList'
-import MenuContent from '../menu/MenuContent'
-import ChartScreen from '../chartScreen/index'
+import {InitializeLessonList} from '../../lessonList'
+import MenuContent from './MenuContent'
+import {ChartScreen} from '../../chartScreen'
 import {DrawerNavigator, StackNavigator, NavigationActions} from 'react-navigation';
 import {Icon} from "native-base";
 

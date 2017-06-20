@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {AsyncStorage} from 'react-native'
-import CredentialStorage from '../tools/credentialStorage'
+import CredentialStorage from '../../../tools/credentialStorage'
 
 import {ListItem, CheckBox, Text} from 'native-base'
 

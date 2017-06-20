@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import {ListItem, Right, Text, Badge, Body} from 'native-base';
 import {FlatList} from 'react-native';
 
-import IcarusCrawler from '../icarusCrawler/IcarusCrawler';
-import CredentialStorage from '../tools/credentialStorage';
+import IcarusCrawler from '../../../tools/icarusCrawler/index';
+import CredentialStorage from '../../../tools/credentialStorage';
 
 function InitializeLessonList(grades) {
     return function LessonListEm(props) {

@@ -3,12 +3,12 @@ import {View, AsyncStorage} from 'react-native';
 
 import {Item, Input, Button, Text, Badge, ListItem, CheckBox} from 'native-base';
 import Spinner from 'react-native-loading-spinner-overlay';
-import Br from '../br/Br';
+import Br from '../../br/Br';
 import CredentialCheckbox from './credentialCheckbox';
 
-import IcarusCrawler from '../icarusCrawler/IcarusCrawler'
-import userCredentials from '../icarusCrawler/.user'
-import env from '../environment/index'
+import IcarusCrawler from '../../../tools/icarusCrawler/index'
+import userCredentials from '../../../tools/icarusCrawler/.user'
+import env from '../../../../environment/index'
 import * as Keychain from 'react-native-keychain'
 import 'react-native-console-time-polyfill';
 

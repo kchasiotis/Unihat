@@ -3,8 +3,8 @@ import React, {Component} from 'react';
 import {AppRegistry} from 'react-native';
 
 // UI components imports
-import MainScreen from './src/mainScreen/mainScreen'
-import Login from './src/login/Login'
+import {MainScreen} from './src/modules/mainScreen'
+import {Login} from './src/modules/login'
 import {StackNavigator} from 'react-navigation';
 
 export default class IcarusAegean extends Component {
