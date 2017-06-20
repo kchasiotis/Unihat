@@ -1,3 +1,5 @@
-import MainScreen from './components/mainScreen'
+import Drawer from './navigators/drawer'
+import Main from './navigators/main'
 
-export {MainScreen}
+export {Drawer as DrawerNavigator}
+export {Main as MainNavigator}

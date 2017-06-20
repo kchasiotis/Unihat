@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {InitializeLessonList} from '../../lessonList'
-import MenuContent from './MenuContent'
-import {ChartScreen} from '../../chartScreen'
+import {InitializeLessonList} from '../../lessonList/index'
+import MenuContent from '../components/MenuContent'
+import {ChartScreen} from '../../chartScreen/index'
 import {DrawerNavigator, StackNavigator, NavigationActions} from 'react-navigation';
 import {Icon} from "native-base";
 
@@ -12,7 +12,7 @@ function MenuIcon(props) {
     );
 }
 
-export default class MainScreen extends Component {
+export default class Drawer extends Component {
     constructor(props) {
         super(props);
         this.loginRoute = this.loginRoute.bind(this);
