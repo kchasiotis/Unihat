@@ -3,14 +3,16 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "start": "npm run setEnv debug && node node_modules/react-native/local-cli/cli.js start",
+    "prod": "npm run setEnv production && node node_modules/react-native/local-cli/cli.js start",
+    "setEnv": "node scripts/setEnv.js",
     "test": "jest",
     "postinstall": "react-native link && react-native link react-native-svg",
     "clean": "rm -rf node_modules && npm install && watchman watch-del-all && react-native link && react-native run-android",
     "build": "cd android && ./gradlew clean && cd ../ && npm start --reset-cache",
     "init": "npm install && mkdir android/app/src/main/assets && react-native link",
     "preStart": "./watchmanIncreaseLimits.sh && ncu && $ANDROID_HOME/tools/emulator -avd First",
-    "bundle": "react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/ && cd android && ./gradlew assembleRelease",
+    "bundle": "npm run setEnv production && react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/ && cd android && ./gradlew assembleRelease",
     "bundle-android": "react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --sourcemap-output android/app/src/main/assets/index.android.map --assets-dest android/app/src/main/res/"
   },
   "dependencies": {
