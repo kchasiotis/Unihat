@@ -98,7 +98,7 @@ export default class Login extends Component {
         if (this.state.loading)
             return (
                 <View style={{flex: 1}}>
-                    <Spinner visible={true} textContent={"Loading..."} textStyle={{color: '#FFF'}}/>
+                    <Spinner visible={true} textContent={"Loading..."} overlayColor='#3F51B5' textStyle={{color: 'white'}}/>
                 </View>
             );
 

@@ -7,7 +7,7 @@ import {Icon} from "native-base";
 
 function MenuIcon(props) {
     return (
-        <Icon name="menu" style={{paddingLeft: 15, color: 'white'}}
+        <Icon name="menu" style={{paddingLeft: 15, paddingRight: 15, paddingTop: 5, paddingBottom: 5, color: 'white'}}
               onPress={() => props.navigation.navigate('DrawerOpen')}/>
     );
 }
