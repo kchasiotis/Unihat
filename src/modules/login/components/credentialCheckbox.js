@@ -43,7 +43,7 @@ export default class CredentialCheckbox extends Component {
 
     render() {
         return (
-            <ListItem>
+            <ListItem style={{borderBottomWidth: 0}}>
                 <CheckBox onPress={this.handleCheckbox} checked={this.state.credentialCheckBox}/>
                 <Text> Αποθήκευση στοιχείων</Text>
             </ListItem>

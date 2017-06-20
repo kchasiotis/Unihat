@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import {View, AsyncStorage} from 'react-native';
 
-import {Item, Input, Button, Text, Badge, ListItem, CheckBox} from 'native-base';
+import {Item, Icon, Input, Button, Text, Badge, ListItem, CheckBox} from 'native-base';
 import Spinner from 'react-native-loading-spinner-overlay';
-import Br from '../../br/Br';
 import CredentialCheckbox from './credentialCheckbox';
 
 import IcarusCrawler from '../../../tools/icarusCrawler/index'
@@ -79,7 +78,7 @@ export default class Login extends Component {
         }
     }
 
-    onCredentialsLoad(username, password){
+    onCredentialsLoad(username, password) {
         this.setState({username: username, password: password})
     }
 
@@ -91,7 +90,7 @@ export default class Login extends Component {
         this.setState({password: text})
     }
 
-    handleCheckbox(state){
+    handleCheckbox(state) {
         this.setState({credentialCheckBox: state})
     }
 
@@ -104,8 +103,7 @@ export default class Login extends Component {
             );
 
         return (
-            <View style={{alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
-                <Br/>
+            <View style={style.main}>
                 {
                     this.state.loginState === false ?
                         <View>
@@ -113,23 +111,51 @@ export default class Login extends Component {
                                 <Text>Τα στοιχεία που εισάγατε είναι λάθος</Text>
                             </Badge>
                         </View> :
-                        <Br/>
+                        null
                 }
                 <Item regular>
+                    <Icon active name='person'/>
                     <Input value={this.state.username} onChangeText={this.handleUsername}
                            placeholder='Όνομα χρήστη'/>
                 </Item>
                 <Item regular>
+                    <Icon active name='key'/>
                     <Input value={this.state.password} onChangeText={this.handlePassword} secureTextEntry
                            placeholder='Κωδικός'/>
                 </Item>
-                <CredentialCheckbox ref='credentialCkb' handleCheckbox={this.handleCheckbox} onLoad={this.onCredentialsLoad}/>
-                <View>
-                    <Button onPress={this.login}>
-                        <Text>Είσοδος</Text>
+                <View style={style.logButton.wrapper}>
+                    <Button rounded style={style.logButton.button} onPress={this.login}>
+                        <Text style={style.logButton.buttonText}>ΕΙΣΟΔΟΣ</Text>
                     </Button>
                 </View>
+                <CredentialCheckbox ref='credentialCkb' handleCheckbox={this.handleCheckbox}
+                                    onLoad={this.onCredentialsLoad}/>
             </View>
         );
     }
 }
+
+let style = {
+    main: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        height: '100%',
+        backgroundColor:'white',
+        paddingLeft: 40,
+        paddingRight: 40
+    },
+    logButton: {
+        wrapper: {
+            width: '100%',
+            paddingTop: 20
+        },
+        button: {
+            width: '100%',
+        },
+        buttonText: {
+            width: '100%',
+            textAlign: 'center'
+        }
+    }
+};
