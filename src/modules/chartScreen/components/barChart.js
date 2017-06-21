@@ -10,7 +10,7 @@ export default class BarChart extends Component {
         grades = grades.filter((lesson) => {
             return lesson.grade >= 5
         });
-        console.log(grades);
+
         grades.sort(function (lesson1, lesson2) {
             return lesson1.grade - lesson2.grade;
         });
