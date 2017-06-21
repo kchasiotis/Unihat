@@ -37,7 +37,9 @@ export default class ChartTitle extends Component {
 let nbStyles = {
     header: {
         color: 'black',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        width: 0,
+        flexGrow: 1,
     },
     wrapper: {
         flexDirection: 'row',
