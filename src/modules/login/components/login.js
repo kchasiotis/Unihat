@@ -48,7 +48,7 @@ export default class Login extends Component {
         !env.debug || console.time("fetch");
 
         this.setState({loading: true});
-        if (env.debug && env.mockPage) {
+        if (env.debug && env.mockPage.fetch) {
             this.icarusCrawler.fetchMockPage(this.onLoginHandle)
         } else
             this.icarusCrawler.fetchPage(this.state.username, this.state.password, this.onLoginHandle);

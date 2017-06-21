@@ -51,7 +51,7 @@ class LessonList extends Component {
                         </Body>
                         <Right>
                             {
-                                item.grade !== '' ?
+                                item.grade !== null ?
                                     <Badge success={item.grade >= 5} danger={item.grade < 5}>
                                         <Text>{item.grade}</Text>
                                     </Badge> :

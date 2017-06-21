@@ -3,7 +3,9 @@ let axios = require('axios');
 
 let iconv = require('iconv-lite');
 import {Buffer} from 'buffer';
-import htmlData from './mockExamsClosed';
+import htmlDataClosed from './mockExamsClosed';
+import htmlDataOpen from './mockExamsOpen';
+import env from '../../../environment'
 global.Buffer = Buffer;
 
 class User {
@@ -78,7 +80,7 @@ export default class IcarusCrawler {
 
             lesson.id = temp.eq(0).text().trim() + '-' + temp.eq(1).text().trim();
             lesson.title = temp.eq(2).text().trim();
-            lesson.grade = parseFloat(temp.eq(3).text().trim());
+            lesson.grade = temp.eq(3).text().trim() !== '' ? parseFloat(temp.eq(3).text().trim()) : null;
             lesson.semester = parseInt(temp.eq(4).text().trim());
             lesson.enrollDate = temp.eq(5).text().trim();
             lesson.examDate = temp.eq(6).text().trim();
@@ -90,7 +92,8 @@ export default class IcarusCrawler {
         return analyticGrading;
     }
 
-    fetchMockPage(onResponse){
+    fetchMockPage(onResponse) {
+        let htmlData = env.mockPage.values[env.mockPage.use] === 'examsOpen' ? htmlDataOpen : htmlDataClosed;
         this.parseHtml(htmlData, onResponse);
     }
 
