@@ -4,6 +4,7 @@ import MenuContent from '../components/MenuContent'
 import {ChartScreen} from '../../chartScreen/index'
 import {DrawerNavigator, StackNavigator, NavigationActions} from 'react-navigation';
 import {Icon} from "native-base";
+import env from '../../../../environment'
 
 function MenuIcon(props) {
     return (
@@ -34,11 +35,14 @@ export default class Drawer extends Component {
         let aGrades = InitializeLessonList();
         let exGrades = InitializeLessonList();
 
+        let initRoute = env.debug ? env.drawerRoute.values[env.drawerRoute.show]: null;
+
         const HomeNavigator = StackNavigator({
             aGrades: {screen: aGrades},
             exGrades: {screen: exGrades},
             chartScreen: {screen: ChartScreen},
         }, {
+            initialRouteName: initRoute,
             navigationOptions: ({navigation}) => ({
                 headerTitle: 'Βαθμοί',
                 // headerLeft: null,

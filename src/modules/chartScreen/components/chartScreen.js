@@ -48,26 +48,31 @@ class ChartScreen extends Component {
         let barWidth = this.state.screenSize.width * 0.85;
 
         // todo: Review implementation of UI logic to pie component
+        let fillColor = {'r': 240, 'g': 240, 'b': 240};
+        let pie1 = {'r': 51, 'g': 202, 'b': 70};
+        let pie2 = {'r': 255, 'g': 189, 'b': 27};
+
         return (
-            <ScrollView onLayout={this.orientationChange}>
+            <ScrollView style={styles.main} onLayout={this.orientationChange}>
                 <View style={{flexDirection: 'row'}}>
-                    <View style={{flex: 1}}>
+                    <View style={styles.pieChart}>
                         <Text style={styles.header}>Μέσος όρος</Text>
                         <View style={{height: pieSize}}>
                             <AverageGradePie size={pieSize}
+                                             pallete={[pie1, fillColor]}
                                              value={this.state.average} total={10}/>
                         </View>
                     </View>
-                    <View style={{flex: 1}}>
+                    <View style={styles.pieChart}>
                         <Text style={styles.header}>Περασμένα μαθήματα</Text>
                         <View style={{height: pieSize}}>
                             <AverageGradePie size={pieSize}
-                                             pallete={[{'r': 255, 'g': 98, 'b': 7}, {'r': 181, 'g': 181, 'b': 181}]}
+                                             pallete={[pie2, fillColor]}
                                              value={this.state.lessonsNumber} total={55}/>
                         </View>
                     </View>
                 </View>
-                <View style={{flex: 1}}>
+                <View style={styles.barChart}>
                     <Text style={styles.header}>Πλήθος μαθημάτων ανά βαθμολογία</Text>
                     <BarChart width={barWidth} grades={this.state.grades}/>
                 </View>
@@ -76,10 +81,25 @@ class ChartScreen extends Component {
     }
 }
 
-var styles = StyleSheet.create({
-    header: {
+let styles = StyleSheet.create({
+    main: {
+        backgroundColor: 'white'
+    },header: {
         color: 'black',
         fontWeight: 'bold'
+    },
+    pieChart: {
+        flex: 1,
+        backgroundColor: 'white',
+        elevation: 12,
+        margin: 7
+    },
+    barChart: {
+        flex: 1,
+        backgroundColor: 'white',
+        elevation: 12,
+        margin: 7,
+        marginTop: 15
     }
 });
 

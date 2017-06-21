@@ -24,7 +24,6 @@ export default class AverageGradePie extends Component {
             },
             width: this.props.size,
             height: this.props.size,
-            color: '#2980B9',
             r: this.props.size / 8,
             R: this.props.size / 2.5,
             legendPosition: 'topLeft',
@@ -40,7 +39,7 @@ export default class AverageGradePie extends Component {
                 color: 'black'
                 // color: '#ECF0F1'
             },
-            pallete: this.props.pallete || [{'r': 14, 'g': 168, 'b': 6}, {'r': 206, 'g': 206, 'b': 206}]
+            pallete: this.props.pallete || [{'r': 14, 'g': 168, 'b': 6}, {'r': 181, 'g': 181, 'b': 181}]
         };
 
         return (
