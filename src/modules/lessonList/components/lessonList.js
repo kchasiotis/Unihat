@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {ListItem, Right, Text, Badge, Body} from 'native-base';
-import {FlatList} from 'react-native';
+import {FlatList, RefreshControl} from 'react-native';
 
 import IcarusCrawler from '../../../tools/icarusCrawler/index';
 import CredentialStorage from '../../../tools/credentialStorage';
@@ -33,8 +33,16 @@ class LessonList extends Component {
         return (
             <FlatList
                 keyExtractor={(item) => (item.id)}
-                onRefresh={this.refreshLessons}
-                refreshing={this.state.refreshing}
+                refreshControl={
+                    <RefreshControl
+                        // refreshing={true}
+                        refreshing={this.state.refreshing}
+                        onRefresh={this.refreshLessons}
+                        title="Pull to refresh"
+                        colors={['#3F51B5','green']}
+                        progressBackgroundColor='#fff'
+                    />
+                }
                 data={this.props.grades}
                 renderItem={({item}) =>
                     <ListItem>
