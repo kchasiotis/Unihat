@@ -14,21 +14,18 @@ class ChartScreen extends Component {
         // region Calculate succeeded grades average
         let grades = this.props.allGrades.sGrades.concat(this.props.allGrades.exGrades);
 
-        let sum = 0;
-        let counter = 0;
-        for (let i = 0; i < grades.length; i++) {
-            if (parseFloat(grades[i].grade) >= 5 && grades[i].state === 'Επιτυχία') {
-                sum += parseFloat(grades[i].grade);
-                counter++;
-            }
-        }
+        grades = grades.filter((lesson) => {
+            return lesson.grade >= 5 && lesson.state === 'Επιτυχία';
+        });
 
-        let average = sum / counter;
-        average = average.toPrecision(3);
+        let length = grades.length;
+        let sum = grades.reduce((acc, val) => acc + val.grade, 0);
+
+        let average = (sum / length).toPrecision(3);
         // endregion
 
         let screenSize = Dimensions.get('window');
-        this.state = {grades: grades, average: average, lessonsNumber: counter, screenSize: screenSize};
+        this.state = {grades: grades, average: average, lessonsNumber: length, screenSize: screenSize};
 
         this.orientationChange = this.orientationChange.bind(this);
         this.orientation = (screenSize.width > screenSize.height) ? 'LANDSCAPE' : 'PORTRAIT';

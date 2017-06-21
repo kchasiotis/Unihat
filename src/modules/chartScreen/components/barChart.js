@@ -6,6 +6,11 @@ import {Bar} from 'react-native-pathjs-charts'
 export default class BarChart extends Component {
     render() {
         let grades = this.props.grades;
+
+        grades = grades.filter((lesson) => {
+            return lesson.grade >= 5
+        });
+        console.log(grades);
         grades.sort(function (lesson1, lesson2) {
             return lesson1.grade - lesson2.grade;
         });
@@ -22,18 +27,9 @@ export default class BarChart extends Component {
             prev = grades[i].grade;
         }
 
-        // Find index of first grade >= 5
-        let start = 0;
-        for (let i = 0; i < gradeArray.length; i += 1) {
-            if (gradeArray[i] >= 5) {
-                start = i;
-                break;
-            }
-        }
-
         // Construct data input for graph
         let data = [];
-        for (let i = start; i < gradeArray.length; i++) {
+        for (let i = 0; i < gradeArray.length; i++) {
             data.push([{v: counterArray[i], name: gradeArray[i]}]);
         }
 
