@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 import {InitializeLessonList} from '../../lessonList/index'
 import MenuContent from '../components/MenuContent'
 import {ChartScreen} from '../../chartScreen/index'
-import {DrawerNavigator, StackNavigator, NavigationActions} from 'react-navigation';
+import {DrawerNavigator, StackNavigator, NavigationActions, TabNavigator} from 'react-navigation';
 import {Icon} from "native-base";
 import env from '../../../../environment'
+import {Text} from "react-native";
 
 function MenuIcon(props) {
     return (
@@ -35,17 +36,25 @@ export default class Drawer extends Component {
         let aGrades = InitializeLessonList();
         let exGrades = InitializeLessonList();
 
-        let initRoute = env.debug ? env.drawerRoute.values[env.drawerRoute.show]: null;
+        let initRoute = env.debug ? env.drawerRoute.values[env.drawerRoute.show] : null;
 
-        const HomeNavigator = StackNavigator({
-            aGrades: {screen: aGrades},
-            exGrades: {screen: exGrades},
-            chartScreen: {screen: ChartScreen},
+        const screenNavigator = TabNavigator({
+                aGrades: {screen: aGrades},
+                exGrades: {screen: exGrades},
+                chartScreen: {screen: ChartScreen},
+            }, {
+                initialRouteName: initRoute,
+                animationEnabled: false,
+                swipeEnabled: false,
+                tabBarComponent: () => <Text style={{display: 'none'}}/>
+            }
+        );
+
+        const menuNavigator = StackNavigator({
+            screenNavigator: {screen: screenNavigator}
         }, {
-            initialRouteName: initRoute,
             navigationOptions: ({navigation}) => ({
                 headerTitle: 'Βαθμοί',
-                // headerLeft: null,
                 headerLeft: <MenuIcon navigation={navigation}/>,
                 headerStyle: {backgroundColor: '#3F51B5'},
                 headerTitleStyle: {color: 'white'},
@@ -53,7 +62,7 @@ export default class Drawer extends Component {
         });
 
         const DrawerOverlay = DrawerNavigator({
-            myApp: {screen: HomeNavigator}
+            drawerContent: {screen: menuNavigator}
         }, {
             contentComponent: MenuContent,
             drawerWidth: 200
