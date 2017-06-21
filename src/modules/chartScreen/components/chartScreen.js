@@ -3,7 +3,9 @@
 import React, {Component} from 'react';
 import {View, Text, ScrollView, StyleSheet} from 'react-native';
 import BarChart from './barChart'
-import AverageGradePie from './averageGradePie'
+import PieChartWrapper from "./pieChartWrapper";
+import ChartTitle from "./chartTitle";
+import pieChartType from "./pieChartType";
 const Dimensions = require('Dimensions');
 
 class ChartScreen extends Component {
@@ -55,25 +57,15 @@ class ChartScreen extends Component {
         return (
             <ScrollView style={styles.main} onLayout={this.orientationChange}>
                 <View style={{flexDirection: 'row'}}>
-                    <View style={styles.pieChart}>
-                        <Text style={styles.header}>Μέσος όρος</Text>
-                        <View style={{height: pieSize}}>
-                            <AverageGradePie size={pieSize}
-                                             pallete={[pie1, fillColor]}
-                                             value={this.state.average} total={10}/>
-                        </View>
-                    </View>
-                    <View style={styles.pieChart}>
-                        <Text style={styles.header}>Περασμένα μαθήματα</Text>
-                        <View style={{height: pieSize}}>
-                            <AverageGradePie size={pieSize}
-                                             pallete={[pie2, fillColor]}
-                                             value={this.state.lessonsNumber} total={55}/>
-                        </View>
-                    </View>
+                    <PieChartWrapper chartValue={this.state.average} chartType="average"
+                                     pieSize={pieSize} mainColor={pie1} fillColor={fillColor}/>
+
+                    <PieChartWrapper chartValue={this.state.lessonsNumber} chartType="succeedLessons"
+                                     pieSize={pieSize} mainColor={pie2} fillColor={fillColor}/>
                 </View>
                 <View style={styles.barChart}>
-                    <Text style={styles.header}>Πλήθος μαθημάτων ανά βαθμολογία</Text>
+                    <ChartTitle title={pieChartType['lessonsPerGrade'].title}
+                                description={pieChartType['lessonsPerGrade'].description}/>
                     <BarChart width={barWidth} grades={this.state.grades}/>
                 </View>
             </ScrollView>
@@ -84,15 +76,9 @@ class ChartScreen extends Component {
 let styles = StyleSheet.create({
     main: {
         backgroundColor: 'white'
-    },header: {
+    }, header: {
         color: 'black',
         fontWeight: 'bold'
-    },
-    pieChart: {
-        flex: 1,
-        backgroundColor: 'white',
-        elevation: 12,
-        margin: 7
     },
     barChart: {
         flex: 1,
