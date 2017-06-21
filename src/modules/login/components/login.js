@@ -29,7 +29,7 @@ export default class Login extends Component {
         this.onLoginHandle = this.onLoginHandle.bind(this);
         this.onCredentialsLoad = this.onCredentialsLoad.bind(this);
 
-        if (env.debug === true) {
+        if (env.debug && env.autoLogin) {
             this.componentDidMount = () => this.login();
             this.componentDidMount = this.componentDidMount.bind(this);
 
@@ -48,7 +48,7 @@ export default class Login extends Component {
         !env.debug || console.time("fetch");
 
         this.setState({loading: true});
-        if (env.debug === true) {
+        if (env.debug && env.mockPage) {
             this.icarusCrawler.fetchMockPage(this.onLoginHandle)
         } else
             this.icarusCrawler.fetchPage(this.state.username, this.state.password, this.onLoginHandle);
@@ -150,7 +150,7 @@ let style = {
         paddingRight: 40
     },
     content: {
-        marginTop: -110,
+        marginTop: '-15%',
         alignItems: 'center'
     },
     backgroundImage: {

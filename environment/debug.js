@@ -1,5 +1,7 @@
 const env = {
-    debug: true
+    debug: true,
+    autoLogin: false,
+    mockPage: true
 };
 
 export default env
