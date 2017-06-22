@@ -8,11 +8,7 @@ import {StackNavigator} from 'react-navigation';
 
 export default class Main extends Component {
     render() {
-        let loginNavOptions = {
-            headerLeft: null,
-            headerStyle: {backgroundColor: '#3F51B5'},
-            headerTitleStyle: {color: 'white'},
-        };
+        let loginNavOptions = {header: null};
 
         let mainNavOptions = {header: null};
 

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Image} from 'react-native';
+import {View, Image, StatusBar} from 'react-native';
 
 import {Item, Icon, Input, Button, Text, Badge, ListItem, CheckBox} from 'native-base';
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -10,6 +10,14 @@ import userCredentials from '../../../tools/icarusCrawler/.user'
 import env from '../../../../environment/index'
 import * as Keychain from 'react-native-keychain'
 import 'react-native-console-time-polyfill';
+import {NavigationActions} from 'react-navigation'
+
+LoginState = {
+    INITIAL: 'INITIAL',
+    LOADING: 'LOADING',
+    LOGGED_IN: 'LOGGED_IN',
+    FAILED: 'FAILED'
+};
 
 export default class Login extends Component {
     icarusCrawler = null;
@@ -36,18 +44,17 @@ export default class Login extends Component {
             this.state = {
                 username: userCredentials.username,
                 password: userCredentials.password,
-                loading: false,
-                loginState: null
+                loginState: LoginState.LOADING
             };
         } else {
-            this.state = {username: '', password: '', loading: false, credentialCheckBox: false};
+            this.state = {username: '', password: '', loading: LoginState.INITIAL, credentialCheckBox: false};
         }
     }
 
     login() {
         !env.debug || console.time("fetch");
 
-        this.setState({loading: true});
+        this.setState({loginState: LoginState.LOADING});
         if (env.debug && env.mockPage.fetch) {
             this.icarusCrawler.fetchMockPage(this.onLoginHandle)
         } else
@@ -61,7 +68,6 @@ export default class Login extends Component {
     onLoginHandle(response, aGrading) {
         !env.debug || console.timeEnd("fetch");
 
-        this.setState({loading: false, loginState: response});
         if (response === true) {
             // Save credentials
             if (this.state.credentialCheckBox === true) {
@@ -72,9 +78,23 @@ export default class Login extends Component {
                     });
             }
 
+            //Set grades to redux
             this.props.setGrades(aGrading);
-            const {navigate} = this.props.navigation;
-            navigate('Main');
+
+            // Dispatch to main screen
+            const resetAction = NavigationActions.reset({
+                index: 0,
+                actions: [
+                    NavigationActions.navigate({routeName: 'Main'})
+                ]
+            });
+
+            this.setState({loginState: LoginState.LOGGED_IN}, () =>
+                this.props.navigation.dispatch(resetAction)
+            );
+
+        } else {
+            this.setState({loginState: LoginState.FAILED});
         }
     }
 
@@ -95,19 +115,33 @@ export default class Login extends Component {
     }
 
     render() {
-        if (this.state.loading)
+        const {loginState} = this.state;
+        const {LOGGED_IN, LOADING, FAILED} = LoginState;
+
+        if (loginState === LOGGED_IN) return null;
+
+        if (loginState === LOADING)
             return (
                 <View style={{flex: 1}}>
-                    <Spinner visible={true} textContent={"Loading..."} overlayColor='#3F51B5' textStyle={{color: 'white'}}/>
+                    <StatusBar
+                        backgroundColor="#2137AA"
+                        barStyle="light-content"
+                    />
+                    <Spinner visible={true} textContent={"Loading..."} overlayColor='#3F51B5'
+                             textStyle={{color: 'white'}}/>
                 </View>
             );
 
         return (
             <Image source={require('./background.png')} style={style.backgroundImage}>
+                <StatusBar
+                    backgroundColor="#2137AA"
+                    barStyle="light-content"
+                />
                 <View style={style.main}>
                     <View style={style.content}>
                         {
-                            this.state.loginState === false ?
+                            loginState === FAILED ?
                                 <View style={style.errorMessage}>
                                     <Badge danger>
                                         <Text>Τα στοιχεία που εισάγατε είναι λάθος</Text>
@@ -132,7 +166,7 @@ export default class Login extends Component {
                         </View>
                         <CredentialCheckbox
                             ref='credentialCkb' handleCheckbox={this.handleCheckbox}
-                                            onLoad={this.onCredentialsLoad}/>
+                            onLoad={this.onCredentialsLoad}/>
                     </View>
                 </View>
             </Image>
