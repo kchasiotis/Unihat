@@ -11,7 +11,7 @@
     "clean": "rm -rf node_modules && npm install && watchman watch-del-all && react-native link && react-native run-android",
     "build": "cd android && ./gradlew clean && cd ../ && npm start --reset-cache",
     "init": "npm install && mkdir android/app/src/main/assets && react-native link",
-    "preStart": "./watchmanIncreaseLimits.sh && ncu && $ANDROID_HOME/tools/emulator -avd First",
+    "preStart": "./scripts/watchmanIncreaseLimits.sh && ncu && $ANDROID_HOME/tools/emulator -avd First",
     "bundle": "npm run setEnv production && react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/ && cd android && ./gradlew assembleRelease",
     "bundle-android": "react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --sourcemap-output android/app/src/main/assets/index.android.map --assets-dest android/app/src/main/res/"
   },
