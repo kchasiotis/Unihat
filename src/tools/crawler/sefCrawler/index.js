@@ -106,8 +106,8 @@ export default class SefCrawler {
         let url = 'https://sef.samos.aegean.gr/authentication.php';
 
         let details = {
-            password: username,
-            username: password
+            password: password,
+            username: username
         };
 
         let formBody = [];

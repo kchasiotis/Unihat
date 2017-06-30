@@ -21,12 +21,12 @@ export default class CredentialCheckbox extends Component {
             let toBoolean = result === 'true';
             this.setState({credentialCheckBox: toBoolean});
             this.props.handleCheckbox(toBoolean);
-
+/*
             // Load user credentials
             if (toBoolean === false) {
                 // Reset checkbox value
                 CredentialStorage.reset();
-            }
+            }*/
         })
     }
 
