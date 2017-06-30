@@ -5,8 +5,7 @@ import {Item, Icon, Input, Button, Text, Badge, ListItem, CheckBox} from 'native
 import Spinner from 'react-native-loading-spinner-overlay';
 import CredentialCheckbox from './credentialCheckbox';
 
-import IcarusCrawler from '../../../tools/icarusCrawler/index'
-import userCredentials from '../../../tools/icarusCrawler/.user'
+import Crawler from '../../../tools/crawler'
 import env from '../../../../environment/index'
 import * as Keychain from 'react-native-keychain'
 import 'react-native-console-time-polyfill';
@@ -20,14 +19,14 @@ LoginState = {
 };
 
 export default class Login extends Component {
-    icarusCrawler = null;
+    crawler = null;
     static navigationOptions = {
         title: 'Icarus Aegean',
     };
 
     constructor(props) {
         super(props);
-        this.icarusCrawler = new IcarusCrawler();
+        this.crawler = new Crawler();
 
         this.handleUsername = this.handleUsername.bind(this);
         this.handlePassword = this.handlePassword.bind(this);
@@ -42,8 +41,8 @@ export default class Login extends Component {
             this.componentDidMount = this.componentDidMount.bind(this);
 
             this.state = {
-                username: userCredentials.username,
-                password: userCredentials.password,
+                username: 'math13028',
+                password: '',
                 loginState: LoginState.LOADING
             };
         } else {
@@ -56,13 +55,13 @@ export default class Login extends Component {
 
         this.setState({loginState: LoginState.LOADING});
         if (env.debug && env.mockPage.fetch) {
-            this.icarusCrawler.fetchMockPage(this.onLoginHandle)
+            this.crawler.fetchMockPage(this.state.username, this.onLoginHandle)
         } else
-            this.icarusCrawler.fetchPage(this.state.username, this.state.password, this.onLoginHandle);
+            this.crawler.fetchPage(this.state.username, this.state.password, this.onLoginHandle);
     }
 
     logout() {
-        this.icarusCrawler.logout();
+        this.crawler.logout();
     }
 
     onLoginHandle(response, aGrading) {

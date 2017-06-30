@@ -1,11 +1,11 @@
 let cheerio = require('cheerio-without-node-native');
 let axios = require('axios');
+let moment = require('moment');
+moment().format();
 
 let iconv = require('iconv-lite');
 import {Buffer} from 'buffer';
-import htmlDataClosed from './mockExamsClosed';
-import htmlDataOpen from './mockExamsOpen';
-import env from '../../../environment'
+import htmlData from './mockPage';
 global.Buffer = Buffer;
 
 class User {
@@ -20,14 +20,13 @@ class Lesson {
     enrollDate = null;
     examDate = null;
     state = null;
-    label = null;
 
     toString() {
-        return this.id + ' ' + this.title + ' ' + this.grade + ' ' + this.semester + ' ' + this.enrollDate + ' ' + this.examDate + ' ' + this.state + ' ' + this.label;
+        return this.id + ' ' + this.title + ' ' + this.grade + ' ' + this.semester + ' ' + this.enrollDate + ' ' + this.examDate + ' ' + this.state;
     }
 }
 
-export default class IcarusCrawler {
+export default class SefCrawler {
     constructor() {
         this.parseHtml = this.parseHtml.bind(this);
         this.fetchPage = this.fetchPage.bind(this);
@@ -41,51 +40,54 @@ export default class IcarusCrawler {
         });
 
         // Check if user logged in
-        let loggedIn = $('#analytic_grades').length >= 1;
+        let loggedIn = $('#example1').length >= 1;
         if (!loggedIn) {
             onResponse(loggedIn);
             return;
         }
 
         // User data
-        let user = new User();
-        user.username = $('#header_login[style="display:inline"] > u').text();
+        // let user = new User();
+        // user.username = $('#header_login[style="display:inline"] > u').text();
 
         // Analytic grades tBody
-        let abody = $('#analytic_grades > tbody').children();
+        let allGrades = $('#example1 > tbody').children();
 
-        // Succeeded grades tBody
-        let sbody = $('#succeeded_grades > tbody').children();
+        let parsedAllGrades = this.parseGrades(allGrades);
+        parsedAllGrades = parsedAllGrades
+            .sort((lessonA, lessonB) => -lessonA.enrollDate.diff(lessonB.enrollDate, 'days'));
 
-        // Exetastiki grades tBody
-        let exbody = $('#exetastiki_grades > tbody').children();
+        // console.log(parsedAllGrades[0].enrollDate);
+        let exGrades = parsedAllGrades.filter((lesson) => lesson.enrollDate.diff(parsedAllGrades[0].enrollDate) === 0);
 
-        // Emvolimi grades tBody
-        let embody = $('#exetastiki_grades_emvolimi > tbody').children();
+        exGrades = exGrades.sort((lessonA, lessonB) => lessonB.grade - lessonA.grade);
 
-        let allGrades = {
-            aGrades: this.parseGrades(abody, 'aGrades'),
-            sGrades: this.parseGrades(sbody),
-            exGrades: this.parseGrades(exbody, 'exGrades').concat(this.parseGrades(embody, 'emGrades')),
+        let grades = {
+            aGrades: parsedAllGrades.filter((lesson) => lesson.enrollDate.diff(parsedAllGrades[0].enrollDate) !== 0),
+            sGrades: parsedAllGrades.filter((lesson) => lesson.grade >= 5),
+            exGrades: exGrades
         };
 
-        onResponse(loggedIn, allGrades);
+        onResponse(loggedIn, grades);
     }
 
-    parseGrades(tBody, label) {
+    parseGrades(tBody) {
         let analyticGrading = [];
         for (let i = 0; i < tBody.length; i++) {
             let lesson = new Lesson();
             let temp = tBody.eq(i).children();
 
-            lesson.id = temp.eq(0).text().trim() + '-' + temp.eq(1).text().trim();
-            lesson.title = temp.eq(2).text().trim();
-            lesson.grade = temp.eq(3).text().trim() !== '' ? parseFloat(temp.eq(3).text().trim()) : null;
-            lesson.semester = parseInt(temp.eq(4).text().trim());
-            lesson.enrollDate = temp.eq(5).text().trim();
-            lesson.examDate = temp.eq(6).text().trim();
-            lesson.state = temp.eq(7).text().trim();
-            lesson.label = label;
+            lesson.title = temp.eq(1).text().trim();
+
+            lesson.enrollDate = temp.eq(2).find('span').text().trim().split(' ')[0];
+            lesson.enrollDate = moment(lesson.enrollDate, "YYYY-MM-DD");
+            lesson.examDate = temp.eq(3).find('span').text().trim().split(' ')[0];
+            lesson.examDate = lesson.examDate === '' ? null : moment(lesson.examDate, "YYYY-MM-DD");
+
+            lesson.grade = temp.eq(4).text().trim() !== '' ? parseFloat(temp.eq(4).text().trim()) : null;
+            // lesson.semester = parseInt(temp.eq(4).text().trim());
+            lesson.state = temp.eq(5).text().trim();
+            lesson.id = temp.eq(0).text().trim() + '_' + lesson.enrollDate.format("DD-MM-YYYY");
 
             analyticGrading.push(lesson);
         }
@@ -93,20 +95,19 @@ export default class IcarusCrawler {
     }
 
     fetchMockPage(onResponse) {
-        let htmlData = env.mockPage.values[env.mockPage.use] === 'examsOpen' ? htmlDataOpen : htmlDataClosed;
         this.parseHtml(htmlData, onResponse);
     }
 
     fetchPage(username, password, onResponse) {
-        console.log('logging in');
-        let parseHtml = this.parseHtml;
+        let cheerio = require('cheerio-without-node-native');
 
         // region Set up message
-        let url = 'https://icarus-icsd.aegean.gr/authentication.php';
+        //let url = 'https://requestb.in/18oa3zy1';
+        let url = 'https://sef.samos.aegean.gr/authentication.php';
 
         let details = {
-            username: username,
-            pwd: password,
+            password: username,
+            username: password
         };
 
         let formBody = [];
@@ -120,19 +121,22 @@ export default class IcarusCrawler {
         formBody = formBody.join("&");
         // endregion
 
+
+        let parseHtml = this.parseHtml;
+
         axios({
             url: url,
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
-            responseType: 'arraybuffer',
             data: formBody
         }).then(function (response) {
-            console.log('Page loaded');
-            let data = iconv.decode(new Buffer(response.data), 'iso-8859-7');
-            parseHtml(data, onResponse);
+            // console.log('Page loaded');
+            // let data = iconv.decode(new Buffer(response.data), 'iso-8859-7');
+            parseHtml(response.data, onResponse);
         });
+
     }
 
     logout() {

@@ -2,14 +2,14 @@ import React, {Component} from 'react';
 import {ListItem, Right, Text, Badge, Body} from 'native-base';
 import {FlatList, RefreshControl} from 'react-native';
 
-import IcarusCrawler from '../../../tools/icarusCrawler/index';
+import Crawler from '../../../tools/crawler';
 import CredentialStorage from '../../../tools/credentialStorage';
 
 class LessonList extends Component {
     constructor(props) {
         super(props);
         this.state = {refreshing: false};
-        this.crawler = new IcarusCrawler();
+        this.crawler = new Crawler();
         this.refreshLessons = this.refreshLessons.bind(this);
     }
 

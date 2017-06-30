@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {ListItem, Left, Text, Body, Icon, Content, Thumbnail} from 'native-base';
 import {View} from 'react-native';
-import IcarusCrawler from '../../../tools/icarusCrawler/index';
+import Crawler from '../../../tools/crawler';
 
 export default class MenuContent extends Component {
-    IcarusClient = new IcarusCrawler();
+    crawler = new Crawler();
     constructor(props){
         super(props);
 
@@ -22,7 +22,7 @@ export default class MenuContent extends Component {
 
     logout() {
         this.props.loginRoute();
-        this.IcarusClient.logout();
+        this.crawler.logout();
     }
 
     render() {

@@ -6,7 +6,7 @@
     "start": "npm run setEnv debug && node node_modules/react-native/local-cli/cli.js start",
     "prod": "npm run setEnv production && node node_modules/react-native/local-cli/cli.js start",
     "setEnv": "node scripts/setEnv.js",
-    "test": "jest",
+    "test": "npm run setEnv debug && jest || true",
     "postinstall": "react-native link && react-native link react-native-svg",
     "clean": "rm -rf node_modules && npm install && watchman watch-del-all && react-native link && react-native run-android",
     "build": "cd android && ./gradlew clean && cd ../ && npm start --reset-cache",

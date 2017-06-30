@@ -1,4 +1,4 @@
-export default html = `
+const html = `
 <html><head>
         
     <link rel="stylesheet" href="styles/basic/style.css" type="text/css" media="screen">
@@ -329,4 +329,5 @@ html {
 
 
 </body></html>
-`
+`;
+export default html;
