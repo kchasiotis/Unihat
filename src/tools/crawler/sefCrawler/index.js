@@ -62,11 +62,11 @@ export default class SefCrawler {
 
         exGrades = exGrades.sort((lessonA, lessonB) => lessonB.grade - lessonA.grade);
 
-        let grades = {
-            aGrades: parsedAllGrades.filter((lesson) => lesson.enrollDate.diff(parsedAllGrades[0].enrollDate) !== 0),
-            sGrades: parsedAllGrades.filter((lesson) => lesson.grade >= 5),
-            exGrades: exGrades
-        };
+        let grades = {}
+        
+        grades.aGrades = parsedAllGrades.filter((lesson) => lesson.enrollDate.diff(parsedAllGrades[0].enrollDate) !== 0),
+        grades.sGrades = grades.aGrades.filter((lesson) => lesson.grade >= 5),
+        grades.exGrades = exGrades
 
         onResponse(loggedIn, grades);
     }
