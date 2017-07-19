@@ -42,7 +42,7 @@ export default class Login extends Component {
 
             this.state = {
                 username: 'math13028',
-                password: '',
+                password: 'test',
                 loginState: LoginState.LOADING
             };
         } else {

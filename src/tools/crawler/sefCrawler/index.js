@@ -88,6 +88,7 @@ export default class SefCrawler {
             // lesson.semester = parseInt(temp.eq(4).text().trim());
             lesson.state = temp.eq(5).text().trim();
             lesson.id = temp.eq(0).text().trim() + '_' + lesson.enrollDate.format("DD-MM-YYYY");
+            lesson.id += lesson.examDate ? '_' + lesson.examDate.format("DD-MM-YYYY") : '';
 
             analyticGrading.push(lesson);
         }
