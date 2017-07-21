@@ -3,17 +3,12 @@ let axios = require('axios');
 let moment = require('moment');
 moment().format();
 
-let iconv = require('iconv-lite');
-import {Buffer} from 'buffer';
 import htmlData from './mockPage';
-global.Buffer = Buffer;
 
-class User {
-    username = null;
-}
 
 class Lesson {
     id = null;
+    code = null;
     title = null;
     grade = null;
     semester = null;
@@ -46,27 +41,18 @@ export default class SefCrawler {
             return;
         }
 
-        // User data
-        // let user = new User();
-        // user.username = $('#header_login[style="display:inline"] > u').text();
-
         // Analytic grades tBody
         let allGrades = $('#example1 > tbody').children();
-
         let parsedAllGrades = this.parseGrades(allGrades);
-        parsedAllGrades = parsedAllGrades
-            .sort((lessonA, lessonB) => -lessonA.enrollDate.diff(lessonB.enrollDate, 'days'));
+        parsedAllGrades.sort((lessonA, lessonB) => -lessonA.enrollDate.diff(lessonB.enrollDate, 'days'));
 
-        // console.log(parsedAllGrades[0].enrollDate);
         let exGrades = parsedAllGrades.filter((lesson) => lesson.enrollDate.diff(parsedAllGrades[0].enrollDate) === 0);
-
         exGrades = exGrades.sort((lessonA, lessonB) => lessonB.grade - lessonA.grade);
 
-        let grades = {}
-        
-        grades.aGrades = parsedAllGrades.filter((lesson) => lesson.enrollDate.diff(parsedAllGrades[0].enrollDate) !== 0),
-        grades.sGrades = grades.aGrades.filter((lesson) => lesson.grade >= 5),
-        grades.exGrades = exGrades
+        let grades = {};
+        grades.aGrades = parsedAllGrades.filter((lesson) => lesson.enrollDate.diff(parsedAllGrades[0].enrollDate) !== 0);
+        grades.sGrades = grades.aGrades.filter((lesson) => lesson.grade >= 5 && lesson.code !== '311-1600' && lesson.code !== '311-1650' && lesson.code !== '311-1700');
+        grades.exGrades = exGrades;
 
         onResponse(loggedIn, grades);
     }
@@ -85,8 +71,9 @@ export default class SefCrawler {
             lesson.examDate = lesson.examDate === '' ? null : moment(lesson.examDate, "YYYY-MM-DD");
 
             lesson.grade = temp.eq(4).text().trim() !== '' ? parseFloat(temp.eq(4).text().trim()) : null;
-            // lesson.semester = parseInt(temp.eq(4).text().trim());
             lesson.state = temp.eq(5).text().trim();
+            lesson.code = temp.eq(0).text().trim();
+
             lesson.id = temp.eq(0).text().trim() + '_' + lesson.enrollDate.format("DD-MM-YYYY");
             lesson.id += lesson.examDate ? '_' + lesson.examDate.format("DD-MM-YYYY") : '';
 
@@ -103,7 +90,6 @@ export default class SefCrawler {
         let cheerio = require('cheerio-without-node-native');
 
         // region Set up message
-        //let url = 'https://requestb.in/18oa3zy1';
         let url = 'https://sef.samos.aegean.gr/authentication.php';
 
         let details = {
@@ -133,8 +119,7 @@ export default class SefCrawler {
             },
             data: formBody
         }).then(function (response) {
-            // console.log('Page loaded');
-            // let data = iconv.decode(new Buffer(response.data), 'iso-8859-7');
+            console.log('Page loaded');
             parseHtml(response.data, onResponse);
         });
 
