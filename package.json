@@ -14,7 +14,8 @@
     "emulator": "$ANDROID_HOME/tools/emulator -avd First",
     "preStart": "./scripts/watchmanIncreaseLimits.sh && ncu && $ANDROID_HOME/tools/emulator -avd First",
     "bundle": "npm run setEnv production && react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/ && cd android && ./gradlew assembleRelease",
-    "installAndroid": "react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --sourcemap-output android/app/src/main/assets/index.android.map --assets-dest android/app/src/main/res/ && react-native run-android"
+    "installAndroid": "react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --sourcemap-output android/app/src/main/assets/index.android.map --assets-dest android/app/src/main/res/ && react-native run-android",
+    "reinstallAndroid": "npm run clean && npm run installAndroid"
   },
   "dependencies": {
     "axios": "^0.16.0",
@@ -27,7 +28,7 @@
     "react-native": "^0.45.1",
     "react-native-console-time-polyfill": "0.0.6",
     "react-native-keychain": "1.2.0",
-    "react-native-loading-spinner-overlay": "0.5.0",
+    "react-native-loading-spinner-overlay": "~0.5.0",
     "react-native-pathjs-charts": "0.0.29",
     "react-navigation": "1.0.0-beta.11",
     "react-redux": "^5.0.5",

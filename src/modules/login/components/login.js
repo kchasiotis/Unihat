@@ -69,11 +69,13 @@ export default class Login extends Component {
 
         if (response === true) {
             // Save credentials
-            Keychain
-                .setGenericPassword(this.state.username, this.state.password)
-                .then(function () {
-                    console.log('Credentials saved successfully!');
-                });
+            if (this.state.credentialCheckBox === true) {
+                Keychain
+                    .setGenericPassword(this.state.username, this.state.password)
+                    .then(function () {
+                        console.log('Credentials saved successfully!');
+                    });
+            }
 
             //Set grades to redux
             this.props.setGrades(aGrading);
@@ -162,7 +164,7 @@ export default class Login extends Component {
                             </Button>
                         </View>
                         <CredentialCheckbox
-                            ref='credentialCkb' handleCheckbox={this.handleCheckbox}
+                            handleCheckbox={this.handleCheckbox}
                             onLoad={this.onCredentialsLoad}/>
                     </View>
                 </View>
