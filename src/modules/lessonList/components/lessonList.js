@@ -18,7 +18,7 @@ class LessonList extends Component {
 
         let onResponse = (loggedIn, allGrades) => {
             this.setState({refreshing: false});
-            if(loggedIn) this.props.updateGrades(allGrades);
+            if (loggedIn) this.props.updateGrades(allGrades);
         };
         onResponse = onResponse.bind(this);
 
