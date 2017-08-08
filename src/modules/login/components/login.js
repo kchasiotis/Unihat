@@ -5,36 +5,27 @@ import {Item, Icon, Input, Button, Text, Badge, ListItem, CheckBox} from 'native
 import Spinner from 'react-native-loading-spinner-overlay';
 import CredentialCheckbox from './credentialCheckbox';
 
-import Crawler from '../../../tools/crawler'
 import env from '../../../../environment/index'
-import * as Keychain from 'react-native-keychain'
 import 'react-native-console-time-polyfill';
 import {NavigationActions} from 'react-navigation'
-
-LoginState = {
-    INITIAL: 'INITIAL',
-    LOADING: 'LOADING',
-    LOGGED_IN: 'LOGGED_IN',
-    FAILED: 'FAILED'
-};
+import {LoginState} from '../actions'
 
 export default class Login extends Component {
-    crawler = null;
     static navigationOptions = {
         title: 'Icarus Aegean',
     };
 
     constructor(props) {
         super(props);
-        this.crawler = new Crawler();
 
         this.handleUsername = this.handleUsername.bind(this);
         this.handlePassword = this.handlePassword.bind(this);
         this.handleCheckbox = this.handleCheckbox.bind(this);
 
         this.login = this.login.bind(this);
-        this.onLoginHandle = this.onLoginHandle.bind(this);
         this.onCredentialsLoad = this.onCredentialsLoad.bind(this);
+        // todo: move reset functionality to logout
+        this.props.resetState();
 
         if (env.debug && env.autoLogin) {
             this.componentDidMount = () => this.login();
@@ -42,45 +33,22 @@ export default class Login extends Component {
 
             this.state = {
                 username: 'math13028',
-                password: 'test',
-                loginState: LoginState.LOADING
+                password: 'test'
             };
         } else {
-            this.state = {username: '', password: '', loading: LoginState.INITIAL, credentialCheckBox: false};
+            this.state = {username: '', password: '', credentialCheckBox: false};
         }
     }
 
     login() {
         !env.debug || console.time("fetch");
 
-        this.setState({loginState: LoginState.LOADING});
-        if (env.debug && env.mockPage.fetch) {
-            this.crawler.fetchMockPage(this.state.username, this.onLoginHandle)
-        } else
-            this.crawler.fetchPage(this.state.username, this.state.password, this.onLoginHandle);
+        this.props.login(this.state.username, this.state.password);
     }
 
-    logout() {
-        this.crawler.logout();
-    }
-
-    onLoginHandle(response, aGrading) {
-        !env.debug || console.timeEnd("fetch");
-
-        if (response === true) {
-            // Save credentials
-            if (this.state.credentialCheckBox === true) {
-                Keychain
-                    .setGenericPassword(this.state.username, this.state.password)
-                    .then(function () {
-                        console.log('Credentials saved successfully!');
-                    });
-            }
-
-            //Set grades to redux
-            this.props.setGrades(aGrading);
-
-            // Dispatch to main screen
+    componentDidUpdate() {
+        // Dispatch to main screen on log in
+        if (this.props.loginState === LoginState.LOGGED_IN) {
             const resetAction = NavigationActions.reset({
                 index: 0,
                 actions: [
@@ -88,12 +56,7 @@ export default class Login extends Component {
                 ]
             });
 
-            this.setState({loginState: LoginState.LOGGED_IN}, () =>
-                this.props.navigation.dispatch(resetAction)
-            );
-
-        } else {
-            this.setState({loginState: LoginState.FAILED});
+            this.props.navigation.dispatch(resetAction)
         }
     }
 
@@ -114,7 +77,7 @@ export default class Login extends Component {
     }
 
     render() {
-        const {loginState} = this.state;
+        const {loginState} = this.props;
         const {LOGGED_IN, LOADING, FAILED} = LoginState;
 
         if (loginState === LOGGED_IN) return null;
