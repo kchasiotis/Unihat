@@ -5,7 +5,7 @@ import {Item, Icon, Input, Button, Text, Badge, ListItem, CheckBox} from 'native
 import Spinner from 'react-native-loading-spinner-overlay';
 import CredentialCheckbox from './credentialCheckbox';
 
-import env from '../../../../environment/index'
+import env from '../../../../environment'
 import 'react-native-console-time-polyfill';
 import {NavigationActions} from 'react-navigation'
 import {LoginState} from '../actions'
@@ -28,7 +28,8 @@ export default class Login extends Component {
         this.props.resetState();
 
         if (env.debug && env.autoLogin) {
-            this.componentDidMount = () => this.login();
+            // todo: remove setTimeout
+            this.componentDidMount = () => setTimeout(this.login, 500);
             this.componentDidMount = this.componentDidMount.bind(this);
 
             this.state = {
@@ -152,7 +153,7 @@ let style = {
     backgroundImage: {
         flex: 1,
         width: '100%',
-        resizeMode: 'stretch', // or 'stretch'
+        resizeMode: 'stretch',
         backgroundColor: 'white',
     },
     errorMessage: {

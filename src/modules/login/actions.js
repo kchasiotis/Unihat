@@ -1,5 +1,6 @@
 import crawler from '../../tools/crawler'
 import * as Keychain from 'react-native-keychain'
+import env from '../../../environment'
 
 export const SET_GRADES = 'SET_GRADES';
 export const SET_LOGIN_STATE = 'SET_LOGIN_STATE';
@@ -37,9 +38,7 @@ export const setLoginState = (state) => {
 export function login(username, password) {
 
     return function (dispatch) {
-        dispatch(setLoginState(LoginState.LOADING));
-
-        crawlerObj.fetchPage(username, password, (loggedIn, grades) => {
+        let onResponse = (loggedIn, grades) => {
             if (loggedIn === true) {
                 dispatch(setLoginState(LoginState.LOGGED_IN));
                 dispatch(setGrades(grades));
@@ -51,6 +50,14 @@ export function login(username, password) {
             } else if (loggedIn === false) {
                 dispatch(setLoginState(LoginState.FAILED));
             }
-        });
+        };
+
+        dispatch(setLoginState(LoginState.LOADING));
+
+        if (env.debug === false) {
+            crawlerObj.fetchPage(username, password, onResponse);
+        } else {
+            crawlerObj.fetchMockPage(username, onResponse);
+        }
     }
 }
