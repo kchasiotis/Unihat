@@ -6,7 +6,6 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import CredentialCheckbox from './credentialCheckbox';
 
 import env from '../../../../environment'
-import 'react-native-console-time-polyfill';
 import {NavigationActions} from 'react-navigation'
 import {LoginState} from '../actions'
 
@@ -33,8 +32,8 @@ export default class Login extends Component {
             this.componentDidMount = this.componentDidMount.bind(this);
 
             this.state = {
-                username: 'math13028',
-                password: 'test'
+                username: 'icsd11175',
+                password: ''
             };
         } else {
             this.state = {username: '', password: '', credentialCheckBox: false};
@@ -42,8 +41,6 @@ export default class Login extends Component {
     }
 
     login() {
-        !env.debug || console.time("fetch");
-
         this.props.login(this.state.username, this.state.password);
     }
 

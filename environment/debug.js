@@ -8,7 +8,7 @@ const env = {
     },
     drawerRoute: {
         values: ['aGrades', 'exGrades', 'chartScreen'],
-        show: 0
+        show: 1
     },
 };
 
