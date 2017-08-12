@@ -4,22 +4,7 @@ let moment = require('moment');
 moment().format();
 
 import htmlData from './mockPage';
-
-
-class Lesson {
-    id = null;
-    code = null;
-    title = null;
-    grade = null;
-    semester = null;
-    enrollDate = null;
-    examDate = null;
-    state = null;
-
-    toString() {
-        return this.id + ' ' + this.title + ' ' + this.grade + ' ' + this.semester + ' ' + this.enrollDate + ' ' + this.examDate + ' ' + this.state;
-    }
-}
+import Lesson from '../lesson';
 
 export default class SefCrawler {
     constructor() {
