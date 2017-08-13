@@ -4,6 +4,7 @@ import {FlatList, RefreshControl} from 'react-native';
 
 import Crawler from '../../../tools/crawler';
 import CredentialStorage from '../../../tools/credentialStorage';
+import lesson from '../../lesson/components/lesson';
 
 class LessonList extends Component {
     constructor(props) {
@@ -11,6 +12,7 @@ class LessonList extends Component {
         this.state = {refreshing: false};
         this.crawler = new Crawler();
         this.refreshLessons = this.refreshLessons.bind(this);
+        this.openLesson = this.openLesson.bind(this);
     }
 
     refreshLessons() {
@@ -27,6 +29,13 @@ class LessonList extends Component {
         );
     }
 
+    openLesson(lesson) {
+        return () => {
+            this.props.setCurrentLesson(lesson);
+            this.props.navigation.navigate('lesson');
+        }
+    }
+
     render() {
         // if (this.props.grades.length === 0) return <Text>Άδεια λίστα μαθημάτων</Text>;
 
@@ -35,17 +44,16 @@ class LessonList extends Component {
                 keyExtractor={(item) => (item.id)}
                 refreshControl={
                     <RefreshControl
-                        // refreshing={true}
                         refreshing={this.state.refreshing}
                         onRefresh={this.refreshLessons}
                         title="Pull to refresh"
-                        colors={['#3F51B5','green']}
+                        colors={['#3F51B5', 'green']}
                         progressBackgroundColor='#fff'
                     />
                 }
                 data={this.props.grades}
                 renderItem={({item}) =>
-                    <ListItem>
+                    <ListItem onPress={this.openLesson(item)}>
                         <Body>
                         <Text>{item.title}</Text>
                         </Body>

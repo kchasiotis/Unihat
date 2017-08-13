@@ -10,6 +10,9 @@ const env = {
         values: ['aGrades', 'exGrades', 'chartScreen'],
         show: 0
     },
+    user:{
+        username: 'icsd11175'
+    }
 };
 
 export default env

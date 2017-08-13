@@ -16,7 +16,10 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         updateGrades: (grades) => {
-            dispatch(actions.setGrades(grades))
+            dispatch(actions.setGrades(grades));
+        },
+        setCurrentLesson: (lesson) => {
+            dispatch(actions.setCurrentLesson(lesson));
         }
     }
 };

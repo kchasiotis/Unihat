@@ -3,6 +3,7 @@ import * as Keychain from 'react-native-keychain'
 import env from '../../../environment'
 
 export const SET_GRADES = 'SET_GRADES';
+export const SET_CURRENT_LESSON = 'SET_CURRENT_LESSON';
 export const SET_LOGIN_STATE = 'SET_LOGIN_STATE';
 export const RESET_STATE = 'RESET_STATE';
 
@@ -22,6 +23,13 @@ export const setGrades = (grades) => {
     }
 };
 
+export const setCurrentLesson = (lesson) => {
+    return {
+        type: SET_CURRENT_LESSON,
+        currentLesson: lesson
+    }
+};
+
 export const resetState = () => {
     return {
         type: RESET_STATE
@@ -35,18 +43,20 @@ export const setLoginState = (state) => {
     }
 };
 
-export function login(username, password) {
+export function login(username, password, save) {
 
     return function (dispatch) {
         let onResponse = (loggedIn, grades) => {
             if (loggedIn === true) {
                 dispatch(setLoginState(LoginState.LOGGED_IN));
                 dispatch(setGrades(grades));
-                Keychain
-                    .setGenericPassword(username, password)
-                    .then(function () {
-                        console.log('Credentials saved successfully!');
-                    });
+                if (save === true) {
+                    Keychain
+                        .setGenericPassword(username, password)
+                        .then(function () {
+                            console.log('Credentials saved successfully!');
+                        });
+                }
             } else if (loggedIn === false) {
                 dispatch(setLoginState(LoginState.FAILED));
             }

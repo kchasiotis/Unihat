@@ -29,12 +29,12 @@ export default class Login extends Component {
 
         if (env.debug && env.autoLogin) {
             // todo: remove setTimeout
-            this.componentDidMount = () => setTimeout(this.login, 500);
+            this.componentDidMount = () => this.login();
             this.componentDidMount = this.componentDidMount.bind(this);
 
             this.state = {
-                username: 'math13028',
-                password: 'test'
+                username: env.user.username,
+                password: ''
             };
         } else {
             this.state = {username: '', password: '', credentialCheckBox: false};
@@ -44,7 +44,7 @@ export default class Login extends Component {
     login() {
         !env.debug || console.time("fetch");
 
-        this.props.login(this.state.username, this.state.password);
+        this.props.login(this.state.username, this.state.password, this.state.credentialCheckBox);
     }
 
     componentDidUpdate() {

@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import {InitializeLessonList} from '../../lessonList/index'
+import {InitializeLessonList} from '../../lessonList'
 import MenuContent from '../components/MenuContent'
-import {ChartScreen} from '../../chartScreen/index'
+import {ChartScreen} from '../../chartScreen'
+import {Lesson} from '../../lesson'
 import {DrawerNavigator, StackNavigator, NavigationActions, TabNavigator} from 'react-navigation';
 import {Icon} from "native-base";
 import env from '../../../../environment'
@@ -42,6 +43,7 @@ export default class Drawer extends Component {
                 aGrades: {screen: aGrades},
                 exGrades: {screen: exGrades},
                 chartScreen: {screen: ChartScreen},
+                lesson: {screen: Lesson},
             }, {
                 initialRouteName: initRoute,
                 animationEnabled: false,

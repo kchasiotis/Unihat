@@ -10,7 +10,7 @@ function InitializeLessonList() {
                     backgroundColor="#2137AA"
                     barStyle="light-content"
                 />
-                <LessonList routeName={props.navigation.state.routeName}/>
+                <LessonList routeName={props.navigation.state.routeName} navigation={props.navigation}/>
             </View>
         )
     }
