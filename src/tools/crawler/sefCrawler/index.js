@@ -48,7 +48,7 @@ export default class SefCrawler {
             let lesson = new Lesson();
             let temp = tBody.eq(i).children();
 
-            lesson.title = temp.eq(1).text().trim();
+            lesson.title = temp.eq(1).text().trim().replace('&amp;', '&');
 
             lesson.enrollDate = temp.eq(2).find('span').text().trim().split(' ')[0];
             lesson.enrollDate = moment(lesson.enrollDate, "YYYY-MM-DD");

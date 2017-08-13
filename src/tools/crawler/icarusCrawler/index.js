@@ -66,7 +66,7 @@ export default class IcarusCrawler {
 
             lesson.id = temp.eq(0).text().trim() + '-' + temp.eq(1).text().trim();
             lesson.code = temp.eq(1).text().trim();
-            lesson.title = temp.eq(2).text().trim();
+            lesson.title = temp.eq(2).text().trim().replace('&amp;', '&');
             lesson.grade = temp.eq(3).text().trim() !== '' ? parseFloat(temp.eq(3).text().trim()) : null;
             lesson.semester = parseInt(temp.eq(4).text().trim());
             lesson.enrollDate = temp.eq(5).text().trim();
