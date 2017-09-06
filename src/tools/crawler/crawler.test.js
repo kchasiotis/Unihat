@@ -1,7 +1,25 @@
 import Crawler from './index';
-// import user from '../src/tools/crawler/sefCrawler/.user'
+import icarusUser from './icarusCrawler/.user'
 
-describe('Crawler', function () {
+describe('Sef crawler', function () {
+    let crawler = new Crawler();
+    it('should fetch the grades', function (done) {
+        crawler.fetchMockPage('math13028', (logged, grades) => {
+            // console.log(grades.sGrades)
+            // expect(grades.aGrades[0].examDate.format("DD-MM-YYYY")).toBe('15-06-2017');
+            // expect(grades.sGrades[0].enrollDate.format("DD-MM-YYYY")).toBe('15-03-2017');
+
+            expect(logged).toBe(true);
+            expect(grades.aGrades.length).toBe(48);
+            expect(grades.sGrades.length).toBe(10);
+            expect(grades.exGrades.length).toBe(12);
+            // expect(grades.exGrades).not.toBe(undefined);
+            done();
+        });
+    });
+});
+
+describe('Icarus Crawler', function () {
     let crawler = new Crawler();
     it('should fetch the grades', function (done) {
         crawler.fetchMockPage('icsd11175', (logged, grades) => {
@@ -13,21 +31,8 @@ describe('Crawler', function () {
             done();
         });
     });
-    it('should fetch the grades', function (done) {
-        crawler.fetchMockPage('math13028', (logged, grades) => {
-            // expect(grades.aGrades[0].examDate.format("DD-MM-YYYY")).toBe('15-06-2017');
-            expect(grades.sGrades[0].enrollDate.format("DD-MM-YYYY")).toBe('15-03-2017');
-
-            expect(logged).toBe(true);
-            expect(grades.aGrades.length).toBe(60);
-            expect(grades.sGrades.length).toBe(14);
-            expect(grades.exGrades.length).toBe(12);
-            // expect(grades.exGrades).not.toBe(undefined);
-            done();
-        });
-    });
     it.skip('should fetch the grades asynchronously', function (done) {
-        crawler.fetchPage(user.username, user.password, (logged, grades) => {
+        crawler.fetchPage(icarusUser.username, icarusUser.password, (logged, grades) => {
                 // console.log(logged);
                 // console.log(grades.aGrades.length);
                 // console.log(grades.sGrades.length);
@@ -40,19 +45,5 @@ describe('Crawler', function () {
                 done();
             }
         );
-    });
-});
-
-describe.skip('Icarus Crawler', function () {
-    let ic = new IcarusCrawler();
-    it('should fetch the grades', function (done) {
-        ic.fetchMockPage((logged, grades) => {
-            // console.log(grades);
-            expect(logged).toBe(true);
-            expect(grades.aGrades.length).toBeGreaterThan(80);
-            expect(grades.sGrades.length).toBeGreaterThan(40);
-            expect(grades.exGrades).not.toBe(undefined);
-            done();
-        });
     });
 });
