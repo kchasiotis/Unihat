@@ -27,6 +27,18 @@ const getLessons = function (code, enrollDate, onResponse) {
         });
 };
 
+const getUserLessonsNumber = function (user, onResponse) {
+    fetch(url + '/' + user, {
+        method: 'GET'
+    })
+        .then((response) => {
+            onResponse(response);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+};
+
 const postLessons = function (lessons, onResponse) {
 
     fetch(url + '/save', {
@@ -45,4 +57,4 @@ const postLessons = function (lessons, onResponse) {
         });
 };
 
-export {getLessons, postLessons};
+export {getLessons, postLessons, getUserLessonsNumber};
