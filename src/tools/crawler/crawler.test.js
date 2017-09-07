@@ -1,5 +1,6 @@
 import Crawler from './index';
 import icarusUser from './icarusCrawler/.user'
+import sefUser from './sefCrawler/.user'
 
 describe('Sef crawler', function () {
     let crawler = new Crawler();
@@ -17,6 +18,21 @@ describe('Sef crawler', function () {
             done();
         });
     });
+
+    it.skip('should fetch the grades asynchronously', function (done) {
+        crawler.fetchPage(sefUser.username, sefUser.password, (logged, grades) => {
+                try {
+                    expect(logged).toBe(true);
+                    expect(grades.aGrades.length).toBeGreaterThan(50);
+                    expect(grades.sGrades.length).toBeGreaterThan(11);
+                    expect(grades.exGrades).not.toBe(undefined);
+                } catch (error) {
+                    done.fail(error);
+                }
+                done();
+            }
+        );
+    });
 });
 
 describe('Icarus Crawler', function () {
@@ -31,17 +47,17 @@ describe('Icarus Crawler', function () {
             done();
         });
     });
+
     it.skip('should fetch the grades asynchronously', function (done) {
         crawler.fetchPage(icarusUser.username, icarusUser.password, (logged, grades) => {
-                // console.log(logged);
-                // console.log(grades.aGrades.length);
-                // console.log(grades.sGrades.length);
-                // console.log(grades.exGrades.length);
-                // console.log(grades.sGrades);
-                expect(logged).toBe(true);
-                expect(grades.aGrades.length).toBeGreaterThan(50);
-                expect(grades.sGrades.length).toBeGreaterThan(11);
-                expect(grades.exGrades).not.toBe(undefined);
+                try {
+                    expect(logged).toBe(true);
+                    expect(grades.aGrades.length).toBeGreaterThan(50);
+                    expect(grades.sGrades.length).toBeGreaterThan(11);
+                    expect(grades.exGrades).not.toBe(undefined);
+                } catch (error) {
+                    done.fail(error);
+                }
                 done();
             }
         );

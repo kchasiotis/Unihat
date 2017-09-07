@@ -116,7 +116,7 @@ export default class IcarusCrawler {
             data: formBody
         }).then(function (response) {
             console.log('Page loaded');
-            let data = iconv.decode(new Buffer(response.data), 'iso-8859-7'); // https://stackoverflow.com/questions/41412253/encoding-conversion-of-a-fetch-response
+            let data = iconv.decode(new Buffer(response.data), 'iso-8859-7');
             parseHtml(data, onResponse);
         });
     }
