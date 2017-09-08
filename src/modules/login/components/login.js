@@ -9,7 +9,6 @@ import env from '../../../../environment'
 import 'react-native-console-time-polyfill';
 import {NavigationActions} from 'react-navigation'
 import {LoginState} from '../actions'
-import CredentialStorage from '../../../tools/credentialStorage'
 
 export default class Login extends Component {
     static navigationOptions = {
@@ -51,8 +50,6 @@ export default class Login extends Component {
     componentDidUpdate() {
         // Dispatch to main screen on log in
         if (this.props.loginState === LoginState.LOGGED_IN) {
-            CredentialStorage.set(this.state.username, this.state.password);
-
             const resetAction = NavigationActions.reset({
                 index: 0,
                 actions: [

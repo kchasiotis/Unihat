@@ -1,5 +1,5 @@
 import crawler from '../../tools/crawler'
-import * as Keychain from 'react-native-keychain'
+import CredentialStorage from '../../../tools/credentialStorage'
 import env from '../../../environment'
 
 export const SET_GRADES = 'SET_GRADES';
@@ -43,20 +43,15 @@ export const setLoginState = (state) => {
     }
 };
 
-export function login(username, password, save) {
+export function login(username, password, chkBox) {
 
     return function (dispatch) {
         let onResponse = (loggedIn, grades) => {
             if (loggedIn === true) {
                 dispatch(setLoginState(LoginState.LOGGED_IN));
                 dispatch(setGrades(grades));
-                if (save === true) {
-                    Keychain
-                        .setGenericPassword(username, password)
-                        .then(function () {
-                            console.log('Credentials saved successfully!');
-                        });
-                }
+
+                if (chkBox === true) CredentialStorage.set(this.state.username, this.state.password);
             } else if (loggedIn === false) {
                 dispatch(setLoginState(LoginState.FAILED));
             }
