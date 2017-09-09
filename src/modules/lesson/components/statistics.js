@@ -3,7 +3,6 @@ import {Card, CardItem} from 'native-base'
 import {Bar} from 'react-native-pathjs-charts'
 
 const Statistics = ({lessons}) => {
-    console.log(lessons);
     if (lessons.length === 0) return null;
 
     lessons.sort(function (lesson1, lesson2) {
@@ -26,8 +25,8 @@ const Statistics = ({lessons}) => {
     let data = [];
     for (let i = 0; i < gradeArray.length; i++) {
         // data.push([{v: gradeArray[i], name: ((counterArray[i] / lessons.length).toFixed(2) * 100) + '%'}]);
-        // data.push([{v:((counterArray[i] / lessons.length).toFixed(2) * 100), name:  gradeArray[i]}]);
-        data.push([{v:counterArray[i], name:  gradeArray[i]}]);
+        data.push([{v:((counterArray[i] / lessons.length).toFixed(2) * 100), name:  gradeArray[i]}]);
+        // data.push([{v:counterArray[i], name:  gradeArray[i]}]);
     }
 
     let options = {

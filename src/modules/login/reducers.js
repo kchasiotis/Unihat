@@ -17,7 +17,7 @@ function user(state = {loginState: env ? LoginState.LOADING : LoginState.INITIAL
         case RESET_STATE:
             return Object.assign({}, state, {loginState: LoginState.INITIAL});
         case SET_CURRENT_LESSON:
-            return Object.assign({}, state, {currentLesson: action.currentLesson});
+            return Object.assign({}, state, {currentLesson: action.currentLesson}, {lessonList: []});
         case SET_LESSON_LIST:
             return Object.assign({}, state, {lessonList: action.lessonList});
         default:
