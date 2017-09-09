@@ -25,7 +25,7 @@ class Lesson extends Component {
                         <Text style={lessonStyle.itemTitle}>Βαθμός</Text>
                         {
                             currentLesson.grade !== null ?
-                                <Right>
+                                <Right style={lessonStyle.itemRight}>
                                     <Badge success={currentLesson.grade >= 5}>
                                         <Text>{currentLesson.grade}</Text>
                                     </Badge>
@@ -35,7 +35,7 @@ class Lesson extends Component {
                     </CardItem>
                     <CardItem>
                         <Text style={lessonStyle.itemTitle}>Εξάμηνο</Text>
-                        <Right>
+                        <Right style={lessonStyle.itemRight}>
                             <Badge style={{backgroundColor: 'gray'}}>
                                 <Text>{currentLesson.semester + 'ο'}</Text>
                             </Badge>
@@ -43,7 +43,7 @@ class Lesson extends Component {
                     </CardItem>
                     <CardItem>
                         <Text style={lessonStyle.itemTitle}>Κατάσταση</Text>
-                        <Right>
+                        <Right style={lessonStyle.itemRight}>
                             <Badge style={lessonStyle.lessonState(currentLesson.state)}>
                                 <Text>{currentLesson.state}</Text>
                             </Badge>
@@ -51,19 +51,19 @@ class Lesson extends Component {
                     </CardItem>
                     <CardItem>
                         <Text style={lessonStyle.itemTitle}>Ημερομηνία δήλωσης</Text>
-                        <Right>
+                        <Right style={lessonStyle.itemRight}>
                             <Text style={lessonStyle.itemContent}>{currentLesson.enrollDate}</Text>
                         </Right>
                     </CardItem>
                     <CardItem>
                         <Text style={lessonStyle.itemTitle}>Ημερομηνία Εξέτασης</Text>
-                        <Right>
+                        <Right style={lessonStyle.itemRight}>
                             <Text style={lessonStyle.itemContent}>{currentLesson.examDate}</Text>
                         </Right>
                     </CardItem>
                     <CardItem>
                         <Text style={lessonStyle.itemTitle}>Κωδικός</Text>
-                        <Right>
+                        <Right style={lessonStyle.itemRight}>
                             <Text style={lessonStyle.itemContent}>{currentLesson.code}</Text>
                         </Right>
                     </CardItem>
@@ -89,6 +89,9 @@ const lessonStyle = {
     },
     itemContent: {
         color: 'gray'
+    },
+    itemRight:{
+        flex: 1 // todo: remove if possible
     },
     lessonState: (state) => {
         let color = '';
