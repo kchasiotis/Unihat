@@ -5,6 +5,7 @@ import env from '../../../environment'
 
 export const SET_GRADES = 'SET_GRADES';
 export const SET_CURRENT_LESSON = 'SET_CURRENT_LESSON';
+export const SET_LESSON_LIST = 'SET_LESSON_LIST';
 export const SET_LOGIN_STATE = 'SET_LOGIN_STATE';
 export const RESET_STATE = 'RESET_STATE';
 
@@ -43,6 +44,22 @@ export const setLoginState = (state) => {
         login_state: state
     }
 };
+
+export function getLessonStatistics(lesson){
+
+    return function(dispatch){
+        lessonAPI.getLessons(lesson.code, lesson.examDate, (res) => res.json().then((ls => {
+            dispatch(setLessonList(ls))
+        })));
+    }
+}
+
+export function setLessonList(ls){
+    return {
+        type: SET_LESSON_LIST,
+        lessonList: ls
+    }
+}
 
 export function login(username, password, chkBox) {
 

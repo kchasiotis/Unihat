@@ -4,7 +4,8 @@ import {connect} from 'react-redux'
 
 const mapStateToProps = (state) => {
     return {
-        currentLesson: state.user.currentLesson
+        currentLesson: state.user.currentLesson,
+        lessonList: state.user.lessonList
     }
 };
 

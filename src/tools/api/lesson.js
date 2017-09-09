@@ -1,10 +1,10 @@
 let url = 'http://192.168.1.9:3000/lesson';
 
-const getLessons = function (code, enrollDate, onResponse) {
+const getLessons = function (code, examDate, onResponse) {
     // region Set up url params
     let params = {
         code: code,
-        enrollDate: enrollDate
+        examDate: examDate
     };
 
     let esc = encodeURIComponent;
@@ -16,9 +16,8 @@ const getLessons = function (code, enrollDate, onResponse) {
     fetch(url + '?' + query, {
         method: 'GET'
     })
-        .then((response) => response.json())
-        .then((responseJson) => {
-            onResponse(responseJson);
+        .then((response) => {
+            onResponse(response);
         })
         .catch((error) => {
             console.error(error);

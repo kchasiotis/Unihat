@@ -1,14 +1,10 @@
 import React, {Component} from 'react';
-import {Card, CardItem, Content, Text, Right, Badge} from 'native-base'
+import {Card, CardItem, Content, Text, Right, Badge} from 'native-base';
+import Statistics from './statistics';
 
 class Lesson extends Component {
     constructor(props) {
-        super(props)
-        this.state = {lessonsArray: []};
-    }
-
-    ComponentWillMount(){
-
+        super(props);
     }
 
     render() {
@@ -72,6 +68,7 @@ class Lesson extends Component {
                         </Right>
                     </CardItem>
                 </Card>
+                <Statistics lessons={this.props.lessonList}/>
             </Content>
         );
 

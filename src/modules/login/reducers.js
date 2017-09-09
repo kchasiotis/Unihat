@@ -1,4 +1,4 @@
-import {SET_GRADES, SET_LOGIN_STATE, RESET_STATE, SET_CURRENT_LESSON, LoginState} from './actions'
+import {SET_GRADES, SET_LOGIN_STATE, RESET_STATE, SET_CURRENT_LESSON, SET_LESSON_LIST, LoginState} from './actions'
 import env from '../../../environment'
 
 function grades(state = {}, action) {
@@ -10,7 +10,7 @@ function grades(state = {}, action) {
     }
 }
 
-function user(state = {loginState: env ? LoginState.LOADING : LoginState.INITIAL, currentLesson: null}, action) {
+function user(state = {loginState: env ? LoginState.LOADING : LoginState.INITIAL, currentLesson: null, lessonList: []}, action) {
     switch (action.type) {
         case SET_LOGIN_STATE:
             return Object.assign({}, state, {loginState: action.login_state});
@@ -18,6 +18,8 @@ function user(state = {loginState: env ? LoginState.LOADING : LoginState.INITIAL
             return Object.assign({}, state, {loginState: LoginState.INITIAL});
         case SET_CURRENT_LESSON:
             return Object.assign({}, state, {currentLesson: action.currentLesson});
+        case SET_LESSON_LIST:
+            return Object.assign({}, state, {lessonList: action.lessonList});
         default:
             return state;
     }

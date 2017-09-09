@@ -20,6 +20,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         setCurrentLesson: (lesson) => {
             dispatch(actions.setCurrentLesson(lesson));
+        },
+        getLessonStatistics: (lesson) => {
+            dispatch(actions.getLessonStatistics(lesson));
         }
     }
 };
