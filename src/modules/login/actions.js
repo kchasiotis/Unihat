@@ -1,5 +1,6 @@
 import crawler from '../../tools/crawler'
-import CredentialStorage from '../../../tools/credentialStorage'
+import {lessonAPI} from '../../tools/api'
+import CredentialStorage from '../../tools/credentialStorage'
 import env from '../../../environment'
 
 export const SET_GRADES = 'SET_GRADES';
@@ -50,8 +51,9 @@ export function login(username, password, chkBox) {
             if (loggedIn === true) {
                 dispatch(setLoginState(LoginState.LOGGED_IN));
                 dispatch(setGrades(grades));
+                dispatch(postLessonsCheck(username, grades.aGrades.concat(grades.exGrades)));
 
-                if (chkBox === true) CredentialStorage.set(this.state.username, this.state.password);
+                if (chkBox === true) CredentialStorage.set(username, password);
             } else if (loggedIn === false) {
                 dispatch(setLoginState(LoginState.FAILED));
             }
@@ -64,5 +66,32 @@ export function login(username, password, chkBox) {
         } else {
             crawlerObj.fetchMockPage(username, onResponse);
         }
+    }
+}
+
+export function postLessonsCheck(username, lessons) {
+
+    return function (dispatch) {
+        let onResponse = (res) => {
+            res.json().then((resJs)=>{
+                if(resJs.lessonsNumber !== lessons.length) dispatch(postLessons({lessons: lessons, username: username}));
+                else console.log('Lessons already uploaded')
+            })
+        };
+
+        lessonAPI.getUserLessonsNumber(username, onResponse)
+    }
+}
+
+export function postLessons(lessons) {
+
+    return function (dispatch) {
+        let onResponse = (res) => {
+            res.json().then((resJs)=>{
+                console.log('Sent ' + resJs.insertedNumber)
+            })
+        };
+
+        lessonAPI.postLessons(lessons, onResponse)
     }
 }

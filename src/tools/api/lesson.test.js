@@ -1,4 +1,5 @@
-let lessonAPI = require('./lesson');
+let lessonAPI = require('./lesson').lessonAPI;
+require('isomorphic-fetch');
 
 let user = {username: 'icsd11175'};
 

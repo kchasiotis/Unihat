@@ -1,6 +1,4 @@
-import fetch from 'isomorphic-fetch'
-
-let url = 'http://localhost:3000/lesson';
+let url = 'http://192.168.1.9:3000/lesson';
 
 const getLessons = function (code, enrollDate, onResponse) {
     // region Set up url params
@@ -57,4 +55,6 @@ const postLessons = function (lessons, onResponse) {
         });
 };
 
-export {getLessons, postLessons, getUserLessonsNumber};
+const lessonAPI = {getLessons, postLessons, getUserLessonsNumber};
+
+export {lessonAPI};
