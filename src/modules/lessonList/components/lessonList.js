@@ -5,11 +5,15 @@ import {FlatList, RefreshControl} from 'react-native';
 import Crawler from '../../../tools/crawler';
 import CredentialStorage from '../../../tools/credentialStorage';
 import lesson from '../../lesson/components/lesson';
+import {AppState, AsyncStorage} from 'react-native'
 
 class LessonList extends Component {
     constructor(props) {
         super(props);
-        this.state = {refreshing: false};
+        this.state = {
+            refreshing: false,
+            appState: AppState.currentState
+        };
         this.crawler = new Crawler();
         this.refreshLessons = this.refreshLessons.bind(this);
         this.openLesson = this.openLesson.bind(this);
@@ -36,6 +40,33 @@ class LessonList extends Component {
             this.props.navigation.navigate('lesson');
         }
     }
+
+
+    componentDidMount() {
+        AppState.addEventListener('change', this._handleAppStateChange);
+    }
+
+    componentWillUnmount() {
+        AppState.removeEventListener('change', this._handleAppStateChange);
+    }
+
+    _handleAppStateChange = (nextAppState) => {
+        if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
+            AsyncStorage.getItem('refresh', (err, action) => {
+                if (err) {
+                    console.log(err);
+                    return;
+                }
+                action = JSON.parse(action);
+
+                if(this.props.routeName === 'exGrades' && action.shouldRefresh === true) {
+                    this.refreshLessons();
+                    AsyncStorage.setItem('refresh', JSON.stringify({shouldRefresh: false}));
+                }
+            })
+        }
+        this.setState({appState: nextAppState});
+    };
 
     render() {
         // if (this.props.grades.length === 0) return <Text>Άδεια λίστα μαθημάτων</Text>;

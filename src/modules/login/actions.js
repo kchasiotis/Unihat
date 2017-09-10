@@ -1,6 +1,8 @@
+import {AsyncStorage} from 'react-native'
 import crawler from '../../tools/crawler'
 import {lessonAPI} from '../../tools/api'
 import CredentialStorage from '../../tools/credentialStorage'
+import BackgroundJob from 'react-native-background-job';
 import env from '../../../environment'
 
 export const SET_GRADES = 'SET_GRADES';
@@ -69,6 +71,16 @@ export function login(username, password, chkBox) {
                 dispatch(setLoginState(LoginState.LOGGED_IN));
                 dispatch(setGrades(grades));
                 dispatch(postLessonsCheck(username, grades.aGrades.concat(grades.exGrades)));
+                AsyncStorage.setItem('exGrades', JSON.stringify(grades.exGrades));
+
+                let newGradeCheckSchedule = {
+                    jobKey: "newGradeCheck",
+                    timeout: 10000,
+                    period: 5000,
+                    override: true,
+                    networkType: BackgroundJob.NETWORK_TYPE_ANY
+                };
+                BackgroundJob.schedule(newGradeCheckSchedule);
 
                 if (chkBox === true) CredentialStorage.set(username, password);
             } else if (loggedIn === false) {
