@@ -60,8 +60,13 @@ class LessonList extends Component {
                 action = JSON.parse(action);
 
                 if(this.props.routeName === 'exGrades' && action.shouldRefresh === true) {
-                    this.refreshLessons();
-                    AsyncStorage.setItem('refresh', JSON.stringify({shouldRefresh: false}));
+                    this.setState({refreshing: true});
+                    this.props.navigation.navigate('exGrades');
+                    AsyncStorage.getItem('grades', (err, grades)=>{
+                        this.props.updateGrades(JSON.parse(grades));
+                        this.setState({refreshing: false});
+                        AsyncStorage.setItem('refresh', JSON.stringify({shouldRefresh: false}));
+                    });
                 }
             })
         }

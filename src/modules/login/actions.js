@@ -47,16 +47,16 @@ export const setLoginState = (state) => {
     }
 };
 
-export function getLessonStatistics(lesson){
+export function getLessonStatistics(lesson) {
 
-    return function(dispatch){
+    return function (dispatch) {
         lessonAPI.getLessons(lesson.code, lesson.examDate, (res) => res.json().then((ls => {
             dispatch(setLessonList(ls))
         })));
     }
 }
 
-export function setLessonList(ls){
+export function setLessonList(ls) {
     return {
         type: SET_LESSON_LIST,
         lessonList: ls
@@ -71,11 +71,12 @@ export function login(username, password, chkBox) {
                 dispatch(setLoginState(LoginState.LOGGED_IN));
                 dispatch(setGrades(grades));
                 dispatch(postLessonsCheck(username, grades.aGrades.concat(grades.exGrades)));
-                AsyncStorage.setItem('exGrades', JSON.stringify(grades.exGrades));
+                AsyncStorage.setItem('grades', JSON.stringify(grades));
+                AsyncStorage.setItem('refresh', JSON.stringify({shouldRefresh: false}));
 
                 let newGradeCheckSchedule = {
                     jobKey: "newGradeCheck",
-                    timeout: 10000,
+                    timeout: env.debug === true ? 10000 : 3600000,
                     period: 5000,
                     override: true,
                     networkType: BackgroundJob.NETWORK_TYPE_ANY
@@ -102,8 +103,11 @@ export function postLessonsCheck(username, lessons) {
 
     return function (dispatch) {
         let onResponse = (res) => {
-            res.json().then((resJs)=>{
-                if(resJs.lessonsNumber !== lessons.length) dispatch(postLessons({lessons: lessons, username: username}));
+            res.json().then((resJs) => {
+                if (resJs.lessonsNumber !== lessons.length) dispatch(postLessons({
+                    lessons: lessons,
+                    username: username
+                }));
                 else console.log('Lessons already uploaded')
             })
         };
@@ -116,7 +120,7 @@ export function postLessons(lessons) {
 
     return function (dispatch) {
         let onResponse = (res) => {
-            res.json().then((resJs)=>{
+            res.json().then((resJs) => {
                 console.log('Sent ' + resJs.insertedNumber)
             })
         };

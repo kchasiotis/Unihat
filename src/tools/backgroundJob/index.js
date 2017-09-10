@@ -11,13 +11,13 @@ const newGradeCheck = {
         credentialStorage.load((username, password) => {
                 crawler.fetchPage(username, password, (logged, serverGrades) => {
                     if (logged) {
-                        AsyncStorage.getItem('exGrades', (err, storedGrades) => {
+                        AsyncStorage.getItem('grades', (err, storedGrades) => {
                             if(err){
                                 console.log(err);
                                 return;
                             }
 
-                            let storedExGrades = JSON.parse(storedGrades);
+                            let storedExGrades = JSON.parse(storedGrades).exGrades;
                             let serverExGrades = serverGrades.exGrades.filter((lesson) => lesson.grade !== null);
 
                             for (let i = 0; i < storedExGrades.length; i++) {
@@ -29,6 +29,7 @@ const newGradeCheck = {
                                             playSound: true, // (optional) default: true
                                             soundName: 'default', // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)
                                         });
+                                        AsyncStorage.setItem('grades', JSON.stringify(serverGrades));
                                         AsyncStorage.setItem('refresh', JSON.stringify({shouldRefresh: true}));
                                     }
                                 }
