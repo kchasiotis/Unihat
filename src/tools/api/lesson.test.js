@@ -9,7 +9,7 @@ let body = {lessons: sampleLessons.aGrades, username: user.username};
 describe('Api should', function () {
     it('Get lessons', (done) => {
         try {
-            lessonAPI.getLessons('321-2103', '1998-01-02', (res) => res.json().then((resJS) => {
+            lessonAPI.getLessons('321-2103', '02-01-1998', (res) => res.json().then((resJS) => {
                     console.log(resJS);
                     expect(resJS.length).toBe(3);
                     done()

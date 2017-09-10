@@ -11,21 +11,9 @@ const Dimensions = require('Dimensions');
 class ChartScreen extends Component {
     constructor(props) {
         super(props);
-        // region Calculate succeeded grades average
-        let grades = this.props.allGrades.sGrades.concat(this.props.allGrades.exGrades);
-
-        grades = grades.filter((lesson) => {
-            return lesson.grade >= 5 && lesson.state === 'Επιτυχία';
-        });
-
-        let length = grades.length;
-        let sum = grades.reduce((acc, val) => acc + val.grade, 0);
-
-        let average = (sum / length).toPrecision(3);
-        // endregion
 
         let screenSize = Dimensions.get('window');
-        this.state = {grades: grades, average: average, lessonsNumber: length, screenSize: screenSize};
+        this.state = {screenSize: screenSize};
 
         this.orientationChange = this.orientationChange.bind(this);
         this.orientation = (screenSize.width > screenSize.height) ? 'LANDSCAPE' : 'PORTRAIT';
@@ -42,6 +30,21 @@ class ChartScreen extends Component {
     }
 
     render() {
+        // region Calculate succeeded grades average
+        let grades = this.props.allGrades.sGrades.concat(this.props.allGrades.exGrades);
+
+        grades = grades.filter((lesson) => {
+            return lesson.grade >= 5 && lesson.state === 'Επιτυχία';
+        });
+
+        let lessonsNumber = grades.length;
+        let sum = grades.reduce((acc, val) => acc + val.grade, 0);
+
+        let average = (sum / lessonsNumber).toPrecision(3);
+        // endregion
+
+
+        //region Set up UI
         let pieSize = this.state.screenSize.width / 2;
         // todo: change formula when flex functionality is supported from package
         let barWidth = this.state.screenSize.width * 0.85;
@@ -50,20 +53,21 @@ class ChartScreen extends Component {
         let fillColor = {'r': 240, 'g': 240, 'b': 240};
         let pie1 = {'r': 51, 'g': 202, 'b': 70};
         let pie2 = {'r': 255, 'g': 189, 'b': 27};
+        //endregion
 
         return (
             <ScrollView style={styles.main} onLayout={this.orientationChange}>
                 <View style={{flexDirection: 'row'}}>
-                    <PieChartWrapper chartValue={this.state.average} chartType="average"
+                    <PieChartWrapper chartValue={average} chartType="average"
                                      pieSize={pieSize} mainColor={pie1} fillColor={fillColor}/>
 
-                    <PieChartWrapper chartValue={this.state.lessonsNumber} chartType="succeedLessons"
+                    <PieChartWrapper chartValue={lessonsNumber} chartType="succeedLessons"
                                      pieSize={pieSize} mainColor={pie2} fillColor={fillColor}/>
                 </View>
                 <View style={styles.barChart}>
                     <ChartTitle title={pieChartType['lessonsPerGrade'].title}
                                 description={pieChartType['lessonsPerGrade'].description}/>
-                    <BarChart width={barWidth} grades={this.state.grades}/>
+                    <BarChart width={barWidth} grades={grades}/>
                 </View>
             </ScrollView>
         );
