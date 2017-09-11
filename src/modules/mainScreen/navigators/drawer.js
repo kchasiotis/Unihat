@@ -48,6 +48,7 @@ export default class Drawer extends Component {
                 initialRouteName: initRoute,
                 animationEnabled: false,
                 swipeEnabled: false,
+                backBehavior: 'none',
                 tabBarComponent: () => <Text style={{display: 'none'}}/>
             }
         );

@@ -13,7 +13,9 @@
     "init": "npm install && mkdir android/app/src/main/assets && react-native link",
     "emulator": "$ANDROID_HOME/tools/emulator -avd First",
     "preStart": "./scripts/watchmanIncreaseLimits.sh && ncu && $ANDROID_HOME/tools/emulator -avd First",
+    "server": "node ../IcarusAegean-server/bin/www",
     "bundle": "npm run setEnv production && react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/ && cd android && ./gradlew assembleRelease",
+    "bundleDebug": "npm run setEnv debug && react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/ && cd android && ./gradlew assembleRelease",
     "installAndroid": "react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --sourcemap-output android/app/src/main/assets/index.android.map --assets-dest android/app/src/main/res/ && react-native run-android",
     "reinstallAndroid": "npm run clean && npm run installAndroid"
   },
