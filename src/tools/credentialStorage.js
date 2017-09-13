@@ -5,10 +5,10 @@ export default class CredentialStorage{
         Keychain
             .getGenericPassword()
             .then(function (credentials) {
-                onLoad(credentials.username, credentials.password);
+                onLoad(null, credentials.username, credentials.password);
             }.bind(this))
             .catch(function (error) {
-                console.log('Load credentials failed! Maybe no value set?', error);
+                onLoad(error);
             }.bind(this));
     }
 

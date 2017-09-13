@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {InitializeLessonList} from '../../lessonList'
-import MenuContent from '../components/MenuContent'
+import {MenuContent} from '../containers/MenuContent'
 import {ChartScreen} from '../../chartScreen'
 import {Lesson} from '../../lesson'
 import {DrawerNavigator, StackNavigator, NavigationActions, TabNavigator} from 'react-navigation';

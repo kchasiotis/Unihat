@@ -24,8 +24,6 @@ export default class Login extends Component {
         this.handleCheckbox = this.handleCheckbox.bind(this);
 
         this.login = this.login.bind(this);
-        // todo: move reset functionality to logout
-        this.props.resetState();
 
         if (env.debug && env.autoLogin) {
             // todo: remove setTimeout
@@ -42,19 +40,29 @@ export default class Login extends Component {
     }
 
     componentWillMount() {
+        if (this.props.loginState === LoginState.LOGGED_OUT) return;
+
         AsyncStorage.getItem('credentialCheckBox', (err, result) => {
             if (result === null || err) return;
 
             let toBoolean = result === 'true';
             this.handleCheckbox(toBoolean);
-            console.log(toBoolean);
 
             // Load user credentials
             if (toBoolean === false) {
                 // Reset checkbox value
                 CredentialStorage.reset();
+                this.props.setLoginState(LoginState.LOADED_CREDENTIALS);
             } else {
-                CredentialStorage.load((username, password) => this.setState({username: username, password: password}));
+                CredentialStorage.load((error, username, password) => {
+                    if (error) {
+                        console.log('Load credentials failed! Maybe no value set?', error);
+                        this.props.setLoginState(LoginState.LOADED_CREDENTIALS);
+                        return;
+                    }
+                    this.props.setLoginState(LoginState.LOADED_CREDENTIALS);
+                    this.props.login(username, password, true);
+                });
             }
         })
     }
@@ -94,7 +102,7 @@ export default class Login extends Component {
 
     render() {
         const {loginState} = this.props;
-        const {LOGGED_IN, LOADING, FAILED} = LoginState;
+        const {LOGGED_IN, LOADING, FAILED, INITIAL, LOADED_CREDENTIALS, LOGGED_OUT} = LoginState;
 
         if (loginState === LOGGED_IN) return null;
 
@@ -110,45 +118,59 @@ export default class Login extends Component {
                 </View>
             );
 
-        return (
-            <Image source={require('./background.png')} style={style.backgroundImage}>
-                <StatusBar
-                    backgroundColor="#2137AA"
-                    barStyle="light-content"
-                />
-                <View style={style.main}>
-                    <View style={style.content}>
-                        {
-                            loginState === FAILED ?
-                                <View style={style.errorMessage}>
-                                    <Badge danger>
-                                        <Text>Τα στοιχεία που εισάγατε είναι λάθος</Text>
-                                    </Badge>
-                                </View> :
-                                null
-                        }
-                        <Item regular style={style.input}>
-                            <Icon active style={style.icon} name='person'/>
-                            <Input value={this.state.username} onChangeText={this.handleUsername}
-                                   placeholder='Όνομα χρήστη'/>
-                        </Item>
-                        <Item regular style={style.input}>
-                            <Icon active style={style.icon} name='key'/>
-                            <Input value={this.state.password} onChangeText={this.handlePassword} secureTextEntry
-                                   placeholder='Κωδικός'/>
-                        </Item>
-                        <View style={style.logButton.wrapper}>
-                            <Button full onPress={this.login}>
-                                <Text style={style.logButton.buttonText}>ΕΙΣΟΔΟΣ</Text>
-                            </Button>
+        if (loginState === INITIAL)
+            return (
+                <Image source={require('./background.png')} style={style.backgroundImage}>
+                    <StatusBar
+                        backgroundColor="#2137AA"
+                        barStyle="light-content"
+                    />
+                </Image>
+            );
+
+        if (loginState === LOADED_CREDENTIALS || loginState === LOGGED_OUT) {
+            return (
+                <Image source={require('./background.png')} style={style.backgroundImage}>
+                    <StatusBar
+                        backgroundColor="#2137AA"
+                        barStyle="light-content"
+                    />
+                    <View style={style.main}>
+                        <View style={style.content}>
+                            {
+                                loginState === FAILED ?
+                                    <View style={style.errorMessage}>
+                                        <Badge danger>
+                                            <Text>Τα στοιχεία που εισάγατε είναι λάθος</Text>
+                                        </Badge>
+                                    </View> :
+                                    null
+                            }
+                            <Item regular style={style.input}>
+                                <Icon active style={style.icon} name='person'/>
+                                <Input value={this.state.username} onChangeText={this.handleUsername}
+                                       placeholder='Όνομα χρήστη'/>
+                            </Item>
+                            <Item regular style={style.input}>
+                                <Icon active style={style.icon} name='key'/>
+                                <Input value={this.state.password} onChangeText={this.handlePassword} secureTextEntry
+                                       placeholder='Κωδικός'/>
+                            </Item>
+                            <View style={style.logButton.wrapper}>
+                                <Button full onPress={this.login}>
+                                    <Text style={style.logButton.buttonText}>ΕΙΣΟΔΟΣ</Text>
+                                </Button>
+                            </View>
+                            <CredentialCheckbox
+                                handleCheckbox={this.handleCheckbox}
+                                value={this.state.credentialCheckBox}/>
                         </View>
-                        <CredentialCheckbox
-                            handleCheckbox={this.handleCheckbox}
-                            value={this.state.credentialCheckBox}/>
                     </View>
-                </View>
-            </Image>
-        );
+                </Image>
+            );
+        }
+
+        return <Text>Something went wrong with login</Text>;
     }
 }
 

@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {ListItem, Left, Text, Body, Icon, Content, Thumbnail} from 'native-base';
-import {View} from 'react-native';
+import {View, AsyncStorage} from 'react-native';
 import Crawler from '../../../tools/crawler';
+import {actionTypes} from '../../login';
 
 export default class MenuContent extends Component {
     crawler = new Crawler();
@@ -21,8 +22,10 @@ export default class MenuContent extends Component {
     }
 
     logout() {
+        this.props.setLoginState(actionTypes.LoginState.LOGGED_OUT);
         this.props.loginRoute();
         this.crawler.logout();
+        AsyncStorage.setItem('credentialCheckBox', JSON.stringify(false));
     }
 
     render() {

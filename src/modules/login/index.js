@@ -1,7 +1,7 @@
 import Login from './components/login'
 
 import {connect} from 'react-redux'
-import {SET_LOGIN_STATE, RESET_STATE, SET_GRADES, SET_CURRENT_LESSON} from './actions';
+import {SET_LOGIN_STATE, RESET_STATE, SET_GRADES, SET_CURRENT_LESSON, LoginState} from './actions';
 import {login, resetState, setLoginState, setGrades, setCurrentLesson, getLessonStatistics} from './actions';
 import {grades, user} from './reducers';
 
@@ -18,6 +18,9 @@ const mapDispatchToProps = dispatch => {
         },
         resetState: () => {
             dispatch(resetState());
+        },
+        setLoginState: (state) => {
+            dispatch(setLoginState(state));
         }
     };
 };
@@ -28,7 +31,7 @@ const loginRedux = connect(
 )(Login);
 
 const actions = {login, resetState, setLoginState, setGrades, setCurrentLesson, getLessonStatistics};
-const actionTypes = {SET_LOGIN_STATE, RESET_STATE, SET_GRADES, SET_CURRENT_LESSON};
+const actionTypes = {SET_LOGIN_STATE, RESET_STATE, SET_GRADES, SET_CURRENT_LESSON, LoginState};
 const reducers = {grades, user};
 
 export {loginRedux as Login};

@@ -14,8 +14,10 @@ export const RESET_STATE = 'RESET_STATE';
 
 export const LoginState = {
     INITIAL: 'INITIAL',
+    LOADED_CREDENTIALS: 'LOADED_CREDENTIALS',
     LOADING: 'LOADING',
     LOGGED_IN: 'LOGGED_IN',
+    LOGGED_OUT: 'LOGGED_OUT',
     FAILED: 'FAILED'
 };
 
