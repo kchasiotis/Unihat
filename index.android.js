@@ -8,13 +8,15 @@ import thunkMiddleware from 'redux-thunk'
 import AppReducer from './src/modules/rootReducer';
 
 import BackgroundJob from 'react-native-background-job';
-import {job} from './src/tools/backgroundJob';
+import {newGradeCheckJob, jobNames} from './src/tools/backgroundJob';
 
 const store = createStore(AppReducer, applyMiddleware(
     thunkMiddleware
 ));
 
-BackgroundJob.register(job);
+const {mobile, wifi} = jobNames.newGradeCheck;
+BackgroundJob.register(newGradeCheckJob(mobile));
+BackgroundJob.register(newGradeCheckJob(wifi));
 
 export default class IcarusAegean extends Component {
     render() {

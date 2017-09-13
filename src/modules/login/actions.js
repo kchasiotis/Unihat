@@ -3,6 +3,7 @@ import crawler from '../../tools/crawler'
 import {lessonAPI} from '../../tools/api'
 import CredentialStorage from '../../tools/credentialStorage'
 import BackgroundJob from 'react-native-background-job';
+import {jobNames} from '../../tools/backgroundJob'
 import env from '../../../environment'
 
 export const SET_GRADES = 'SET_GRADES';
@@ -74,14 +75,23 @@ export function login(username, password, chkBox) {
                 AsyncStorage.setItem('grades', JSON.stringify(grades));
                 AsyncStorage.setItem('refresh', JSON.stringify({shouldRefresh: false}));
 
-                let newGradeCheckSchedule = {
-                    jobKey: "newGradeCheck",
-                    timeout: env.debug === true ? 10000 : 3600000,
-                    period: 5000,
+                let newGradeCheckScheduleWifi = {
+                    jobKey: jobNames.newGradeCheck.wifi,
+                    timeout: 15000,
+                    period: env.debug === true ? 5 * 1000 : 60 * 60 * 1000,
                     override: true,
                     networkType: BackgroundJob.NETWORK_TYPE_ANY
                 };
-                BackgroundJob.schedule(newGradeCheckSchedule);
+
+                let newGradeCheckScheduleMobile = {
+                    jobKey: jobNames.newGradeCheck.mobile,
+                    timeout: 15000,
+                    period: env.debug === true ? 5 * 1000 : 12 * 60 * 60 * 1000,
+                    override: true,
+                    networkType: BackgroundJob.NETWORK_TYPE_UNMETERED
+                };
+                BackgroundJob.schedule(newGradeCheckScheduleWifi);
+                BackgroundJob.schedule(newGradeCheckScheduleMobile);
 
                 if (chkBox === true) CredentialStorage.set(username, password);
             } else if (loggedIn === false) {

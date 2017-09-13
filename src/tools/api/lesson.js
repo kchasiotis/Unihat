@@ -20,7 +20,7 @@ const getLessons = function (code, examDate, onResponse) {
             onResponse(response);
         })
         .catch((error) => {
-            console.error(error);
+            console.log(error);
         });
 };
 
@@ -32,7 +32,7 @@ const getUserLessonsNumber = function (user, onResponse) {
             onResponse(response);
         })
         .catch((error) => {
-            console.error(error);
+            console.log(error);
         });
 };
 
@@ -50,7 +50,7 @@ const postLessons = function (lessons, onResponse) {
             onResponse(response);
         })
         .catch((error) => {
-            console.error(error);
+            console.log(error);
         });
 };
 
