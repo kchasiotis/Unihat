@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import {View, Image, StatusBar} from 'react-native';
+import {View, Image, StatusBar, AsyncStorage} from 'react-native';
 
 import {Item, Icon, Input, Button, Text, Badge, ListItem, CheckBox} from 'native-base';
 import Spinner from 'react-native-loading-spinner-overlay';
 import CredentialCheckbox from './credentialCheckbox';
+import CredentialStorage from '../../../tools/credentialStorage'
 
 import env from '../../../../environment'
 import 'react-native-console-time-polyfill';
@@ -23,7 +24,6 @@ export default class Login extends Component {
         this.handleCheckbox = this.handleCheckbox.bind(this);
 
         this.login = this.login.bind(this);
-        this.onCredentialsLoad = this.onCredentialsLoad.bind(this);
         // todo: move reset functionality to logout
         this.props.resetState();
 
@@ -41,10 +41,22 @@ export default class Login extends Component {
         }
     }
 
-    login() {
-        !env.debug || console.time("fetch");
+    componentWillMount() {
+        AsyncStorage.getItem('credentialCheckBox', (err, result) => {
+            if (result === null || err) return;
 
-        this.props.login(this.state.username, this.state.password, this.state.credentialCheckBox);
+            let toBoolean = result === 'true';
+            this.handleCheckbox(toBoolean);
+            console.log(toBoolean);
+
+            // Load user credentials
+            if (toBoolean === false) {
+                // Reset checkbox value
+                CredentialStorage.reset();
+            } else {
+                CredentialStorage.load((username, password) => this.setState({username: username, password: password}));
+            }
+        })
     }
 
     componentDidUpdate() {
@@ -61,8 +73,10 @@ export default class Login extends Component {
         }
     }
 
-    onCredentialsLoad(username, password) {
-        this.setState({username: username, password: password})
+    login() {
+        !env.debug || console.time("fetch");
+
+        this.props.login(this.state.username, this.state.password, this.state.credentialCheckBox);
     }
 
     handleUsername(text) {
@@ -74,7 +88,8 @@ export default class Login extends Component {
     }
 
     handleCheckbox(state) {
-        this.setState({credentialCheckBox: state})
+        this.setState({credentialCheckBox: state});
+        AsyncStorage.setItem('credentialCheckBox', JSON.stringify(state));
     }
 
     render() {
@@ -129,7 +144,7 @@ export default class Login extends Component {
                         </View>
                         <CredentialCheckbox
                             handleCheckbox={this.handleCheckbox}
-                            onLoad={this.onCredentialsLoad}/>
+                            value={this.state.credentialCheckBox}/>
                     </View>
                 </View>
             </Image>
