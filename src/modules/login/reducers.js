@@ -10,7 +10,7 @@ function grades(state = {}, action) {
     }
 }
 
-function user(state = {loginState: env ? LoginState.LOADING : LoginState.INITIAL, currentLesson: null, lessonList: []}, action) {
+function user(state = {loginState: env.debug ? LoginState.LOADING : LoginState.INITIAL, currentLesson: null, lessonList: []}, action) {
     switch (action.type) {
         case SET_LOGIN_STATE:
             return Object.assign({}, state, {loginState: action.login_state});

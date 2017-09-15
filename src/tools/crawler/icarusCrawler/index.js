@@ -79,7 +79,7 @@ export default class IcarusCrawler {
     }
 
     fetchMockPage(onResponse) {
-        let htmlData = env.mockPage.values[env.mockPage.use] === 'examsOpen' ? htmlDataOpen : htmlDataClosed;
+        let htmlData = env.mockPage === 'examsOpen' ? htmlDataOpen : htmlDataClosed;
         this.parseHtml(htmlData, onResponse);
     }
 

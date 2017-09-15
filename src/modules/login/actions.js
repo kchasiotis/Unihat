@@ -80,17 +80,18 @@ export function login(username, password, chkBox) {
                 let newGradeCheckScheduleWifi = {
                     jobKey: jobNames.newGradeCheck.wifi,
                     timeout: 15000,
-                    period: env.debug === true ? 5 * 1000 : 60 * 60 * 1000,
+                    period: env.debug === true ? 7.5 * 1000 : 60 * 60 * 1000,
                     override: true,
-                    networkType: BackgroundJob.NETWORK_TYPE_ANY
+                    networkType: BackgroundJob.NETWORK_TYPE_UNMETERED
                 };
 
+                // todo: change networkType to mobile
                 let newGradeCheckScheduleMobile = {
                     jobKey: jobNames.newGradeCheck.mobile,
                     timeout: 15000,
                     period: env.debug === true ? 5 * 1000 : 12 * 60 * 60 * 1000,
                     override: true,
-                    networkType: BackgroundJob.NETWORK_TYPE_UNMETERED
+                    networkType: BackgroundJob.NETWORK_TYPE_ANY
                 };
                 BackgroundJob.schedule(newGradeCheckScheduleWifi);
                 BackgroundJob.schedule(newGradeCheckScheduleMobile);

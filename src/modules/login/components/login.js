@@ -25,14 +25,15 @@ export default class Login extends Component {
 
         this.login = this.login.bind(this);
 
-        if (env.debug && env.autoLogin) {
+        if (env.debug && env.autoLogin && this.props.loginState !== LoginState.LOGGED_OUT) {
             // todo: remove setTimeout
             this.componentDidMount = () => this.login();
             this.componentDidMount = this.componentDidMount.bind(this);
 
             this.state = {
                 username: env.user.username,
-                password: ''
+                password: env.user.password,
+                credentialCheckBox: true
             };
         } else {
             this.state = {username: '', password: '', credentialCheckBox: false};
@@ -41,6 +42,7 @@ export default class Login extends Component {
 
     componentWillMount() {
         if (this.props.loginState === LoginState.LOGGED_OUT) return;
+        if (env.debug && env.autoLogin) return;
 
         AsyncStorage.getItem('credentialCheckBox', (err, result) => {
             if (result === null || err) return;

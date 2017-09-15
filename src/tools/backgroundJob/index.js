@@ -1,6 +1,7 @@
 import {AsyncStorage} from 'react-native'
 import Crawler from '../crawler'
 import credentialStorage from '../credentialStorage'
+import env from '../../../environment'
 
 let PushNotification = require('react-native-push-notification');
 let crawler = new Crawler();
@@ -11,8 +12,15 @@ const newGradeCheckJob = (jobName) => {
     return {
         jobKey: jobName,
         job: () => {
-            credentialStorage.load((username, password) => {
-                    crawler.fetchPage(username, password, (logged, serverGrades) => {
+            env.debug === false || console.log('Running ' + jobName);
+
+            credentialStorage.load((error, username, password) => {
+                if(error) {
+                    console.error(error);
+                    return;
+                }
+
+                crawler.fetchPage(username, password, (logged, serverGrades) => {
                         if (logged) {
                             AsyncStorage.getItem('grades', (err, storedGrades) => {
                                 if (err) {

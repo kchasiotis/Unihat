@@ -37,7 +37,7 @@ export default class Drawer extends Component {
         let aGrades = InitializeLessonList();
         let exGrades = InitializeLessonList();
 
-        let initRoute = env.debug ? env.drawerRoute.values[env.drawerRoute.show] : null;
+        let initRoute = env.debug ? env.drawerRoute : null;
 
         const screenNavigator = TabNavigator({
                 aGrades: {screen: aGrades},
