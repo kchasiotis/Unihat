@@ -88,7 +88,7 @@ export function login(username, password, chkBox) {
                 let newGradeCheckScheduleWifi = {
                     jobKey: jobNames.newGradeCheck.wifi,
                     timeout: 15000,
-                    period: env.debug === true ? 7.5 * 1000 : 60 * 60 * 1000,
+                    period: env.debug && env.shortSchedule ? 7.5 * 1000 : 60 * 60 * 1000,
                     override: true,
                     networkType: BackgroundJob.NETWORK_TYPE_UNMETERED
                 };
@@ -97,7 +97,7 @@ export function login(username, password, chkBox) {
                 let newGradeCheckScheduleMobile = {
                     jobKey: jobNames.newGradeCheck.mobile,
                     timeout: 15000,
-                    period: env.debug === true ? 5 * 1000 : 12 * 60 * 60 * 1000,
+                    period: env.debug && env.shortSchedule ? 5 * 1000 : 12 * 60 * 60 * 1000,
                     override: true,
                     networkType: BackgroundJob.NETWORK_TYPE_ANY
                 };

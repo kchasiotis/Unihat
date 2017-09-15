@@ -1,5 +1,5 @@
 {
-  "name": "IcarusAegean",
+  "name": "Unihat",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -10,7 +10,7 @@
     "postinstall": "react-native link && react-native link react-native-svg",
     "clean": "rm -rf node_modules && watchman watch-del-all && npm install",
     "build": "cd android && ./gradlew clean && cd ../",
-    "init": "npm install && mkdir android/app/src/main/assets && react-native link",
+    "init": "npm install && mkdir android/app/src/main/assets && react-native link && yo rn-toolbox:assets --icon ./resources/icon.png",
     "emulator": "$ANDROID_HOME/tools/emulator -avd First",
     "preStart": "./scripts/watchmanIncreaseLimits.sh && ncu && $ANDROID_HOME/tools/emulator -avd First",
     "server": "node ../IcarusAegean-server/bin/www",

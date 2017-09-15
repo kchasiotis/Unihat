@@ -65,7 +65,9 @@ export default class Login extends Component {
                         this.props.setLoginState(LoginState.LOADED_CREDENTIALS);
                         return;
                     }
-                    this.setState({username: username, password: password});
+                    if (this.props.loginState === LoginState.NETWORK_ERROR)
+                        this.setState({username: username, password: password});
+
                     this.props.setLoginState(LoginState.LOADED_CREDENTIALS);
                     this.props.login(username, password, true);
                 });
