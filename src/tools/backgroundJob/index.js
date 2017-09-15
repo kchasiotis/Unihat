@@ -15,12 +15,17 @@ const newGradeCheckJob = (jobName) => {
             env.debug === false || console.log('Running ' + jobName);
 
             credentialStorage.load((error, username, password) => {
-                if(error) {
-                    console.error(error);
-                    return;
-                }
+                    if (error) {
+                        console.log(error);
+                        return;
+                    }
 
-                crawler.fetchPage(username, password, (logged, serverGrades) => {
+                    crawler.fetchPage(username, password, (error, logged, serverGrades) => {
+                        if (error) {
+                            console.log(error);
+                            return;
+                        }
+
                         if (logged) {
                             AsyncStorage.getItem('grades', (err, storedGrades) => {
                                 if (err) {

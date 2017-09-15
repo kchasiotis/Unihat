@@ -65,6 +65,7 @@ export default class Login extends Component {
                         this.props.setLoginState(LoginState.LOADED_CREDENTIALS);
                         return;
                     }
+                    this.setState({username: username, password: password});
                     this.props.setLoginState(LoginState.LOADED_CREDENTIALS);
                     this.props.login(username, password, true);
                 });
@@ -107,7 +108,7 @@ export default class Login extends Component {
 
     render() {
         const {loginState} = this.props;
-        const {LOGGED_IN, LOADING, FAILED, INITIAL, LOADED_CREDENTIALS, LOGGED_OUT} = LoginState;
+        const {LOGGED_IN, LOADING, FAILED, INITIAL, LOADED_CREDENTIALS, LOGGED_OUT, NETWORK_ERROR} = LoginState;
 
         if (loginState === LOGGED_IN) return null;
 
@@ -133,7 +134,7 @@ export default class Login extends Component {
                 </Image>
             );
 
-        if (loginState === LOADED_CREDENTIALS || loginState === LOGGED_OUT || FAILED) {
+        if (loginState === LOADED_CREDENTIALS || loginState === LOGGED_OUT || loginState === FAILED || loginState === NETWORK_ERROR) {
             return (
                 <Image source={require('./background.png')} style={style.backgroundImage}>
                     <StatusBar
@@ -147,6 +148,15 @@ export default class Login extends Component {
                                     <View style={style.errorMessage}>
                                         <Badge danger>
                                             <Text>Τα στοιχεία που εισάγατε είναι λάθος</Text>
+                                        </Badge>
+                                    </View> :
+                                    null
+                            }
+                            {
+                                loginState === NETWORK_ERROR ?
+                                    <View style={style.errorMessage}>
+                                        <Badge danger>
+                                            <Text>Ελέγξτε τη σύνδεση σας στο διαδίκτυο</Text>
                                         </Badge>
                                     </View> :
                                     null

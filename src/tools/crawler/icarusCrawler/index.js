@@ -30,7 +30,7 @@ export default class IcarusCrawler {
         let loggedIn = $('#header_login_msg').text().trim() === '' && $('#analytic_grades').length >= 1;
         if (!loggedIn) {
             console.log('Failed to log in');
-            onResponse(loggedIn);
+            onResponse(null, loggedIn);
             return;
         }
 
@@ -56,7 +56,7 @@ export default class IcarusCrawler {
             exGrades: this.parseGrades(exbody).concat(this.parseGrades(embody)),
         };
 
-        onResponse(loggedIn, allGrades);
+        onResponse(null, loggedIn, allGrades);
     }
 
     parseGrades(tBody) {
@@ -119,6 +119,9 @@ export default class IcarusCrawler {
             console.log('Page loaded');
             let data = iconv.decode(new Buffer(response.data), 'iso-8859-7');
             parseHtml(data, onResponse);
+        }).catch(function (error) {
+            onResponse(error);
+            console.log(error);
         });
     }
 
@@ -135,6 +138,8 @@ export default class IcarusCrawler {
             let data = iconv.decode(new Buffer(response.data), 'iso-8859-7');
             if (response.status === 200)
                 console.log('Successful logout')
+        }).catch(function (error) {
+            console.log(error);
         });
     }
 

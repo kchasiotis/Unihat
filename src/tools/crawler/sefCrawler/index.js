@@ -22,7 +22,7 @@ export default class SefCrawler {
         // Check if user logged in
         let loggedIn = $('#example1').length >= 1;
         if (!loggedIn) {
-            onResponse(loggedIn);
+            onResponse(null, loggedIn);
             return;
         }
 
@@ -39,7 +39,7 @@ export default class SefCrawler {
         grades.sGrades = grades.aGrades.filter((lesson) => lesson.grade >= 5 && lesson.code !== '311-1600' && lesson.code !== '311-1650' && lesson.code !== '311-1700');
         grades.exGrades = exGrades;
 
-        onResponse(loggedIn, grades);
+        onResponse(null, loggedIn, grades);
     }
 
     parseGrades(tBody) {
@@ -106,6 +106,9 @@ export default class SefCrawler {
         }).then(function (response) {
             console.log('Page loaded');
             parseHtml(response.data, onResponse);
+        }).catch(function (error) {
+            onResponse(error);
+            console.log(error);
         });
 
     }
@@ -122,6 +125,8 @@ export default class SefCrawler {
             console.log('Page loaded');
             if (response.status === 200)
                 console.log('Successful logout')
+        }).catch(function (error) {
+            console.log(error);
         });
     }
 

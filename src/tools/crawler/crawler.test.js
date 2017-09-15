@@ -20,7 +20,7 @@ describe('Sef crawler', function () {
     });
 
     it.skip('should fetch the grades asynchronously', function (done) {
-        crawler.fetchPage(sefUser.username, sefUser.password, (logged, grades) => {
+        crawler.fetchPage(sefUser.username, sefUser.password, (error, logged, grades) => {
                 try {
                     expect(logged).toBe(true);
                     expect(grades.aGrades.length).toBeGreaterThan(50);
@@ -49,7 +49,7 @@ describe('Icarus Crawler', function () {
     });
 
     it.skip('should fetch the grades asynchronously', function (done) {
-        crawler.fetchPage(icarusUser.username, icarusUser.password, (logged, grades) => {
+        crawler.fetchPage(icarusUser.username, icarusUser.password, (error, logged, grades) => {
                 try {
                     expect(logged).toBe(true);
                     expect(grades.aGrades.length).toBeGreaterThan(50);

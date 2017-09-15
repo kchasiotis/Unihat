@@ -22,9 +22,10 @@ class LessonList extends Component {
     refreshLessons() {
         this.setState({refreshing: true});
 
-        let onResponse = (loggedIn, allGrades) => {
+        let onResponse = (error, loggedIn, allGrades) => {
+            // todo: add error message on UI
             this.setState({refreshing: false});
-            if (loggedIn) this.props.updateGrades(allGrades);
+            if (!error && loggedIn) this.props.updateGrades(allGrades);
         };
         onResponse = onResponse.bind(this);
 

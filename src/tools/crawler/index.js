@@ -13,7 +13,7 @@ class crawler {
             let sc = new SefCrawler();
             sc.fetchPage(username, password, onResponse);
         } else {
-            onResponse(false);
+            onResponse({status: 501});
         }
     }
 
@@ -27,7 +27,7 @@ class crawler {
 
             sc.fetchMockPage(onResponse);
         } else {
-            onResponse(false);
+            onResponse({status: 501});
         }
     }
 

@@ -18,7 +18,8 @@ export const LoginState = {
     LOADING: 'LOADING',
     LOGGED_IN: 'LOGGED_IN',
     LOGGED_OUT: 'LOGGED_OUT',
-    FAILED: 'FAILED'
+    FAILED: 'FAILED',
+    NETWORK_ERROR: 'NETWORK_ERROR'
 };
 
 crawlerObj = new crawler();
@@ -69,7 +70,14 @@ export function setLessonList(ls) {
 export function login(username, password, chkBox) {
 
     return function (dispatch) {
-        let onResponse = (loggedIn, grades) => {
+        let onResponse = (error, loggedIn, grades) => {
+            if(error) {
+                console.log(error);
+                if(error.status === 501) dispatch(setLoginState(LoginState.FAILED));
+                else if(error.request) dispatch(setLoginState(LoginState.NETWORK_ERROR));
+                return;
+            }
+
             if (loggedIn === true) {
                 dispatch(setLoginState(LoginState.LOGGED_IN));
                 dispatch(setGrades(grades));
