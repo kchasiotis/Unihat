@@ -4,8 +4,9 @@ import {ListItem, CheckBox, Text} from 'native-base'
 const CredentialCheckbox = ({handleCheckbox, value}) => {
     return (
         <ListItem style={{borderBottomWidth: 0}}>
-            <CheckBox onPress={()=>handleCheckbox(!value)} checked={value}/>
-            <Text style={{backgroundColor: 'white', color: '#3F51B5', fontWeight: 'bold'}}> Αποθήκευση στοιχείων</Text>
+            <CheckBox onPress={() => handleCheckbox(!value)} checked={value}/>
+            <Text onPress={() => handleCheckbox(!value)}
+                  style={{backgroundColor: 'white', color: '#3F51B5', fontWeight: 'bold'}}> Αποθήκευση στοιχείων</Text>
         </ListItem>
     );
 };
