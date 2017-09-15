@@ -27,8 +27,9 @@ export default class IcarusCrawler {
         });
 
         // Check if user logged in
-        let loggedIn = $('#analytic_grades').length >= 1;
+        let loggedIn = $('#header_login_msg').text().trim() === '' && $('#analytic_grades').length >= 1;
         if (!loggedIn) {
+            console.log('Failed to log in');
             onResponse(loggedIn);
             return;
         }

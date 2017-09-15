@@ -120,7 +120,6 @@ export default class SefCrawler {
             responseType: 'arraybuffer'
         }).then(function (response) {
             console.log('Page loaded');
-            let data = iconv.decode(new Buffer(response.data), 'iso-8859-7');
             if (response.status === 200)
                 console.log('Successful logout')
         });

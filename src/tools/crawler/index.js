@@ -32,7 +32,9 @@ class crawler {
     }
 
     logout() {
-
+        // todo: improve logout logic
+        new IcarusCrawler().logout();
+        new SefCrawler().logout();
     }
 }
 
