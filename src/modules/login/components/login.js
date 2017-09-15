@@ -45,13 +45,16 @@ export default class Login extends Component {
         if (env.debug && env.autoLogin) return;
 
         AsyncStorage.getItem('credentialCheckBox', (err, result) => {
-            if (result === null || err) return;
+            if (err) {
+                console.log(err);
+                return;
+            }
 
             let toBoolean = result === 'true';
             this.handleCheckbox(toBoolean);
 
             // Load user credentials
-            if (toBoolean === false) {
+            if (toBoolean === false || result === null) {
                 // Reset checkbox value
                 CredentialStorage.reset();
                 this.props.setLoginState(LoginState.LOADED_CREDENTIALS);
@@ -130,7 +133,7 @@ export default class Login extends Component {
                 </Image>
             );
 
-        if (loginState === LOADED_CREDENTIALS || loginState === LOGGED_OUT) {
+        if (loginState === LOADED_CREDENTIALS || loginState === LOGGED_OUT || FAILED) {
             return (
                 <Image source={require('./background.png')} style={style.backgroundImage}>
                     <StatusBar
