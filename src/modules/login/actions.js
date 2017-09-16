@@ -1,7 +1,6 @@
-import {AsyncStorage} from 'react-native'
 import crawler from '../../tools/crawler'
 import {lessonAPI} from '../../tools/api'
-import CredentialStorage from '../../tools/credentialStorage'
+import {CredentialStorage, LocalStorage} from '../../tools/localStorage';
 import BackgroundJob from 'react-native-background-job';
 import {jobNames} from '../../tools/backgroundJob'
 import env from '../../../environment'
@@ -82,8 +81,8 @@ export function login(username, password, chkBox) {
                 dispatch(setLoginState(LoginState.LOGGED_IN));
                 dispatch(setGrades(grades));
                 dispatch(postLessonsCheck(username, grades.aGrades.concat(grades.exGrades)));
-                AsyncStorage.setItem('grades', JSON.stringify(grades));
-                AsyncStorage.setItem('refresh', JSON.stringify({shouldRefresh: false}));
+                LocalStorage.setGrades(grades);
+                LocalStorage.setRefreshGradesCond(false);
 
                 let newGradeCheckScheduleWifi = {
                     jobKey: jobNames.newGradeCheck.wifi,

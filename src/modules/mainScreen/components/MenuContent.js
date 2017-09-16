@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {ListItem, Left, Text, Body, Icon, Content, Thumbnail} from 'native-base';
-import {View, AsyncStorage} from 'react-native';
+import {View} from 'react-native';
 import Crawler from '../../../tools/crawler';
-import CredentialStorage from '../../../tools/credentialStorage';
+import {CredentialStorage, LocalStorage} from '../../../tools/localStorage';
 import {actionTypes} from '../../login';
 import BackgroundJob from 'react-native-background-job';
 
@@ -29,7 +29,7 @@ export default class MenuContent extends Component {
         this.crawler.logout();
         BackgroundJob.cancelAll();
         CredentialStorage.reset();
-        AsyncStorage.setItem('credentialCheckBox', JSON.stringify(false));
+        LocalStorage.setCredentialCheckbox(false);
     }
 
     render() {

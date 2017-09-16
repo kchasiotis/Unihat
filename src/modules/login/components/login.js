@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import {View, Image, StatusBar, AsyncStorage} from 'react-native';
+import {View, Image, StatusBar} from 'react-native';
 
 import {Item, Icon, Input, Button, Text, Badge, ListItem, CheckBox} from 'native-base';
 import Spinner from 'react-native-loading-spinner-overlay';
 import CredentialCheckbox from './credentialCheckbox';
-import CredentialStorage from '../../../tools/credentialStorage'
+import {CredentialStorage, LocalStorage} from '../../../tools/localStorage';
 
 import env from '../../../../environment'
 import 'react-native-console-time-polyfill';
@@ -44,33 +44,34 @@ export default class Login extends Component {
         if (this.props.loginState === LoginState.LOGGED_OUT) return;
         if (env.debug && env.autoLogin) return;
 
-        AsyncStorage.getItem('credentialCheckBox', (err, result) => {
+        LocalStorage.loadCredentialCheckbox((err, value) => {
             if (err) {
                 console.log(err);
                 return;
             }
 
-            let toBoolean = result === 'true';
-            this.handleCheckbox(toBoolean);
+            this.handleCheckbox(value);
 
-            // Load user credentials
-            if (toBoolean === false || result === null) {
-                // Reset checkbox value
-                CredentialStorage.reset();
-                this.props.setLoginState(LoginState.LOADED_CREDENTIALS);
-            } else {
+            if (value === true) {
+                // Load user credentials
                 CredentialStorage.load((error, username, password) => {
                     if (error) {
-                        console.log('Load credentials failed! Maybe no value set?', error);
+                        console.log(error);
                         this.props.setLoginState(LoginState.LOADED_CREDENTIALS);
                         return;
                     }
-                    if (this.props.loginState === LoginState.NETWORK_ERROR)
+                    // On login error set stored credentials
+                    if (this.props.loginState === LoginState.NETWORK_ERROR) {
                         this.setState({username: username, password: password});
+                        this.props.setLoginState(LoginState.LOADED_CREDENTIALS);
+                    }
 
-                    this.props.setLoginState(LoginState.LOADED_CREDENTIALS);
                     this.props.login(username, password, true);
                 });
+            } else {
+                // Reset checkbox value
+                CredentialStorage.reset();
+                this.props.setLoginState(LoginState.LOADED_CREDENTIALS);
             }
         })
     }
@@ -105,89 +106,100 @@ export default class Login extends Component {
 
     handleCheckbox(state) {
         this.setState({credentialCheckBox: state});
-        AsyncStorage.setItem('credentialCheckBox', JSON.stringify(state));
+        LocalStorage.setCredentialCheckbox(state);
     }
 
     render() {
         const {loginState} = this.props;
         const {LOGGED_IN, LOADING, FAILED, INITIAL, LOADED_CREDENTIALS, LOGGED_OUT, NETWORK_ERROR} = LoginState;
 
-        if (loginState === LOGGED_IN) return null;
+        let gui;
 
-        if (loginState === LOADING)
-            return (
-                <View style={{flex: 1}}>
-                    <StatusBar
-                        backgroundColor="#2137AA"
-                        barStyle="light-content"
-                    />
-                    <Spinner visible={true} textContent={"Loading..."} overlayColor='#3F51B5'
-                             textStyle={{color: 'white'}}/>
-                </View>
-            );
-
-        if (loginState === INITIAL)
-            return (
-                <Image source={require('./background.png')} style={style.backgroundImage}>
-                    <StatusBar
-                        backgroundColor="#2137AA"
-                        barStyle="light-content"
-                    />
-                </Image>
-            );
-
-        if (loginState === LOADED_CREDENTIALS || loginState === LOGGED_OUT || loginState === FAILED || loginState === NETWORK_ERROR) {
-            return (
-                <Image source={require('./background.png')} style={style.backgroundImage}>
-                    <StatusBar
-                        backgroundColor="#2137AA"
-                        barStyle="light-content"
-                    />
-                    <View style={style.main}>
-                        <View style={style.content}>
-                            {
-                                loginState === FAILED ?
-                                    <View style={style.errorMessage}>
-                                        <Badge danger>
-                                            <Text>Τα στοιχεία που εισάγατε είναι λάθος</Text>
-                                        </Badge>
-                                    </View> :
-                                    null
-                            }
-                            {
-                                loginState === NETWORK_ERROR ?
-                                    <View style={style.errorMessage}>
-                                        <Badge danger>
-                                            <Text>Ελέγξτε τη σύνδεση σας στο διαδίκτυο</Text>
-                                        </Badge>
-                                    </View> :
-                                    null
-                            }
-                            <Item regular style={style.input}>
-                                <Icon active style={style.icon} name='person'/>
-                                <Input value={this.state.username} onChangeText={this.handleUsername}
-                                       placeholder='Όνομα χρήστη'/>
-                            </Item>
-                            <Item regular style={style.input}>
-                                <Icon active style={style.icon} name='key'/>
-                                <Input value={this.state.password} onChangeText={this.handlePassword} secureTextEntry
-                                       placeholder='Κωδικός'/>
-                            </Item>
-                            <View style={style.logButton.wrapper}>
-                                <Button full onPress={this.login}>
-                                    <Text style={style.logButton.buttonText}>ΕΙΣΟΔΟΣ</Text>
-                                </Button>
+        switch (loginState) {
+            case INITIAL:
+                gui = (
+                    <Image source={require('./background.png')} style={style.backgroundImage}>
+                        <StatusBar
+                            backgroundColor="#2137AA"
+                            barStyle="light-content"
+                        />
+                    </Image>
+                );
+                break;
+            case LOADED_CREDENTIALS:
+            case LOGGED_OUT:
+            case FAILED:
+            case NETWORK_ERROR:
+                gui = (
+                    <Image source={require('./background.png')} style={style.backgroundImage}>
+                        <StatusBar
+                            backgroundColor="#2137AA"
+                            barStyle="light-content"
+                        />
+                        <View style={style.main}>
+                            <View style={style.content}>
+                                {
+                                    loginState === FAILED ?
+                                        <View style={style.errorMessage}>
+                                            <Badge danger>
+                                                <Text>Λάθος στοιχεία</Text>
+                                            </Badge>
+                                        </View> :
+                                        null
+                                }
+                                {
+                                    loginState === NETWORK_ERROR ?
+                                        <View style={style.errorMessage}>
+                                            <Badge danger>
+                                                <Text>Πρόβλημα σύνδεσης στο διαδύκτιο</Text>
+                                            </Badge>
+                                        </View> :
+                                        null
+                                }
+                                <Item regular style={style.input}>
+                                    <Icon active style={style.icon} name='person'/>
+                                    <Input value={this.state.username} onChangeText={this.handleUsername}
+                                           placeholder='Όνομα χρήστη'/>
+                                </Item>
+                                <Item regular style={style.input}>
+                                    <Icon active style={style.icon} name='key'/>
+                                    <Input value={this.state.password} onChangeText={this.handlePassword}
+                                           secureTextEntry
+                                           placeholder='Κωδικός'/>
+                                </Item>
+                                <View style={style.logButton.wrapper}>
+                                    <Button full onPress={this.login}>
+                                        <Text style={style.logButton.buttonText}>ΕΙΣΟΔΟΣ</Text>
+                                    </Button>
+                                </View>
+                                <CredentialCheckbox
+                                    handleCheckbox={this.handleCheckbox}
+                                    value={this.state.credentialCheckBox}/>
                             </View>
-                            <CredentialCheckbox
-                                handleCheckbox={this.handleCheckbox}
-                                value={this.state.credentialCheckBox}/>
                         </View>
+                    </Image>
+                );
+                break;
+            case LOGGED_IN:
+                gui = null;
+                break;
+            case LOADING:
+                gui = (
+                    <View style={{flex: 1}}>
+                        <StatusBar
+                            backgroundColor="#2137AA"
+                            barStyle="light-content"
+                        />
+                        <Spinner visible={true} textContent={"Loading..."} overlayColor='#3F51B5'
+                                 textStyle={{color: 'white'}}/>
                     </View>
-                </Image>
-            );
+                );
+                break;
+            default:
+                gui = <Text>Something went wrong with login</Text>
         }
 
-        return <Text>Something went wrong with login</Text>;
+        return gui;
     }
 }
 

@@ -3,9 +3,9 @@ import {ListItem, Right, Text, Badge, Body} from 'native-base';
 import {FlatList, RefreshControl} from 'react-native';
 
 import Crawler from '../../../tools/crawler';
-import CredentialStorage from '../../../tools/credentialStorage';
+import {CredentialStorage, LocalStorage} from '../../../tools/localStorage';
 import lesson from '../../lesson/components/lesson';
-import {AppState, AsyncStorage} from 'react-native'
+import {AppState} from 'react-native'
 
 class LessonList extends Component {
     constructor(props) {
@@ -53,20 +53,19 @@ class LessonList extends Component {
 
     _handleAppStateChange = (nextAppState) => {
         if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
-            AsyncStorage.getItem('refresh', (err, action) => {
+            LocalStorage.loadRefreshGradesCond((err, refresh) => {
                 if (err) {
                     console.log(err);
                     return;
                 }
-                action = JSON.parse(action);
 
-                if(this.props.routeName === 'exGrades' && action.shouldRefresh === true) {
+                if (this.props.routeName === 'exGrades' && refresh === true) {
                     this.setState({refreshing: true});
                     this.props.navigation.navigate('exGrades');
-                    AsyncStorage.getItem('grades', (err, grades)=>{
-                        this.props.updateGrades(JSON.parse(grades));
+                    LocalStorage.loadGrades((err, grades) => {
+                        this.props.updateGrades(grades);
                         this.setState({refreshing: false});
-                        AsyncStorage.setItem('refresh', JSON.stringify({shouldRefresh: false}));
+                        LocalStorage.setRefreshGradesCond(false);
                     });
                 }
             })
