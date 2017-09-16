@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Image, StatusBar} from 'react-native';
+import {View, Image, StatusBar, Keyboard} from 'react-native';
 
 import {Item, Icon, Input, Button, Text, Badge, ListItem, CheckBox} from 'native-base';
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -95,6 +95,7 @@ export default class Login extends Component {
     login() {
         !env.debug || console.time("fetch");
 
+        Keyboard.dismiss();
         this.props.login(this.state.username, this.state.password, this.state.credentialCheckBox);
     }
 
