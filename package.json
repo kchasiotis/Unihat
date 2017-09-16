@@ -25,13 +25,13 @@
     "cheerio-without-node-native": "^0.20.2",
     "jest": "^21.0.1",
     "moment": "^2.18.1",
-    "native-base": "2.3.1",
+    "native-base": "2.2.1",
     "react": "16.0.0-alpha.12",
     "react-dom": "15.6.1",
-    "react-native": "0.47.2",
+    "react-native": "0.48.3",
     "react-native-background-job": "^2.0.0",
     "react-native-console-time-polyfill": "0.0.6",
-    "react-native-keychain": "1.2.0",
+    "react-native-keychain": "1.2.1",
     "react-native-loading-spinner-overlay": "~0.5.0",
     "react-native-pathjs-charts": "0.0.31",
     "react-native-push-notification": "^3.0.1",
@@ -42,9 +42,9 @@
     "stream": "^0.0.2"
   },
   "devDependencies": {
-    "babel-jest": "21.0.0",
-    "babel-preset-react-native": "3.0.2",
-    "jest": "21.0.1",
+    "babel-jest": "21.0.2",
+    "babel-preset-react-native": "4.0.0",
+    "jest": "21.1.0",
     "react-test-renderer": "15.6.1"
   },
   "jest": {
