@@ -9,7 +9,7 @@ class Lesson extends Component {
 
     render() {
         const {currentLesson, navigation} = this.props;
-        // console.log(navigation);
+        // Logger.log(navigation);
 
         if (currentLesson === null) return null;
 

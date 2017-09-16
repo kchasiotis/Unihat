@@ -5,6 +5,7 @@ moment().format();
 
 import htmlData from './mockPage';
 import Lesson from '../lesson';
+import {Logger} from '../../logger';
 
 export default class SefCrawler {
     constructor() {
@@ -72,6 +73,8 @@ export default class SefCrawler {
     }
 
     fetchPage(username, password, onResponse) {
+        Logger.info('logging in user: ' + username);
+        // todo: remove cheerio
         let cheerio = require('cheerio-without-node-native');
 
         // region Set up message
@@ -104,17 +107,17 @@ export default class SefCrawler {
             },
             data: formBody
         }).then(function (response) {
-            console.log('Page loaded');
+            Logger.info('Page loaded');
             parseHtml(response.data, onResponse);
         }).catch(function (error) {
             onResponse(error);
-            console.log(error);
+            Logger.error(error);
         });
 
     }
 
     logout() {
-        console.log('Logging out');
+        Logger.info('Logging out');
         let url = 'https://icarus-icsd.aegean.gr/logout.php';
 
         axios({
@@ -122,11 +125,12 @@ export default class SefCrawler {
             method: 'POST',
             responseType: 'arraybuffer'
         }).then(function (response) {
-            console.log('Page loaded');
+            Logger.info('Page loaded');
             if (response.status === 200)
-                console.log('Successful logout')
+                Logger.info('Successful logout')
+            // todo: log unsuccessful logout
         }).catch(function (error) {
-            console.log(error);
+            Logger.error(error);
         });
     }
 

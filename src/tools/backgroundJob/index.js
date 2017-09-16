@@ -1,6 +1,7 @@
 import Crawler from '../crawler'
 import {CredentialStorage, LocalStorage} from '../../tools/localStorage';
 import env from '../../../environment'
+import {Logger} from '../../tools/logger';
 
 let PushNotification = require('react-native-push-notification');
 let crawler = new Crawler();
@@ -11,24 +12,24 @@ const newGradeCheckJob = (jobName) => {
     return {
         jobKey: jobName,
         job: () => {
-            env.debug === false || console.log('Running ' + jobName);
+            env.debug === false || Logger.log('Running ' + jobName);
 
             CredentialStorage.load((error, username, password) => {
                     if (error) {
-                        console.log(error);
+                        Logger.log(error);
                         return;
                     }
 
                     crawler.fetchPage(username, password, (error, logged, serverGrades) => {
                         if (error) {
-                            console.log(error);
+                            Logger.error(error);
                             return;
                         }
 
                         if (logged) {
-                            LocalStorage.loadGrades((err, storedGrades) => {
-                                if (err) {
-                                    console.log(err);
+                            LocalStorage.loadGrades((error, storedGrades) => {
+                                if (error) {
+                                    Logger.error(error);
                                     return;
                                 }
 

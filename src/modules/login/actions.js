@@ -3,6 +3,7 @@ import {lessonAPI} from '../../tools/api'
 import {CredentialStorage, LocalStorage} from '../../tools/localStorage';
 import BackgroundJob from 'react-native-background-job';
 import {jobNames} from '../../tools/backgroundJob'
+import {Logger} from '../../tools/logger';
 import env from '../../../environment'
 
 export const SET_GRADES = 'SET_GRADES';
@@ -71,7 +72,7 @@ export function login(username, password, chkBox) {
     return function (dispatch) {
         let onResponse = (error, loggedIn, grades) => {
             if(error) {
-                console.log(error);
+                Logger.error(error);
                 if(error.status === 501) dispatch(setLoginState(LoginState.FAILED));
                 else if(error.request) dispatch(setLoginState(LoginState.NETWORK_ERROR));
                 return;
@@ -128,7 +129,7 @@ export function postLessonsCheck(username, lessons) {
                     lessons: lessons,
                     username: username
                 }));
-                else console.log('Lessons already uploaded')
+                else Logger.info('Lessons already uploaded')
             })
         };
 
@@ -141,7 +142,7 @@ export function postLessons(lessons) {
     return function (dispatch) {
         let onResponse = (res) => {
             res.json().then((resJs) => {
-                console.log('Sent ' + resJs.insertedNumber)
+                Logger.log('Sent ' + resJs.insertedNumber)
             })
         };
 

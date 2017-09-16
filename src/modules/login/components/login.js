@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import {View, Image, StatusBar, Keyboard} from 'react-native';
 
-import {Item, Icon, Input, Button, Text, Badge, ListItem, CheckBox} from 'native-base';
+import {Item, Icon, Input, Button, Text, Badge} from 'native-base';
 import Spinner from 'react-native-loading-spinner-overlay';
 import CredentialCheckbox from './credentialCheckbox';
 import {CredentialStorage, LocalStorage} from '../../../tools/localStorage';
+import {Logger} from '../../../tools/logger';
 
 import env from '../../../../environment'
 import 'react-native-console-time-polyfill';
@@ -36,7 +37,7 @@ export default class Login extends Component {
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         if (env.debug && env.autoLogin && this.props.loginState !== LoginState.LOGGED_OUT) {
             setTimeout(() => this.login(), 1);
         }
@@ -48,7 +49,7 @@ export default class Login extends Component {
 
         LocalStorage.loadCredentialCheckbox((err, value) => {
             if (err) {
-                console.log(err);
+                Logger.log(err);
                 return;
             }
 
@@ -58,7 +59,7 @@ export default class Login extends Component {
                 // Load user credentials
                 CredentialStorage.load((error, username, password) => {
                     if (error) {
-                        console.log(error);
+                        Logger.error(error);
                         this.props.setLoginState(LoginState.LOADED_CREDENTIALS);
                         return;
                     }

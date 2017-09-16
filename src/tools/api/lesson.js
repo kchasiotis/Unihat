@@ -1,4 +1,5 @@
 let url = 'http://192.168.1.9:3000/lesson';
+import {Logger} from '../../tools/logger';
 
 const getLessons = function (code, examDate, onResponse) {
     // region Set up url params
@@ -20,7 +21,7 @@ const getLessons = function (code, examDate, onResponse) {
             onResponse(response);
         })
         .catch((error) => {
-            console.log(error);
+            Logger.error(error);
         });
 };
 
@@ -32,7 +33,7 @@ const getUserLessonsNumber = function (user, onResponse) {
             onResponse(response);
         })
         .catch((error) => {
-            console.log(error);
+            Logger.error(error);
         });
 };
 
@@ -50,7 +51,7 @@ const postLessons = function (lessons, onResponse) {
             onResponse(response);
         })
         .catch((error) => {
-            console.log(error);
+            Logger.error(error);
         });
 };
 

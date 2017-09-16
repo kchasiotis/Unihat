@@ -8,6 +8,7 @@ import htmlDataOpen from './mockExamsOpen';
 import env from '../../../../environment'
 global.Buffer = Buffer;
 import Lesson from '../lesson';
+import {Logger} from '../../../tools/logger';
 
 class User {
     username = null;
@@ -29,7 +30,7 @@ export default class IcarusCrawler {
         // Check if user logged in
         let loggedIn = $('#header_login_msg').text().trim() === '' && $('#analytic_grades').length >= 1;
         if (!loggedIn) {
-            console.log('Failed to log in');
+            Logger.info('Failed to log in');
             onResponse(null, loggedIn);
             return;
         }
@@ -85,7 +86,7 @@ export default class IcarusCrawler {
     }
 
     fetchPage(username, password, onResponse) {
-        console.log('logging in user: ', username);
+        Logger.info('logging in user: ' + username);
         let parseHtml = this.parseHtml;
 
         // region Set up message
@@ -116,17 +117,17 @@ export default class IcarusCrawler {
             responseType: 'arraybuffer',
             data: formBody
         }).then(function (response) {
-            console.log('Page loaded');
+            Logger.info('Page loaded');
             let data = iconv.decode(new Buffer(response.data), 'iso-8859-7');
             parseHtml(data, onResponse);
         }).catch(function (error) {
             onResponse(error);
-            console.log(error);
+            Logger.error(error);
         });
     }
 
     logout() {
-        console.log('Logging out');
+        Logger.info('Logging out');
         let url = 'https://icarus-icsd.aegean.gr/logout.php';
 
         axios({
@@ -134,12 +135,13 @@ export default class IcarusCrawler {
             method: 'POST',
             responseType: 'arraybuffer'
         }).then(function (response) {
-            console.log('Page loaded');
+            Logger.info('Page loaded');
             let data = iconv.decode(new Buffer(response.data), 'iso-8859-7');
             if (response.status === 200)
-                console.log('Successful logout')
+                Logger.info('Successful logout')
+            // todo: log unsuccessful logout
         }).catch(function (error) {
-            console.log(error);
+            Logger.error(error);
         });
     }
 

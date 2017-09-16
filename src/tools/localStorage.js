@@ -1,5 +1,7 @@
 import * as Keychain from 'react-native-keychain'
 import {AsyncStorage} from 'react-native'
+// todo: remove logger
+import {Logger} from './logger';
 
 class CredentialStorage {
     static load(onLoad) {
@@ -17,10 +19,10 @@ class CredentialStorage {
         Keychain
             .resetGenericPassword()
             .then(function () {
-                console.log('Credentials successfully deleted');
+                Logger.info('Credentials successfully deleted');
             })
             .catch(function (error) {
-                console.log('Reset failed! Maybe no value set?', error);
+                Logger.warn('Reset failed! Maybe no value set?', error);
             });
     }
 
@@ -28,7 +30,7 @@ class CredentialStorage {
         Keychain
             .setGenericPassword(username, password)
             .then(function () {
-                console.log('Credentials saved successfully!');
+                Logger.info('Credentials saved successfully!');
             });
     }
 }

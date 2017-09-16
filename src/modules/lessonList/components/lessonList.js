@@ -3,6 +3,7 @@ import {ListItem, Right, Text, Badge, Body} from 'native-base';
 import {FlatList, RefreshControl} from 'react-native';
 
 import Crawler from '../../../tools/crawler';
+import {Logger} from '../../../tools/logger';
 import {CredentialStorage, LocalStorage} from '../../../tools/localStorage';
 import lesson from '../../lesson/components/lesson';
 import {AppState} from 'react-native'
@@ -24,9 +25,9 @@ class LessonList extends Component {
 
         let onResponse = (error, loggedIn, allGrades) => {
             if (error) {
-                console.log(error);
+                // todo: add error message on UI
+                Logger.error(error);
             }
-            // todo: add error message on UI
             this.setState({refreshing: false});
             if (!error && loggedIn) this.props.updateGrades(allGrades);
         };
@@ -34,7 +35,7 @@ class LessonList extends Component {
 
         CredentialStorage.load((error, username, password) => {
                 if (error) {
-                    console.log(error);
+                    Logger.error(error);
                     return;
                 }
                 this.crawler.fetchPage(username, password, onResponse)
@@ -61,9 +62,9 @@ class LessonList extends Component {
 
     _handleAppStateChange = (nextAppState) => {
         if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
-            LocalStorage.loadRefreshGradesCond((err, refresh) => {
-                if (err) {
-                    console.log(err);
+            LocalStorage.loadRefreshGradesCond((error, refresh) => {
+                if (error) {
+                    Logger.error(error);
                     return;
                 }
 
