@@ -26,10 +26,6 @@ export default class Login extends Component {
         this.login = this.login.bind(this);
 
         if (env.debug && env.autoLogin && this.props.loginState !== LoginState.LOGGED_OUT) {
-            // todo: remove setTimeout
-            this.componentDidMount = () => this.login();
-            this.componentDidMount = this.componentDidMount.bind(this);
-
             this.state = {
                 username: env.user.username,
                 password: env.user.password,
@@ -37,6 +33,12 @@ export default class Login extends Component {
             };
         } else {
             this.state = {username: '', password: '', credentialCheckBox: false};
+        }
+    }
+
+    componentDidMount(){
+        if (env.debug && env.autoLogin && this.props.loginState !== LoginState.LOGGED_OUT) {
+            setTimeout(() => this.login(), 1);
         }
     }
 
