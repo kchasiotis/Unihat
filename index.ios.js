@@ -12,7 +12,7 @@ import {
   View
 } from 'react-native';
 
-export default class IcarusAegean extends Component {
+export default class Unihat extends Component {
   render() {
     return (
       <View style={styles.container}>
@@ -50,4 +50,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('IcarusAegean', () => IcarusAegean);
+AppRegistry.registerComponent('Unihat', () => Unihat);

@@ -18,7 +18,7 @@ const {mobile, wifi} = jobNames.newGradeCheck;
 BackgroundJob.register(newGradeCheckJob(mobile));
 BackgroundJob.register(newGradeCheckJob(wifi));
 
-export default class IcarusAegean extends Component {
+export default class Unihat extends Component {
     render() {
         return (
             <Provider store={store}>
@@ -28,4 +28,4 @@ export default class IcarusAegean extends Component {
     }
 }
 
-AppRegistry.registerComponent('IcarusAegean', () => IcarusAegean);
+AppRegistry.registerComponent('Unihat', () => Unihat);
