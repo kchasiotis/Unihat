@@ -9,7 +9,7 @@ class CredentialStorage {
                 onLoad(null, credentials.username, credentials.password);
             }.bind(this))
             .catch(function (error) {
-                onLoad('Load credentials failed! Maybe no value set?' , error);
+                onLoad('Load credentials failed! Maybe no value set? ' + error);
             }.bind(this));
     }
 

@@ -23,14 +23,22 @@ class LessonList extends Component {
         this.setState({refreshing: true});
 
         let onResponse = (error, loggedIn, allGrades) => {
+            if (error) {
+                console.log(error);
+            }
             // todo: add error message on UI
             this.setState({refreshing: false});
             if (!error && loggedIn) this.props.updateGrades(allGrades);
         };
         onResponse = onResponse.bind(this);
 
-        CredentialStorage.load((username, password) =>
-            this.crawler.fetchPage(username, password, onResponse)
+        CredentialStorage.load((error, username, password) => {
+                if (error) {
+                    console.log(error);
+                    return;
+                }
+                this.crawler.fetchPage(username, password, onResponse)
+            }
         );
     }
 
@@ -97,7 +105,7 @@ class LessonList extends Component {
                         <Right>
                             {
                                 item.grade !== null ?
-                                    <Badge success={item.grade >= 5} danger={item.grade < 5}>
+                                    <Badge style={{backgroundColor: style.badgeStyle(item.state, item.grade)}}>
                                         <Text>{item.grade}</Text>
                                     </Badge> :
                                     null
@@ -109,5 +117,15 @@ class LessonList extends Component {
         );
     }
 }
+
+const style = {
+    badgeStyle: (state, grade) => {
+        if (state === 'Ακύρωση') {
+            return 'black';
+        }
+        if (grade >= 5) return '#5CB85C';
+        else return '#ED1727';
+    }
+};
 
 export default LessonList;
