@@ -1,16 +1,17 @@
 import React, {Component} from 'react';
 import {Pie} from 'react-native-pathjs-charts'
+import pieChartType from './pieChartType';
 
 // todo: Rename
 export default class AverageGradePie extends Component {
     render() {
-        if ( this.props.size === 0) return null;
+        if (this.props.size === 0) return null;
 
         let data = [{
             "name": this.props.value,
             "value": this.props.value * 100
         }, {
-            "name": '',
+            "name": this.props.chartTitle === pieChartType.succeedLessons.title ? this.props.total - this.props.value : '',
             "value": (this.props.total - this.props.value) * 100
         }];
 

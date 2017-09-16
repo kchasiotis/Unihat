@@ -18,6 +18,7 @@ export default class PieChartWrapper extends Component {
                             description={pieChartType[chartType].description}/>
                 <View style={{height: pieSize}}>
                     <AverageGradePie size={pieSize}
+                                     chartTitle={pieChartType[chartType].title}
                                      pallete={[mainColor, fillColor]}
                                      value={chartValue} total={pieChartType[chartType].total}/>
                 </View>
