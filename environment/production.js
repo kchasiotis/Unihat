@@ -1,5 +1,8 @@
+import config from '../src/tools/api/.config'
+
 const env = {
-    debug: false
+    debug: false,
+    serverUrl: config.serverUrl
 };
 
-export default env
+export default env;

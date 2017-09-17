@@ -1,6 +1,6 @@
 import {Logger} from '../../tools/logger';
 import env from '../../../environment';
-const url = env.url;
+const url = env.serverUrl;
 
 const getLessons = function (code, examDate, onResponse) {
     // region Set up url params
@@ -34,7 +34,7 @@ const getUserLessonsNumber = function (user, onResponse) {
             onResponse(response);
         })
         .catch((error) => {
-            Logger.error(error);
+            Logger.warn(error);
         });
 };
 
@@ -52,7 +52,7 @@ const postLessons = function (lessons, onResponse) {
             onResponse(response);
         })
         .catch((error) => {
-            Logger.error(error);
+            Logger.warn(error);
         });
 };
 
