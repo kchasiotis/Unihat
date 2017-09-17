@@ -1,5 +1,6 @@
-let url = 'http://192.168.1.9:3000/lesson';
 import {Logger} from '../../tools/logger';
+import env from '../../../environment';
+const url = env.url;
 
 const getLessons = function (code, examDate, onResponse) {
     // region Set up url params

@@ -5,6 +5,7 @@ const env = {
     debug: true,
     autoLogin: true,
     shortSchedule: true,
+    serverUrl: 'http://192.168.1.12:3000/lesson',
     mockPage: ['examsOpen', 'examsClosed'][0],
     drawerRoute: ['aGrades', 'exGrades', 'chartScreen'][0],
     user: [icarusUser, sefUser][0]

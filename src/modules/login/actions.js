@@ -88,7 +88,7 @@ export function login(username, password, chkBox) {
                 let newGradeCheckScheduleWifi = {
                     jobKey: jobNames.newGradeCheck.wifi,
                     timeout: 15000,
-                    period: env.debug && env.shortSchedule ? 7.5 * 1000 : 60 * 60 * 1000,
+                    period: 60 * 60 * 1000,
                     override: true,
                     networkType: BackgroundJob.NETWORK_TYPE_UNMETERED
                 };
