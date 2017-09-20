@@ -7,17 +7,17 @@
     "prod": "npm run setEnv production && node node_modules/react-native/local-cli/cli.js start",
     "setEnv": "node scripts/setEnv.js",
     "test": "npm run setEnv debug && jest || true",
-    "postinstall": "react-native link && react-native link react-native-svg",
+    "postinstall": "react-native link && react-native link react-native-svg && node ./scripts/generateConfigFiles.js",
+    "init": "mkdir android/app/src/main/assets",
     "clean": "rm -rf node_modules && watchman watch-del-all && npm install",
-    "build": "cd android && ./gradlew clean && cd ../",
-    "init": "npm install && mkdir android/app/src/main/assets && react-native link && yo rn-toolbox:assets --icon ./resources/icon.png",
-    "emulator": "$ANDROID_HOME/tools/emulator -avd First",
     "preStart": "./scripts/watchmanIncreaseLimits.sh && ncu && $ANDROID_HOME/tools/emulator -avd First",
     "server": "node ../IcarusAegean-server/bin/www",
+    "build": "cd android && ./gradlew clean && cd ../",
     "bundle": "npm run setEnv production && react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/ && cd android && ./gradlew assembleRelease",
     "bundleDebug": "npm run setEnv debug && react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/ && cd android && ./gradlew assembleRelease",
     "installAndroid": "react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --sourcemap-output android/app/src/main/assets/index.android.map --assets-dest android/app/src/main/res/ && react-native run-android",
-    "reinstallAndroid": "npm run clean && npm run installAndroid"
+    "reinstallAndroid": "npm run clean && npm run installAndroid",
+    "emulator": "$ANDROID_HOME/tools/emulator -avd First"
   },
   "dependencies": {
     "axios": "^0.16.0",
