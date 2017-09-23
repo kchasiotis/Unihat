@@ -18,7 +18,7 @@ const {mobile, wifi} = jobNames.newGradeCheck;
 BackgroundJob.register(newGradeCheckJob(mobile));
 BackgroundJob.register(newGradeCheckJob(wifi));
 
-export default class Unihat extends Component {
+class Unihat extends Component {
     render() {
         return (
             <Provider store={store}>

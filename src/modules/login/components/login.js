@@ -13,10 +13,6 @@ import {NavigationActions} from 'react-navigation'
 import {LoginState} from '../actions'
 
 export default class Login extends Component {
-    static navigationOptions = {
-        title: 'Icarus Aegean',
-    };
-
     constructor(props) {
         super(props);
 
