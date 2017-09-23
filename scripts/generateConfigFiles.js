@@ -23,7 +23,7 @@ if (!fs.existsSync("./src/tools/crawler/sefCrawler/.user.js")) {
 
 
 if (!fs.existsSync("./src/tools/api/.config.js")) {
-    fs.writeFile("./src/tools/api/.config.js", "export default user = {username:'', password:''}", function (err) {
+    fs.writeFile("./src/tools/api/.config.js", "export default config = {serverUrl: 'http://192.168.1.12:3000/lesson'}", function (err) {
         if (err) {
             return console.log(err);
         }
