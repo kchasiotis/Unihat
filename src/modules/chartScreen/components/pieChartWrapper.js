@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View, StyleSheet} from 'react-native';
-import AverageGradePie from './averageGradePie'
+import GradePie from './gradePie'
 import ChartTitle from "./chartTitle";
 import pieChartType from './pieChartType'
 
@@ -33,16 +33,19 @@ export default class PieChartWrapper extends Component {
 
     render() {
         const {pieSize, mainColor, fillColor, chartValue, chartType} = this.props;
+        const {title, description} = pieChartType[chartType];
 
         return (
             <View style={styles.pieChart}>
-                <ChartTitle title={pieChartType[chartType].title}
-                            description={pieChartType[chartType].description}/>
+                <ChartTitle title={title}
+                            description={description}/>
+
+
                 <View style={{height: pieSize}}>
-                    <AverageGradePie size={pieSize}
-                                     chartTitle={pieChartType[chartType].title}
-                                     pallete={[mainColor, fillColor]}
-                                     value={chartValue} total={this.state.total}/>
+                    <GradePie size={pieSize}
+                              chartTitle={title}
+                              pallete={[mainColor, fillColor]}
+                              value={chartValue} total={this.state.total}/>
                 </View>
             </View>
         );
