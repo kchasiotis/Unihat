@@ -5,7 +5,7 @@ import sefUser from './sefCrawler/.user'
 describe('Sef crawler', function () {
     let crawler = new Crawler();
     it('should fetch the grades', function (done) {
-        crawler.fetchMockPage('math13028', (logged, grades) => {
+        crawler.fetchMockPage('sas12035', (logged, grades) => {
             // console.log(grades.sGrades)
             // expect(grades.aGrades[0].examDate.format("DD-MM-YYYY")).toBe('15-06-2017');
             // expect(grades.sGrades[0].enrollDate.format("DD-MM-YYYY")).toBe('15-03-2017');
