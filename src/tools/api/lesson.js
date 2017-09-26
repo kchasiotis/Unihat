@@ -22,7 +22,7 @@ const getLessons = function (code, examDate, onResponse) {
             onResponse(response);
         })
         .catch((error) => {
-            Logger.error(error);
+            Logger.warn(error);
         });
 };
 

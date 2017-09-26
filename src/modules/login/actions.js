@@ -72,9 +72,12 @@ export function login(username, password, chkBox) {
     return function (dispatch) {
         let onResponse = (error, loggedIn, grades) => {
             if(error) {
-                Logger.error(error);
-                if(error.status === 501) dispatch(setLoginState(LoginState.FAILED));
+                if(error.status === 501) {
+                    dispatch(setLoginState(LoginState.FAILED));
+                    Logger.warn(error.status + ' wrong username');
+                }
                 else if(error.request) dispatch(setLoginState(LoginState.NETWORK_ERROR));
+                Logger.warn(error);
                 return;
             }
 
