@@ -6,6 +6,7 @@ const env = {
     debug: true,
     autoLogin: true,
     shortSchedule: true,
+    logger: true,
     serverUrl: config.serverUrl,
     mockPage: ['examsOpen', 'examsClosed'][0],
     drawerRoute: ['aGrades', 'exGrades', 'chartScreen'][0],
