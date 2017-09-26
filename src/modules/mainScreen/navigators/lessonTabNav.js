@@ -25,7 +25,7 @@ export default function LessonsTabNav() {
         }, {
             initialRouteName: initRoute,
             animationEnabled: false,
-            swipeEnabled: false,
+            swipeEnabled: true,
             backBehavior: 'none',
             tabBarOptions: {
                 inactiveTintColor: 'white',

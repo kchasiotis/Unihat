@@ -30,6 +30,8 @@ class ChartScreen extends Component {
     }
 
     render() {
+        if (this.props.allGrades.sGrades === undefined) return null;
+
         // region Calculate succeeded grades average
         let grades = this.props.allGrades.sGrades.concat(this.props.allGrades.exGrades);
 
