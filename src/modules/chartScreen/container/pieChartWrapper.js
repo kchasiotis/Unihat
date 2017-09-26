@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import PieChartWrapperComp from '../components/pieChartWrapper'
 
 const mapStateToProps = (state) => {
-    return {user: state.user.user};
+    return {user: state.user};
 };
 
 const PieChartWrapperRedux = connect(
