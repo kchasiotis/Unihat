@@ -1,6 +1,6 @@
 import env from '../../../environment'
 
-const logOn = env.debug && env.logger;
+const logOn = env.logger;
 
 class Logger {
     static formatter(logType, message, logFormat) {
