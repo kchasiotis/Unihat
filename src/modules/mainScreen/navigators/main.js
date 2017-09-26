@@ -2,8 +2,8 @@
 import React, {Component} from 'react';
 
 // UI components imports
-import DrawerNavigator from './drawer'
 import {Login} from '../../login'
+import LoggedNav from './loggedNav';
 import {StackNavigator} from 'react-navigation';
 
 export default class Main extends Component {
@@ -14,7 +14,7 @@ export default class Main extends Component {
 
         const MainNavigator = StackNavigator({
             Login: {screen: Login, navigationOptions: loginNavOptions},
-            Main: {screen: DrawerNavigator, navigationOptions: mainNavOptions},
+            Main: {screen: LoggedNav, navigationOptions: mainNavOptions},
         });
 
         return <MainNavigator onNavigationStateChange={null}/>;
