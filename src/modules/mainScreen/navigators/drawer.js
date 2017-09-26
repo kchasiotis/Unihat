@@ -6,7 +6,6 @@ import {Lesson} from '../../lesson'
 import {DrawerNavigator, StackNavigator, NavigationActions, TabNavigator} from 'react-navigation';
 import {Icon} from "native-base";
 import env from '../../../../environment'
-import {Text} from "react-native";
 
 function MenuIcon(props) {
     return (
@@ -40,21 +39,43 @@ export default class Drawer extends Component {
         let initRoute = env.debug ? env.drawerRoute : null;
 
         const screenNavigator = TabNavigator({
-                aGrades: {screen: aGrades},
-                exGrades: {screen: exGrades},
-                chartScreen: {screen: ChartScreen},
-                lesson: {screen: Lesson},
+                aGrades: {
+                    screen: aGrades,
+                    navigationOptions: {title: 'Όλα'}
+                },
+                exGrades: {
+                    screen: exGrades,
+                    navigationOptions: {title: 'Εξεταστική'}
+                },
+                ChartScreen: {
+                    screen: ChartScreen,
+                    navigationOptions: {title: 'Γραφήματα'}
+                },
             }, {
                 initialRouteName: initRoute,
                 animationEnabled: false,
                 swipeEnabled: false,
                 backBehavior: 'none',
-                tabBarComponent: () => <Text style={{display: 'none'}}/>
+                tabBarOptions: {
+                    inactiveTintColor: 'white',
+                    upperCaseLabel: false,
+                    indicatorStyle: {
+                        backgroundColor: 'white'
+                    },
+                    labelStyle: {
+                        fontWeight: 'bold',
+                    },
+                    style: {
+                        backgroundColor: '#3F51B5',
+                    }
+                },
+                tabBarPosition: 'bottom'
             }
         );
 
         const menuNavigator = StackNavigator({
-            screenNavigator: {screen: screenNavigator}
+            screenNavigator: {screen: screenNavigator},
+            lesson: {screen: Lesson}
         }, {
             navigationOptions: ({navigation}) => ({
                 headerTitle: 'Βαθμοί',
