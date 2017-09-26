@@ -1,4 +1,4 @@
-import MenuContent from '../components/MenuContent'
+import LogoutComponent from '../components/logout'
 import {connect} from 'react-redux'
 import {actions} from '../../login';
 
@@ -10,9 +10,9 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-const menuContentRedux = connect(
+const logoutRedux = connect(
     null,
     mapDispatchToProps
-)(MenuContent);
+)(LogoutComponent);
 
-export {menuContentRedux as MenuContent};
+export {logoutRedux as Logout};

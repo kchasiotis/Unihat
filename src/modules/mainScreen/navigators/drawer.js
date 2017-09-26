@@ -1,18 +1,10 @@
 import React, {Component} from 'react';
 import {InitializeLessonList} from '../../lessonList'
-import {MenuContent} from '../containers/MenuContent'
+import {Logout} from '../containers/logout'
 import {ChartScreen} from '../../chartScreen'
 import {Lesson} from '../../lesson'
 import {DrawerNavigator, StackNavigator, NavigationActions, TabNavigator} from 'react-navigation';
-import {Icon} from "native-base";
 import env from '../../../../environment'
-
-function MenuIcon(props) {
-    return (
-        <Icon name="menu" style={{paddingLeft: 15, paddingRight: 15, paddingTop: 5, paddingBottom: 5, color: 'white'}}
-              onPress={() => props.navigation.navigate('DrawerOpen')}/>
-    );
-}
 
 export default class Drawer extends Component {
     constructor(props) {
@@ -31,7 +23,7 @@ export default class Drawer extends Component {
     }
 
     render() {
-        MenuContent.defaultProps = {loginRoute: this.loginRoute};
+        Logout.defaultProps = {loginRoute: this.loginRoute};
 
         let aGrades = InitializeLessonList();
         let exGrades = InitializeLessonList();
@@ -78,8 +70,8 @@ export default class Drawer extends Component {
             lesson: {screen: Lesson}
         }, {
             navigationOptions: ({navigation}) => ({
-                headerTitle: 'Βαθμοί',
-                headerLeft: <MenuIcon navigation={navigation}/>,
+                headerTitle: 'Unihat',
+                headerRight: <Logout navigation={navigation}/>,
                 headerStyle: {backgroundColor: '#3F51B5'},
                 headerTitleStyle: {color: 'white'},
             }),
@@ -87,9 +79,6 @@ export default class Drawer extends Component {
 
         const DrawerOverlay = DrawerNavigator({
             drawerContent: {screen: menuNavigator}
-        }, {
-            contentComponent: MenuContent,
-            drawerWidth: 200
         });
 
 
