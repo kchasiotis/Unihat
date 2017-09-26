@@ -3,7 +3,7 @@
 import React, {Component} from 'react';
 import {View, Text, ScrollView, StyleSheet} from 'react-native';
 import BarChart from './barChart'
-import PieChartWrapper from "./pieChartWrapper";
+import {PieChartWrapper} from "../container/pieChartWrapper";
 import ChartTitle from "./chartTitle";
 import pieChartType from "./pieChartType";
 const Dimensions = require('Dimensions');

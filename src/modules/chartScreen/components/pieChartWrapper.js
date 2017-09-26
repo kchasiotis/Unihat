@@ -7,6 +7,28 @@ import pieChartType from './pieChartType'
 export default class PieChartWrapper extends Component {
     constructor(props) {
         super(props);
+        const {chartType, user} = this.props;
+
+        if (chartType === 'average')
+            this.state = {total: pieChartType[chartType].total};
+        else {
+            let total = null;
+            let chType = pieChartType[chartType];
+
+            switch (user.department) {
+                case '311':
+                    total = chType.total['math'];
+                    break;
+                case '321':
+                    total = chType.total['icsd'];
+                    break;
+                case '331':
+                    total = chType.total['sas'];
+                    break;
+            }
+
+            this.state = {total: total};
+        }
     }
 
     render() {
@@ -20,7 +42,7 @@ export default class PieChartWrapper extends Component {
                     <AverageGradePie size={pieSize}
                                      chartTitle={pieChartType[chartType].title}
                                      pallete={[mainColor, fillColor]}
-                                     value={chartValue} total={pieChartType[chartType].total}/>
+                                     value={chartValue} total={this.state.total}/>
                 </View>
             </View>
         );

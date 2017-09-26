@@ -10,10 +10,14 @@ export default class AverageGradePie extends Component {
         let data = [{
             "name": this.props.value,
             "value": this.props.value * 100
-        }, {
-            "name": this.props.chartTitle === pieChartType.succeedLessons.title ? this.props.total - this.props.value : '',
-            "value": (this.props.total - this.props.value) * 100
         }];
+
+        if (this.props.total !== this.props.value) {
+            data.push({
+                "name": this.props.chartTitle === pieChartType.succeedLessons.title ? this.props.total - this.props.value : '',
+                "value": (this.props.total - this.props.value) * 100
+            })
+        }
 
         // todo: check size formulas with width
         let options = {
