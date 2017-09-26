@@ -30,13 +30,13 @@ export default class SefCrawler {
         // Analytic grades tBody
         let allGrades = $('#example1 > tbody').children();
         let parsedAllGrades = this.parseGrades(allGrades);
-        parsedAllGrades.sort((lessonA, lessonB) => -lessonA.enrollDate.diff(lessonB.enrollDate, 'days'));
+        parsedAllGrades.sort((lessonA, lessonB) => -moment(lessonA.enrollDate, "DD-MM-YYYY").diff(moment(lessonB.enrollDate, "DD-MM-YYYY"), 'days'));
 
-        let exGrades = parsedAllGrades.filter((lesson) => lesson.enrollDate.diff(parsedAllGrades[0].enrollDate) === 0);
+        let exGrades = parsedAllGrades.filter((lesson) => moment(lesson.enrollDate, "DD-MM-YYYY").diff(moment(parsedAllGrades[0].enrollDate, "DD-MM-YYYY")) === 0);
         exGrades = exGrades.sort((lessonA, lessonB) => lessonB.grade - lessonA.grade);
 
         let grades = {};
-        grades.aGrades = parsedAllGrades.filter((lesson) => lesson.enrollDate.diff(parsedAllGrades[0].enrollDate) !== 0);
+        grades.aGrades = parsedAllGrades.filter((lesson) => moment(lesson.enrollDate, "DD-MM-YYYY").diff(moment(parsedAllGrades[0].enrollDate, "DD-MM-YYYY")) !== 0);
         grades.sGrades = grades.aGrades.filter((lesson) => lesson.grade >= 5 && lesson.code !== '311-1600' && lesson.code !== '311-1650' && lesson.code !== '311-1700');
         grades.exGrades = exGrades;
 
@@ -52,16 +52,16 @@ export default class SefCrawler {
             lesson.title = temp.eq(1).text().trim().replace('&amp;', '&');
 
             lesson.enrollDate = temp.eq(2).find('span').text().trim().split(' ')[0];
-            lesson.enrollDate = moment(lesson.enrollDate, "YYYY-MM-DD");
+            lesson.enrollDate = moment(lesson.enrollDate, "YYYY-MM-DD").format("DD-MM-YYYY");
             lesson.examDate = temp.eq(3).find('span').text().trim().split(' ')[0];
-            lesson.examDate = lesson.examDate === '' ? null : moment(lesson.examDate, "YYYY-MM-DD");
+            lesson.examDate = lesson.examDate === '' ? null : moment(lesson.examDate, "YYYY-MM-DD").format("DD-MM-YYYY");
 
             lesson.grade = temp.eq(4).text().trim() !== '' ? parseFloat(temp.eq(4).text().trim()) : null;
             lesson.state = temp.eq(5).text().trim();
             lesson.code = temp.eq(0).text().trim();
 
-            lesson.id = temp.eq(0).text().trim() + '_' + lesson.enrollDate.format("DD-MM-YYYY");
-            lesson.id += lesson.examDate ? '_' + lesson.examDate.format("DD-MM-YYYY") : '';
+            lesson.id = temp.eq(0).text().trim() + '_' + lesson.enrollDate;
+            lesson.id += lesson.examDate ? '_' + lesson.examDate : '';
 
             analyticGrading.push(lesson);
         }

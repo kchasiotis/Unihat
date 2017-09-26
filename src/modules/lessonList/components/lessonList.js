@@ -45,10 +45,6 @@ class LessonList extends Component {
 
     openLesson(lesson) {
         return () => {
-            // todo: remove memento from objects
-            lesson.enrollDate = lesson.enrollDate.format('DD-MM-YYYY');
-            lesson.examDate = lesson.examDate.format('DD-MM-YYYY');
-
             this.props.setCurrentLesson(lesson);
             this.props.getLessonStatistics(lesson);
             this.props.navigation.navigate('lesson');
