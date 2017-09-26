@@ -31,7 +31,7 @@ export default class LoggedNav extends Component {
         }, {
             navigationOptions: ({navigation}) => ({
                 headerTitle: 'Unihat',
-                headerTintColor: 'white',
+                headerTintColor: '#f86624',
                 headerRight: <Logout navigation={navigation}/>,
                 headerStyle: {backgroundColor: '#3F51B5'},
                 headerTitleStyle: {color: 'white'},

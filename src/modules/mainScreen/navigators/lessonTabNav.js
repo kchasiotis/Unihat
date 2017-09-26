@@ -12,15 +12,15 @@ export default function LessonsTabNav() {
     return TabNavigator({
             aGrades: {
                 screen: aGrades,
-                navigationOptions: {title: 'Όλα'}
+                navigationOptions: {title: 'Όλα '}
             },
             exGrades: {
                 screen: exGrades,
-                navigationOptions: {title: 'Εξεταστική'}
+                navigationOptions: {title: 'Εξεταστική '}
             },
             ChartScreen: {
                 screen: ChartScreen,
-                navigationOptions: {title: 'Γραφήματα'}
+                navigationOptions: {title: 'Γραφήματα '}
             },
         }, {
             initialRouteName: initRoute,
@@ -31,7 +31,7 @@ export default function LessonsTabNav() {
                 inactiveTintColor: 'white',
                 upperCaseLabel: false,
                 indicatorStyle: {
-                    backgroundColor: 'white'
+                    backgroundColor: '#f86624'
                 },
                 labelStyle: {
                     fontWeight: 'bold',
