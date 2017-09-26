@@ -33,14 +33,18 @@ class Lesson extends Component {
                                 null
                         }
                     </CardItem>
-                    <CardItem>
-                        <Text style={lessonStyle.itemTitle}>Εξάμηνο</Text>
-                        <Right style={lessonStyle.itemRight}>
-                            <Badge style={{backgroundColor: 'gray'}}>
-                                <Text>{currentLesson.semester + 'ο'}</Text>
-                            </Badge>
-                        </Right>
-                    </CardItem>
+                    {
+                        currentLesson.semester !== null ?
+                            <CardItem>
+                                <Text style={lessonStyle.itemTitle}>Εξάμηνο</Text>
+                                <Right style={lessonStyle.itemRight}>
+                                    <Badge style={{backgroundColor: 'gray'}}>
+                                        <Text>{currentLesson.semester + 'ο'}</Text>
+                                    </Badge>
+                                </Right>
+                            </CardItem> :
+                            null
+                    }
                     <CardItem>
                         <Text style={lessonStyle.itemTitle}>Κατάσταση</Text>
                         <Right style={lessonStyle.itemRight}>
@@ -90,7 +94,7 @@ const lessonStyle = {
     itemContent: {
         color: 'gray'
     },
-    itemRight:{
+    itemRight: {
         flex: 1 // todo: remove if possible
     },
     lessonState: (state) => {
