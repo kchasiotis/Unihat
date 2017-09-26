@@ -1,5 +1,4 @@
 import {SET_GRADES, SET_LOGIN_STATE, RESET_STATE, SET_CURRENT_LESSON, SET_LESSON_LIST, LoginState} from './actions'
-import env from '../../../environment'
 
 function grades(state = {}, action) {
     switch (action.type) {
