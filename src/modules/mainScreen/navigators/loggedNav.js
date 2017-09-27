@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import LessonsTabNav from './lessonTabNav'
 import {Lesson} from '../../lesson'
+import {Filter} from '../../lessonList'
 import {Logout} from '../containers/logout'
 import {NavigationActions, StackNavigator} from 'react-navigation';
 
@@ -26,6 +27,7 @@ export default class LoggedNav extends Component {
         Logout.defaultProps = {loginRoute: this.loginRoute};
 
         const MenuNavigator = StackNavigator({
+            filter: {screen: Filter},
             screenNavigator: {screen: LessonsTabNav()},
             lesson: {screen: Lesson}
         }, {

@@ -1,16 +1,66 @@
 import React from 'react';
 import {connect} from 'react-redux'
+let moment = require('moment');
 
 import LessonList from '../components/lessonList'
 import {actions} from '../../login'
+import {filterSortConfig} from '../actions'
+import {STATES as L_STATES} from '../../../tools/crawler/lesson'
 
 const mapStateToProps = (state, ownProps) => {
+    let lessons = null;
     switch (ownProps.routeName) {
         case 'aGrades':
-            return {grades: state.grades.aGrades};
+            lessons = state.grades.aGrades;
+            break;
         case 'exGrades':
-            return {grades: state.grades.exGrades};
+            lessons = state.grades.exGrades;
+            break;
     }
+
+    const {gradeRange, lessonState, sort} = state.filter;
+    for (let key in L_STATES) {
+        if (lessonState[key] !== false) {
+            lessons = lessons.filter((lesson) => lesson.state !== L_STATES[key])
+        }
+    }
+
+    if (gradeRange.from !== undefined && gradeRange.to !== undefined) {
+        lessons = lessons.filter((lesson) => lesson.grade >= gradeRange.from && lesson.grade <= gradeRange.to)
+    }
+
+    let desc = sort.order === 'desc';
+    switch (sort.by) {
+        case filterSortConfig.by.enrollDate:
+            lessons.sort((lessonA, lessonB) => {
+                if (desc) {
+                    return -moment(lessonA.enrollDate, "DD-MM-YYYY").diff(moment(lessonB.enrollDate, "DD-MM-YYYY"), 'days');
+                } else {
+                    return moment(lessonA.enrollDate, "DD-MM-YYYY").diff(moment(lessonB.enrollDate, "DD-MM-YYYY"), 'days');
+                }
+            });
+            break;
+        case filterSortConfig.by.grade:
+            lessons.sort((lessonA, lessonB) => {
+                if (desc) {
+                    return lessonA.grade - lessonB.grade;
+                } else {
+                    return -(lessonA.grade - lessonB.grade);
+                }
+            });
+            break;
+        case filterSortConfig.by.semester:
+            lessons.sort((lessonA, lessonB) => {
+                if (desc) {
+                    return lessonA.semester - lessonB.semester;
+                } else {
+                    return -(lessonA.semester - lessonB.semester);
+                }
+            });
+            break;
+    }
+
+    return {grades: lessons};
 };
 
 const mapDispatchToProps = (dispatch) => {
