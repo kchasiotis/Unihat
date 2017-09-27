@@ -7,7 +7,7 @@ import htmlDataClosed from './mockExamsClosed';
 import htmlDataOpen from './mockExamsOpen';
 import env from '../../../../environment'
 global.Buffer = Buffer;
-import Lesson from '../lesson';
+import {Lesson} from '../lesson';
 import {Logger} from '../../../tools/logger';
 
 class User {

@@ -4,7 +4,7 @@ let moment = require('moment');
 moment().format();
 
 import htmlData from './mockPage';
-import Lesson from '../lesson';
+import {Lesson} from '../lesson';
 import {Logger} from '../../logger';
 
 export default class SefCrawler {

@@ -1,4 +1,11 @@
-export default class Lesson {
+export const STATES = {
+    SUCCEEDED: 'Επιτυχία',
+    NO_PARTICIPATION: 'Δε δόθηκε',
+    FAILED: 'Αποτυχία',
+    CANCELLED: 'Ακύρωση'
+};
+
+export class Lesson {
     id = null;
     code = null; // sef parser
     title = null;
