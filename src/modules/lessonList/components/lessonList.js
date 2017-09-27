@@ -7,6 +7,7 @@ import {Logger} from '../../../tools/logger';
 import {CredentialStorage, LocalStorage} from '../../../tools/localStorage';
 import lesson from '../../lesson/components/lesson';
 import {AppState} from 'react-native'
+import env from '../../../../environment'
 
 class LessonList extends Component {
     constructor(props) {
@@ -54,6 +55,7 @@ class LessonList extends Component {
 
     componentDidMount() {
         AppState.addEventListener('change', this._handleAppStateChange);
+        if (env.debug && env.openFilter) this.props.navigation.navigate('filter');
     }
 
     componentWillUnmount() {

@@ -7,9 +7,10 @@ const env = {
     autoLogin: true,
     shortSchedule: true,
     logger: true,
+    openFilter: true,
     serverUrl: config.serverUrl,
     mockPage: ['examsOpen', 'examsClosed'][0],
-    drawerRoute: ['aGrades', 'exGrades', 'chartScreen'][0],
+    drawerRoute: ['aGrades', 'exGrades', 'chartScreen'][3],
     user: [icarusUser, sefUser][0]
 };
 
