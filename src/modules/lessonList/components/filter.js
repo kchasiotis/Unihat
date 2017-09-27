@@ -51,6 +51,49 @@ const GradeSlider = ({gradeRange, multiSliderValuesChange}) => {
     );
 };
 
+const SortingItem = ({filterSortBy, configBy, title}) => {
+    return (
+        <ListItem>
+            <CheckBox checked={filterSortBy === configBy}/>
+            <Body>
+            <Text>{title}</Text>
+            </Body>
+        </ListItem>
+    );
+};
+
+const Sorting = ({filterSortBy, configBys}) => {
+    return (
+        <View>
+            <Text>Ταξινόμηση</Text>
+            <SortingItem filterSortBy={filterSortBy} configBy={configBys.enrollDate} title={'Ημερομηνία δήλωσης'}/>
+            <SortingItem filterSortBy={filterSortBy} configBy={configBys.grade} title={'Βαθμός'}/>
+            <SortingItem filterSortBy={filterSortBy} configBy={configBys.semester} title={'Εξάμηνο'}/>
+        </View>
+    );
+};
+
+const OrderItem = ({filterSortOrder, configOrder, title}) => {
+    return (
+        <ListItem>
+            <CheckBox checked={filterSortOrder === configOrder}/>
+            <Body>
+            <Text>{title}</Text>
+            </Body>
+        </ListItem>
+    );
+};
+
+const Order = ({filterSortOrder, configOrders}) => {
+    return (
+        <View>
+            <Text>Κατάταξη</Text>
+            <OrderItem filterSortOrder={filterSortOrder} configOrder={configOrders.desc} title={'Φθίνουσα'}/>
+            <OrderItem filterSortOrder={filterSortOrder} configOrder={configOrders.asc} title={'Αύξουσα'}/>
+        </View>
+    );
+};
+
 export default class Filter extends Component {
     constructor(props) {
         super(props);
@@ -70,38 +113,10 @@ export default class Filter extends Component {
 
                 <GradeSlider gradeRange={gradeRange} multiSliderValuesChange={this.multiSliderValuesChange}/>
 
-                <Text>Ταξινόμηση</Text>
-                <ListItem>
-                    <CheckBox checked={sort.by === filterSortConfig.by.enrollDate}/>
-                    <Body>
-                    <Text>Ημερομηνία δήλωσης</Text>
-                    </Body>
-                </ListItem>
-                <ListItem>
-                    <CheckBox checked={sort.by === filterSortConfig.by.grade}/>
-                    <Body>
-                    <Text>Βαθμός</Text>
-                    </Body>
-                </ListItem>
-                <ListItem>
-                    <CheckBox checked={sort.by === filterSortConfig.by.semester}/>
-                    <Body>
-                    <Text>Εξάμηνο</Text>
-                    </Body>
-                </ListItem>
-                <Text>Κατάταξη</Text>
-                <ListItem>
-                    <CheckBox checked={sort.order === filterSortConfig.order.desc}/>
-                    <Body>
-                    <Text>Φθίνουσα</Text>
-                    </Body>
-                </ListItem>
-                <ListItem>
-                    <CheckBox checked={sort.order === filterSortConfig.order.asc}/>
-                    <Body>
-                    <Text>Αύξουσα</Text>
-                    </Body>
-                </ListItem>
+                <Sorting filterSortBy={sort.by} configBys={filterSortConfig.by}/>
+
+                <Order filterSortOrder={sort.order} configOrders={filterSortConfig.order}/>
+
             </Content>
         );
     }
