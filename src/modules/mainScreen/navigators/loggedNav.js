@@ -27,8 +27,8 @@ export default class LoggedNav extends Component {
         Logout.defaultProps = {loginRoute: this.loginRoute};
 
         const MenuNavigator = StackNavigator({
-            filter: {screen: Filter},
             screenNavigator: {screen: LessonsTabNav()},
+            filter: {screen: Filter},
             lesson: {screen: Lesson}
         }, {
             navigationOptions: ({navigation}) => ({
