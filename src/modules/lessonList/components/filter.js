@@ -18,14 +18,38 @@ const LessonStates = ({lessonState, LESSON_STATES, filterByState}) => {
     return (
         <View>
             <Text>Κατάσταση</Text>
-            <CheckBoxL value={lessonState.SUCCEEDED} onClick={() => filterByState(LESSON_STATES.SUCCEEDED)} title={'Επιτυχία'}/>
-            <CheckBoxL value={lessonState.FAILED} onClick={() => filterByState(LESSON_STATES.FAILED)} title={'Αποτυχία'}/>
-            <CheckBoxL value={lessonState.CANCELLED} onClick={() => filterByState(LESSON_STATES.CANCELLED)} title={'Ακύρωση'}/>
-            <CheckBoxL value={lessonState.NO_PARTICIPATION} onClick={() => filterByState(LESSON_STATES.NO_PARTICIPATION)} title={'Δε δόθηκε'}/>
+            <CheckBoxL value={lessonState.SUCCEEDED} onClick={() => filterByState(LESSON_STATES.SUCCEEDED)}
+                       title={'Επιτυχία'}/>
+            <CheckBoxL value={lessonState.FAILED} onClick={() => filterByState(LESSON_STATES.FAILED)}
+                       title={'Αποτυχία'}/>
+            <CheckBoxL value={lessonState.CANCELLED} onClick={() => filterByState(LESSON_STATES.CANCELLED)}
+                       title={'Ακύρωση'}/>
+            <CheckBoxL value={lessonState.NO_PARTICIPATION}
+                       onClick={() => filterByState(LESSON_STATES.NO_PARTICIPATION)} title={'Δε δόθηκε'}/>
         </View>
     );
 };
 
+const GradeSlider = ({gradeRange, multiSliderValuesChange}) => {
+    let space = '                                                                   ';
+
+    return (
+        <View>
+            <Text>Βαθμοί</Text>
+            <View style={{marginTop: 30, marginLeft: 20, marginRight: 20}}>
+                <View style={{marginBottom: 10}}>
+                    <Text>{gradeRange.from}{space}{gradeRange.to}</Text>
+                </View>
+                <MultiSlider
+                    values={[gradeRange.from, gradeRange.to]}
+                    onValuesChange={multiSliderValuesChange}
+                    min={0}
+                    max={10}
+                    step={0.5}/>
+            </View>
+        </View>
+    );
+};
 
 export default class Filter extends Component {
     constructor(props) {
@@ -40,24 +64,11 @@ export default class Filter extends Component {
         const {lessonState, gradeRange, sort} = this.props.filter;
         const {filterSortConfig, filterByState, LESSON_STATES} = this.props;
 
-        let space = '                                                                   ';
-
         return (
             <Content>
                 <LessonStates lessonState={lessonState} LESSON_STATES={LESSON_STATES} filterByState={filterByState}/>
 
-                <Text>Βαθμοί</Text>
-                <View style={{marginTop: 30, marginLeft: 20, marginRight: 20}}>
-                    <View style={{marginBottom: 10}}>
-                        <Text>{gradeRange.from}{space}{gradeRange.to}</Text>
-                    </View>
-                    <MultiSlider
-                        values={[gradeRange.from, gradeRange.to]}
-                        onValuesChange={this.multiSliderValuesChange}
-                        min={0}
-                        max={10}
-                        step={0.5}/>
-                </View>
+                <GradeSlider gradeRange={gradeRange} multiSliderValuesChange={this.multiSliderValuesChange}/>
 
                 <Text>Ταξινόμηση</Text>
                 <ListItem>
