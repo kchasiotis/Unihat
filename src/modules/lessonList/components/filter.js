@@ -2,6 +2,31 @@ import React, {Component} from 'react';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import {CheckBox, View, Content, Text, ListItem, Body} from 'native-base';
 
+const CheckBoxL = ({value, onClick, title}) => {
+    return (
+        <ListItem>
+            <CheckBox checked={value}
+                      onPress={() => onClick()}/>
+            <Body>
+            <Text>{title}</Text>
+            </Body>
+        </ListItem>
+    );
+};
+
+const LessonStates = ({lessonState, LESSON_STATES, filterByState}) => {
+    return (
+        <View>
+            <Text>Κατάσταση</Text>
+            <CheckBoxL value={lessonState.SUCCEEDED} onClick={() => filterByState(LESSON_STATES.SUCCEEDED)} title={'Επιτυχία'}/>
+            <CheckBoxL value={lessonState.FAILED} onClick={() => filterByState(LESSON_STATES.FAILED)} title={'Αποτυχία'}/>
+            <CheckBoxL value={lessonState.CANCELLED} onClick={() => filterByState(LESSON_STATES.CANCELLED)} title={'Ακύρωση'}/>
+            <CheckBoxL value={lessonState.NO_PARTICIPATION} onClick={() => filterByState(LESSON_STATES.NO_PARTICIPATION)} title={'Δε δόθηκε'}/>
+        </View>
+    );
+};
+
+
 export default class Filter extends Component {
     constructor(props) {
         super(props);
@@ -13,37 +38,13 @@ export default class Filter extends Component {
 
     render() {
         const {lessonState, gradeRange, sort} = this.props.filter;
-        const {filterSortConfig, LESSON_STATES} = this.props;
+        const {filterSortConfig, filterByState, LESSON_STATES} = this.props;
 
         let space = '                                                                   ';
 
         return (
             <Content>
-                <Text>Κατάσταση</Text>
-                <ListItem>
-                    <CheckBox checked={lessonState.SUCCEEDED} onPress={()=> this.props.filterByState(LESSON_STATES.SUCCEEDED)}/>
-                    <Body>
-                    <Text>Επιτυχία</Text>
-                    </Body>
-                </ListItem>
-                <ListItem>
-                    <CheckBox checked={lessonState.FAILED} onPress={()=> this.props.filterByState(LESSON_STATES.FAILED)}/>
-                    <Body>
-                    <Text>Αποτυχία</Text>
-                    </Body>
-                </ListItem>
-                <ListItem>
-                    <CheckBox checked={lessonState.CANCELLED} onPress={()=> this.props.filterByState(LESSON_STATES.CANCELLED)}/>
-                    <Body>
-                    <Text>Ακύρωση</Text>
-                    </Body>
-                </ListItem>
-                <ListItem>
-                    <CheckBox checked={lessonState.NO_PARTICIPATION} onPress={()=> this.props.filterByState(LESSON_STATES.NO_PARTICIPATION)}/>
-                    <Body>
-                    <Text>Δε δόθηκε</Text>
-                    </Body>
-                </ListItem>
+                <LessonStates lessonState={lessonState} LESSON_STATES={LESSON_STATES} filterByState={filterByState}/>
 
                 <Text>Βαθμοί</Text>
                 <View style={{marginTop: 30, marginLeft: 20, marginRight: 20}}>
