@@ -5,7 +5,7 @@ import {StatusBar, View} from "react-native";
 function InitializeLessonList() {
     return function LessonListEm(props) {
         return (
-            <View>
+            <View style={{flex: 1}}>
                 <StatusBar
                     backgroundColor="#2137AA"
                     barStyle="light-content"

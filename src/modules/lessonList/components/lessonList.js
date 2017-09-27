@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ListItem, Right, Text, Badge, Body} from 'native-base';
+import {ListItem, Right, Text, Badge, Body, Fab, Icon, View} from 'native-base';
 import {FlatList, RefreshControl} from 'react-native';
 
 import Crawler from '../../../tools/crawler';
@@ -86,35 +86,45 @@ class LessonList extends Component {
         // if (this.props.grades.length === 0) return <Text>Άδεια λίστα μαθημάτων</Text>;
 
         return (
-            <FlatList
-                keyExtractor={(item) => (item.id)}
-                refreshControl={
-                    <RefreshControl
-                        refreshing={this.state.refreshing}
-                        onRefresh={this.refreshLessons}
-                        title="Pull to refresh"
-                        colors={['#3F51B5', 'green']}
-                        progressBackgroundColor='#fff'
-                    />
-                }
-                data={this.props.grades}
-                renderItem={({item}) =>
-                    <ListItem onPress={this.openLesson(item)}>
-                        <Body>
-                        <Text>{item.title}</Text>
-                        </Body>
-                        <Right>
-                            {
-                                item.grade !== null ?
-                                    <Badge style={{backgroundColor: style.badgeStyle(item.state, item.grade)}}>
-                                        <Text>{item.grade}</Text>
-                                    </Badge> :
-                                    null
-                            }
-                        </Right>
-                    </ListItem>
-                }
-            />
+            <View style={{flex: 1}}>
+                <FlatList
+                    keyExtractor={(item) => (item.id)}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={this.state.refreshing}
+                            onRefresh={this.refreshLessons}
+                            title="Pull to refresh"
+                            colors={['#3F51B5', 'green']}
+                            progressBackgroundColor='#fff'
+                        />
+                    }
+                    data={this.props.grades}
+                    renderItem={({item}) =>
+                        <ListItem onPress={this.openLesson(item)}>
+                            <Body>
+                            <Text>{item.title}</Text>
+                            </Body>
+                            <Right>
+                                {
+                                    item.grade !== null ?
+                                        <Badge style={{backgroundColor: style.badgeStyle(item.state, item.grade)}}>
+                                            <Text>{item.grade}</Text>
+                                        </Badge> :
+                                        null
+                                }
+                            </Right>
+                        </ListItem>
+                    }
+                />
+                <Fab
+                    active={this.state.active}
+                    direction="up"
+                    style={{backgroundColor: '#3F51B5'}}
+                    position="bottomRight"
+                    onPress={() => this.props.navigation.navigate('filter')}>
+                    <Icon name="ios-funnel"/>
+                </Fab>
+            </View>
         );
     }
 }
