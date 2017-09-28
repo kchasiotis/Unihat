@@ -87,46 +87,36 @@ class LessonList extends Component {
         // if (this.props.grades.length === 0) return <Text>Άδεια λίστα μαθημάτων</Text>;
 
         return (
-            <View style={{flex: 1}}>
-                <FlatList
-                    style={{backgroundColor: 'white'}}
-                    keyExtractor={(item) => (item.id)}
-                    refreshControl={
-                        <RefreshControl
-                            refreshing={this.state.refreshing}
-                            onRefresh={this.refreshLessons}
-                            title="Pull to refresh"
-                            colors={['#3F51B5', 'green']}
-                            progressBackgroundColor='#fff'
-                        />
-                    }
-                    data={this.props.grades}
-                    renderItem={({item}) =>
-                        <ListItem onPress={this.openLesson(item)} style={{backgroundColor: 'white'}}>
-                            <Body>
-                            <Text>{item.title}</Text>
-                            </Body>
-                            <Right>
-                                {
-                                    item.grade !== null ?
-                                        <Badge style={{backgroundColor: style.badgeStyle(item.state, item.grade)}}>
-                                            <Text>{item.grade}</Text>
-                                        </Badge> :
-                                        null
-                                }
-                            </Right>
-                        </ListItem>
-                    }
-                />
-                <Fab
-                    active={this.state.active}
-                    direction="up"
-                    style={{backgroundColor: '#3F51B5'}}
-                    position="bottomRight"
-                    onPress={() => this.props.navigation.navigate('filter')}>
-                    <Icon name="ios-funnel"/>
-                </Fab>
-            </View>
+            <FlatList
+                style={{backgroundColor: 'white'}}
+                keyExtractor={(item) => (item.id)}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={this.state.refreshing}
+                        onRefresh={this.refreshLessons}
+                        title="Pull to refresh"
+                        colors={['#3F51B5', 'green']}
+                        progressBackgroundColor='#fff'
+                    />
+                }
+                data={this.props.grades}
+                renderItem={({item}) =>
+                    <ListItem onPress={this.openLesson(item)} style={{backgroundColor: 'white'}}>
+                        <Body>
+                        <Text>{item.title}</Text>
+                        </Body>
+                        <Right>
+                            {
+                                item.grade !== null ?
+                                    <Badge style={{backgroundColor: style.badgeStyle(item.state, item.grade)}}>
+                                        <Text>{item.grade}</Text>
+                                    </Badge> :
+                                    null
+                            }
+                        </Right>
+                    </ListItem>
+                }
+            />
         );
     }
 }

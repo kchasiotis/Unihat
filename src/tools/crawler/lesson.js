@@ -9,6 +9,7 @@ export const LESSON_STATES_SEF = {
     SUCCEEDED: 'Επιτυχία',
     NO_PARTICIPATION: 'Δεν δόθηκε',
     FAILED: 'Αποτυχία',
+    EXEMPTION: 'Απαλλαγή',
     CANCELLED: 'Ακύρωση'
 };
 

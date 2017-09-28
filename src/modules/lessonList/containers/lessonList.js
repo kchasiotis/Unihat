@@ -18,19 +18,19 @@ const mapStateToProps = (state, ownProps) => {
             break;
     }
 
-    if(state.grades.aGrades === undefined) return state;
+    if(ownProps.routeName === 'exGrades' || state.grades.aGrades === undefined) return {grades: lessons};
 
     let LESSON_STATES = state.user.department === '321' ? LESSON_STATES_ICSD : LESSON_STATES_SEF;
 
     const {gradeRange, lessonState, sort} = state.filter;
     for (let key in LESSON_STATES) {
         if (lessonState[key] === false) {
-            lessons = lessons.filter((lesson) => lesson.state !== LESSON_STATES[key])
+            lessons = lessons.filter((lesson) => lesson.state !== LESSON_STATES[key]);
         }
     }
 
     if (gradeRange.from !== undefined && gradeRange.to !== undefined) {
-        lessons = lessons.filter((lesson) => lesson.grade >= gradeRange.from && lesson.grade <= gradeRange.to)
+        lessons = lessons.filter((lesson) => lesson.grade >= gradeRange.from && lesson.grade <= gradeRange.to);
     }
 
     let desc = sort.order === 'desc';
