@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
+import {FlatList, RefreshControl, AppState} from 'react-native';
 import {ListItem, Right, Text, Badge, Body, Fab, Icon, View} from 'native-base';
-import {FlatList, RefreshControl} from 'react-native';
 
 import Crawler from '../../../tools/crawler';
 import {Logger} from '../../../tools/logger';
 import {CredentialStorage, LocalStorage} from '../../../tools/localStorage';
 import lesson from '../../lesson/components/lesson';
-import {AppState} from 'react-native'
 import env from '../../../../environment'
 
 class LessonList extends Component {
