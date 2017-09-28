@@ -14,21 +14,21 @@ const CheckBoxBtm = ({value, onClick, title}) => {
     );
 };
 
-const LessonStates = ({lessonState, LESSON_STATES, setFilteredStates}) => {
+const LessonStates = ({lessonState, LESSON_STATES, filterByState}) => {
     return (
         <Card>
             <CardItem>
                 <Text style={style.cardTitle}>Κατάσταση</Text>
             </CardItem>
             <View style={style.checkboxRow}>
-                <CheckBoxBtm value={lessonState.SUCCEEDED} onClick={() => setFilteredStates('SUCCEEDED')}
+                <CheckBoxBtm value={lessonState.SUCCEEDED} onClick={() => filterByState('SUCCEEDED')}
                              title={'Επιτυχία'}/>
-                <CheckBoxBtm value={lessonState.FAILED} onClick={() => setFilteredStates('FAILED')}
+                <CheckBoxBtm value={lessonState.FAILED} onClick={() => filterByState('FAILED')}
                              title={'Αποτυχία'}/>
-                <CheckBoxBtm value={lessonState.CANCELLED} onClick={() => setFilteredStates('CANCELLED')}
+                <CheckBoxBtm value={lessonState.CANCELLED} onClick={() => filterByState('CANCELLED')}
                              title={'Ακύρωση'}/>
                 <CheckBoxBtm value={lessonState.NO_PARTICIPATION}
-                             onClick={() => setFilteredStates('NO_PARTICIPATION')} title={'Δε δόθηκε'}/>
+                             onClick={() => filterByState('NO_PARTICIPATION')} title={'Δε δόθηκε'}/>
             </View>
         </Card>
     );
@@ -162,6 +162,11 @@ export default class Filter extends Component {
         this.setState({lessonState: newState});
     };
 
+    onSubmit = () => {
+        this.props.setFilters(this.state);
+        this.props.navigation.goBack();
+    };
+
     render() {
         const {lessonState, gradeRange, sort} = this.state;
         const {filterSortConfig, LESSON_STATES} = this.props;
@@ -181,7 +186,7 @@ export default class Filter extends Component {
                            setOrderBy={this.setSortOrder}/>
 
                 </Content>
-                <Button block style={{backgroundColor: colorPalette.sanMarino}}><Text> Εφαρμογή </Text></Button>
+                <Button block style={{backgroundColor: colorPalette.sanMarino}} onPress={this.onSubmit}><Text> Εφαρμογή </Text></Button>
             </View>
         );
     }

@@ -1,3 +1,4 @@
+export const SET_FILTERS = 'SET_FILTERS';
 export const SORT_BY = 'SORT_BY';
 export const SORT_ORDER = 'SORT_ORDER';
 export const FILTER_BY_STATE = 'FILTER_BY_STATE';
@@ -6,6 +7,13 @@ export const FILTER_GRADE_RANGE = 'FILTER_GRADE_RANGE';
 export const filterSortConfig = {
     by: {enrollDate: 'enrollDate', semester: 'semester', grade: 'grade'},
     order: {asc: 'asc', desc: 'desc'}
+};
+
+export const setFilters = (filters) => {
+    return {
+        type: SET_FILTERS,
+        filters: filters
+    }
 };
 
 export const sortBy = (filter) => {

@@ -1,4 +1,4 @@
-import {FILTER_BY_STATE, FILTER_GRADE_RANGE, SORT_BY, SORT_ORDER, filterSortConfig} from './actions'
+import {FILTER_BY_STATE, FILTER_GRADE_RANGE, SORT_BY, SORT_ORDER, SET_FILTERS, filterSortConfig} from './actions'
 import {STATES as LESSON_STATES} from '../../tools/crawler/lesson'
 
 function filter(state = {
@@ -7,6 +7,9 @@ function filter(state = {
     sort: {by: filterSortConfig.by.enrollDate, order: filterSortConfig.order.desc}
 }, action) {
     switch (action.type) {
+        case SET_FILTERS:
+            return Object.assign({}, action.filters);
+            break;
         case FILTER_BY_STATE:
             let newState = state.lessonState;
             switch (action.filterByState) {
