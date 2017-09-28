@@ -44,13 +44,14 @@ const GradeSlider = ({gradeRange, multiSliderValuesChange}) => {
             </CardItem>
             <View style={{marginLeft: 25, marginRight: 20}}>
                 <View style={{marginBottom: 10}}>
-                    <Text>{gradeRange.from}{gradeRange.from - parseInt(gradeRange.from) === 0 ? '   ' : ''}{space}{gradeRange.to}</Text>
+                    <Text style={{color: colorPalette.willowGrove}}>{gradeRange.from}{gradeRange.from - parseInt(gradeRange.from) === 0 ? '   ' : ''}{space}{gradeRange.to}</Text>
                 </View>
                 <MultiSlider
                     selectedStyle={{backgroundColor: colorPalette.orange,}}
                     markerStyle={{backgroundColor: colorPalette.orange}}
                     values={[gradeRange.from, gradeRange.to]}
                     onValuesChange={multiSliderValuesChange}
+                    allowOverlap
                     min={0}
                     max={10}
                     step={0.5}/>
@@ -186,7 +187,7 @@ export default class Filter extends Component {
                            setOrderBy={this.setSortOrder}/>
 
                 </Content>
-                <Button block style={{backgroundColor: colorPalette.sanMarino}} onPress={this.onSubmit}><Text> Εφαρμογή </Text></Button>
+                <Button block style={{backgroundColor: colorPalette.sanMarino}} onPress={this.onSubmit}><Text> ΕΦΑΡΜΟΓΗ </Text></Button>
             </View>
         );
     }
