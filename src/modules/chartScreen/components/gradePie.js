@@ -2,18 +2,23 @@ import React, {Component} from 'react';
 import {Pie} from 'react-native-pathjs-charts'
 import pieChartType from './pieChartType';
 
-// todo: Rename
-export default class AverageGradePie extends Component {
+export default class GradePie extends Component {
     render() {
         if (this.props.size === 0) return null;
+
+        const {chartTitle, total, value, size, pallete} = this.props;
 
         let data = [{
             "name": this.props.value,
             "value": this.props.value * 100
-        }, {
-            "name": this.props.chartTitle === pieChartType.succeedLessons.title ? this.props.total - this.props.value : '',
-            "value": (this.props.total - this.props.value) * 100
         }];
+
+        if (total !== value) {
+            data.push({
+                "name": chartTitle === pieChartType.succeedLessons.title ? total - value : '',
+                "value": (total - value) * 100
+            })
+        }
 
         // todo: check size formulas with width
         let options = {
@@ -23,10 +28,10 @@ export default class AverageGradePie extends Component {
                 right: 20,
                 bottom: 20
             },
-            width: this.props.size,
-            height: this.props.size,
-            r: this.props.size / 8,
-            R: this.props.size / 2.5,
+            width: size,
+            height: size,
+            r: size / 8,
+            R: size / 2.5,
             legendPosition: 'topLeft',
             animate: {
                 type: 'oneByOne',
@@ -40,7 +45,7 @@ export default class AverageGradePie extends Component {
                 color: 'black'
                 // color: '#ECF0F1'
             },
-            pallete: this.props.pallete || [{'r': 14, 'g': 168, 'b': 6}, {'r': 181, 'g': 181, 'b': 181}]
+            pallete: pallete || [{'r': 14, 'g': 168, 'b': 6}, {'r': 181, 'g': 181, 'b': 181}]
         };
 
         return (

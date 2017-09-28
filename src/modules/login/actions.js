@@ -11,6 +11,7 @@ export const SET_CURRENT_LESSON = 'SET_CURRENT_LESSON';
 export const SET_LESSON_LIST = 'SET_LESSON_LIST';
 export const SET_LOGIN_STATE = 'SET_LOGIN_STATE';
 export const RESET_STATE = 'RESET_STATE';
+export const SET_USER = 'SET_USER';
 
 export const LoginState = {
     INITIAL: 'INITIAL',
@@ -23,6 +24,13 @@ export const LoginState = {
 };
 
 crawlerObj = new crawler();
+
+export const setUser = (user) => {
+    return {
+        type: SET_USER,
+        user: user
+    }
+};
 
 export const setGrades = (grades) => {
     return {
@@ -83,6 +91,7 @@ export function login(username, password, chkBox) {
 
             if (loggedIn === true) {
                 dispatch(setLoginState(LoginState.LOGGED_IN));
+                dispatch(setUser({username: username}));
                 dispatch(setGrades(grades));
                 dispatch(postLessonsCheck(username, grades.aGrades.concat(grades.exGrades)));
                 LocalStorage.setGrades(grades);

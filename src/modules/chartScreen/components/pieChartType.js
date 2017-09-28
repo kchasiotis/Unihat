@@ -5,7 +5,11 @@ export default pieChartType = {
         description: 'Συμπεριλαμβάνει όλα τα μαθήματα με βαθμό πάνω από 5'
     },
     succeedLessons: {
-        total: 55,
+        total: {
+            icsd: 55,
+            math: 34,
+            sas: 34
+        },
         title: 'Περασμένα μαθήματα',
         description: 'Πλήθος περασμένων μαθημάτων'
     },

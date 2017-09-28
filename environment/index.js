@@ -1,9 +1,17 @@
+import icarusUser from '../src/tools/crawler/icarusCrawler/.user'
+import sefUser from '../src/tools/crawler/sefCrawler/.user'
 import config from '../src/tools/api/.config'
 
 const env = {
-    debug: false,
+    debug: true,
+    autoLogin: true,
+    shortSchedule: true,
+    logger: true,
+    openFilter: true,
     serverUrl: config.serverUrl,
-    logger: false
+    mockPage: ['examsOpen', 'examsClosed'][0],
+    drawerRoute: ['aGrades', 'exGrades', 'chartScreen'][3],
+    user: [icarusUser, sefUser][0]
 };
 
 export default env;

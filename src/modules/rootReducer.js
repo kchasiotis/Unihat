@@ -5,7 +5,8 @@ import {reducers as filterReducers} from './lessonList'
 const rootReducer = combineReducers({
     grades: gradesReducers.grades,
     user: gradesReducers.user,
-    filter: filterReducers.filter
+    filter: filterReducers.filter,
+    appState: gradesReducers.appState,
 });
 
 export default rootReducer
