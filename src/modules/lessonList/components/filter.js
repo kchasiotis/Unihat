@@ -4,16 +4,12 @@ import {CheckBox, View, Content, Text, ListItem, Card, CardItem} from 'native-ba
 
 const CheckBoxBtm = ({value, onClick, title}) => {
     return (
-        <View style={{
-            flex: 1, alignItems: 'center', flexDirection: 'column', borderRadius: 1,
-            borderWidth: 0.5,
-            borderColor: '#3F51B5'
-        }}>
+        <View style={{flex: 1, alignItems: 'center', flexDirection: 'column'}}>
             <ListItem>
-                <CheckBox checked={value}
+                <CheckBox color={colorPalette.orange} checked={value}
                           onPress={() => onClick()}/>
             </ListItem>
-            <Text>{title}</Text>
+            <Text style={style.checkboxText}>{title}</Text>
         </View>
     );
 };
@@ -21,8 +17,8 @@ const CheckBoxBtm = ({value, onClick, title}) => {
 const LessonStates = ({lessonState, LESSON_STATES, filterByState}) => {
     return (
         <Card>
-            <CardItem header>
-                <Text style={{fontWeight: 'bold'}}>Κατάσταση</Text>
+            <CardItem>
+                <Text style={style.cardTitle}>Κατάσταση</Text>
             </CardItem>
             <View style={style.checkboxRow}>
                 <CheckBoxBtm value={lessonState.SUCCEEDED} onClick={() => filterByState(LESSON_STATES.SUCCEEDED)}
@@ -44,13 +40,15 @@ const GradeSlider = ({gradeRange, multiSliderValuesChange}) => {
     return (
         <Card>
             <CardItem header>
-                <Text style={{fontWeight: 'bold'}}>Βαθμοί</Text>
+                <Text style={style.cardTitle}>Βαθμοί</Text>
             </CardItem>
             <View style={{marginLeft: 25, marginRight: 20}}>
                 <View style={{marginBottom: 10}}>
                     <Text>{gradeRange.from}{space}{gradeRange.to}</Text>
                 </View>
                 <MultiSlider
+                    selectedStyle={{backgroundColor: colorPalette.orange,}}
+                    markerStyle={{backgroundColor: colorPalette.orange}}
                     values={[gradeRange.from, gradeRange.to]}
                     onValuesChange={multiSliderValuesChange}
                     min={0}
@@ -65,7 +63,7 @@ const Sorting = ({filterSortBy, configBys}) => {
     return (
         <Card>
             <CardItem header>
-                <Text style={{fontWeight: 'bold'}}>Ταξινόμηση</Text>
+                <Text style={style.cardTitle}>Ταξινόμηση</Text>
             </CardItem>
             <View style={style.checkboxRow}>
                 <CheckBoxBtm value={filterSortBy === configBys.enrollDate} title={'Ημ. δήλωσης'}/>
@@ -80,7 +78,7 @@ const Order = ({filterSortOrder, configOrders}) => {
     return (
         <Card>
             <CardItem header>
-                <Text style={{fontWeight: 'bold'}}>Κατάταξη</Text>
+                <Text style={style.cardTitle}>Κατάταξη</Text>
             </CardItem>
             <View style={style.checkboxRow}>
                 <CheckBoxBtm value={filterSortOrder === configOrders.desc} title={'Φθίνουσα'}/>
@@ -118,6 +116,14 @@ export default class Filter extends Component {
     }
 }
 
+let colorPalette = {
+    sanMarino: '#3F51B5',
+    orange: '#F86624',
+    willowGrove: '#697268',
+    mineShaft: '#333333'
+};
 const style = {
-    checkboxRow: {flex: 1, flexDirection: 'row'}
+    checkboxRow: {flex: 1, flexDirection: 'row'},
+    checkboxText: {color: colorPalette.willowGrove},
+    cardTitle: {fontWeight: 'bold', color: colorPalette.mineShaft},
 };
