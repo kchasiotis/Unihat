@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
-import {CheckBox, View, Content, Text, ListItem, Card, CardItem} from 'native-base';
+import {CheckBox, View, Content, Text, ListItem, Card, CardItem, Button} from 'native-base';
 
 const CheckBoxBtm = ({value, onClick, title}) => {
     return (
@@ -102,16 +102,20 @@ export default class Filter extends Component {
         const {filterSortConfig, filterByState, LESSON_STATES} = this.props;
 
         return (
-            <Content>
-                <LessonStates lessonState={lessonState} LESSON_STATES={LESSON_STATES} filterByState={filterByState}/>
+            <View style={{flex: 1}}>
+                <Content>
+                    <LessonStates lessonState={lessonState} LESSON_STATES={LESSON_STATES}
+                                  filterByState={filterByState}/>
 
-                <GradeSlider gradeRange={gradeRange} multiSliderValuesChange={this.multiSliderValuesChange}/>
+                    <GradeSlider gradeRange={gradeRange} multiSliderValuesChange={this.multiSliderValuesChange}/>
 
-                <Sorting filterSortBy={sort.by} configBys={filterSortConfig.by}/>
+                    <Sorting filterSortBy={sort.by} configBys={filterSortConfig.by}/>
 
-                <Order filterSortOrder={sort.order} configOrders={filterSortConfig.order}/>
+                    <Order filterSortOrder={sort.order} configOrders={filterSortConfig.order}/>
 
-            </Content>
+                </Content>
+                <Button block style={{backgroundColor: colorPalette.sanMarino}}><Text> Εφαρμογή </Text></Button>
+            </View>
         );
     }
 }
