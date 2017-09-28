@@ -1,31 +1,41 @@
 import React, {Component} from 'react';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
-import {CheckBox, View, Content, Text, ListItem, Body} from 'native-base';
+import {CheckBox, View, Content, Text, ListItem, Body, Card, CardItem} from 'native-base';
 
 const CheckBoxL = ({value, onClick, title}) => {
     return (
-        <ListItem>
-            <CheckBox checked={value}
-                      onPress={() => onClick()}/>
-            <Body>
+        <View style={{
+            flex: 1, alignItems: 'center', flexDirection: 'column', borderRadius: 1,
+            borderWidth: 0.5,
+            borderColor: '#3F51B5'
+        }}>
+            <ListItem>
+                <CheckBox checked={value}
+                          onPress={() => onClick()}/>
+            </ListItem>
             <Text>{title}</Text>
-            </Body>
-        </ListItem>
+        </View>
     );
 };
 
 const LessonStates = ({lessonState, LESSON_STATES, filterByState}) => {
     return (
         <View>
-            <Text>Κατάσταση</Text>
-            <CheckBoxL value={lessonState.SUCCEEDED} onClick={() => filterByState(LESSON_STATES.SUCCEEDED)}
-                       title={'Επιτυχία'}/>
-            <CheckBoxL value={lessonState.FAILED} onClick={() => filterByState(LESSON_STATES.FAILED)}
-                       title={'Αποτυχία'}/>
-            <CheckBoxL value={lessonState.CANCELLED} onClick={() => filterByState(LESSON_STATES.CANCELLED)}
-                       title={'Ακύρωση'}/>
-            <CheckBoxL value={lessonState.NO_PARTICIPATION}
-                       onClick={() => filterByState(LESSON_STATES.NO_PARTICIPATION)} title={'Δε δόθηκε'}/>
+            <Card>
+                <CardItem header>
+                    <Text style={{fontWeight: 'bold'}}>Κατάσταση</Text>
+                </CardItem>
+                <View style={{flex: 1, flexDirection: 'row'}}>
+                    <CheckBoxL value={lessonState.SUCCEEDED} onClick={() => filterByState(LESSON_STATES.SUCCEEDED)}
+                               title={'Επιτυχία'}/>
+                    <CheckBoxL value={lessonState.FAILED} onClick={() => filterByState(LESSON_STATES.FAILED)}
+                               title={'Αποτυχία'}/>
+                    <CheckBoxL value={lessonState.CANCELLED} onClick={() => filterByState(LESSON_STATES.CANCELLED)}
+                               title={'Ακύρωση'}/>
+                    <CheckBoxL value={lessonState.NO_PARTICIPATION}
+                               onClick={() => filterByState(LESSON_STATES.NO_PARTICIPATION)} title={'Δε δόθηκε'}/>
+                </View>
+            </Card>
         </View>
     );
 };
