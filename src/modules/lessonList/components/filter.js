@@ -7,28 +7,28 @@ const CheckBoxBtm = ({value, onClick, title}) => {
         <View style={{flex: 1, alignItems: 'center', flexDirection: 'column'}}>
             <ListItem>
                 <CheckBox color={colorPalette.orange} checked={value}
-                          onPress={() => onClick()}/>
+                          onPress={onClick}/>
             </ListItem>
             <Text style={style.checkboxText}>{title}</Text>
         </View>
     );
 };
 
-const LessonStates = ({lessonState, LESSON_STATES, filterByState}) => {
+const LessonStates = ({lessonState, LESSON_STATES, setFilteredStates}) => {
     return (
         <Card>
             <CardItem>
                 <Text style={style.cardTitle}>Κατάσταση</Text>
             </CardItem>
             <View style={style.checkboxRow}>
-                <CheckBoxBtm value={lessonState.SUCCEEDED} onClick={() => filterByState('SUCCEEDED')}
+                <CheckBoxBtm value={lessonState.SUCCEEDED} onClick={() => setFilteredStates('SUCCEEDED')}
                              title={'Επιτυχία'}/>
-                <CheckBoxBtm value={lessonState.FAILED} onClick={() => filterByState('FAILED')}
+                <CheckBoxBtm value={lessonState.FAILED} onClick={() => setFilteredStates('FAILED')}
                              title={'Αποτυχία'}/>
-                <CheckBoxBtm value={lessonState.CANCELLED} onClick={() => filterByState('CANCELLED')}
+                <CheckBoxBtm value={lessonState.CANCELLED} onClick={() => setFilteredStates('CANCELLED')}
                              title={'Ακύρωση'}/>
                 <CheckBoxBtm value={lessonState.NO_PARTICIPATION}
-                             onClick={() => filterByState('NO_PARTICIPATION')} title={'Δε δόθηκε'}/>
+                             onClick={() => setFilteredStates('NO_PARTICIPATION')} title={'Δε δόθηκε'}/>
             </View>
         </Card>
     );
@@ -140,7 +140,7 @@ export default class Filter extends Component {
     constructor(props) {
         super(props);
 
-        this.state = this.props.filter;
+        this.state = JSON.parse(JSON.stringify(this.props.filter));
     }
 
     multiSliderValuesChange = (values) => {
@@ -177,7 +177,8 @@ export default class Filter extends Component {
 
                     <Sorting filterSortBy={sort.by} configBys={filterSortConfig.by} setSortBy={this.setSortBy}/>
 
-                    <Order filterSortOrder={sort.order} configOrders={filterSortConfig.order} setOrderBy={this.setSortOrder}/>
+                    <Order filterSortOrder={sort.order} configOrders={filterSortConfig.order}
+                           setOrderBy={this.setSortOrder}/>
 
                 </Content>
                 <Button block style={{backgroundColor: colorPalette.sanMarino}}><Text> Εφαρμογή </Text></Button>
