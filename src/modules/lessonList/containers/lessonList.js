@@ -45,18 +45,18 @@ const mapStateToProps = (state, ownProps) => {
         case filterSortConfig.by.grade:
             lessons.sort((lessonA, lessonB) => {
                 if (desc) {
-                    return lessonA.grade - lessonB.grade;
-                } else {
                     return -(lessonA.grade - lessonB.grade);
+                } else {
+                    return lessonA.grade - lessonB.grade;
                 }
             });
             break;
         case filterSortConfig.by.semester:
             lessons.sort((lessonA, lessonB) => {
                 if (desc) {
-                    return lessonA.semester - lessonB.semester;
-                } else {
                     return -(lessonA.semester - lessonB.semester);
+                } else {
+                    return lessonA.semester - lessonB.semester;
                 }
             });
             break;
