@@ -20,23 +20,21 @@ const CheckBoxBtm = ({value, onClick, title}) => {
 
 const LessonStates = ({lessonState, LESSON_STATES, filterByState}) => {
     return (
-        <View>
-            <Card>
-                <CardItem header>
-                    <Text style={{fontWeight: 'bold'}}>Κατάσταση</Text>
-                </CardItem>
-                <View style={{flex: 1, flexDirection: 'row'}}>
-                    <CheckBoxBtm value={lessonState.SUCCEEDED} onClick={() => filterByState(LESSON_STATES.SUCCEEDED)}
-                                 title={'Επιτυχία'}/>
-                    <CheckBoxBtm value={lessonState.FAILED} onClick={() => filterByState(LESSON_STATES.FAILED)}
-                                 title={'Αποτυχία'}/>
-                    <CheckBoxBtm value={lessonState.CANCELLED} onClick={() => filterByState(LESSON_STATES.CANCELLED)}
-                                 title={'Ακύρωση'}/>
-                    <CheckBoxBtm value={lessonState.NO_PARTICIPATION}
-                                 onClick={() => filterByState(LESSON_STATES.NO_PARTICIPATION)} title={'Δε δόθηκε'}/>
-                </View>
-            </Card>
-        </View>
+        <Card>
+            <CardItem header>
+                <Text style={{fontWeight: 'bold'}}>Κατάσταση</Text>
+            </CardItem>
+            <View style={style.checkboxRow}>
+                <CheckBoxBtm value={lessonState.SUCCEEDED} onClick={() => filterByState(LESSON_STATES.SUCCEEDED)}
+                             title={'Επιτυχία'}/>
+                <CheckBoxBtm value={lessonState.FAILED} onClick={() => filterByState(LESSON_STATES.FAILED)}
+                             title={'Αποτυχία'}/>
+                <CheckBoxBtm value={lessonState.CANCELLED} onClick={() => filterByState(LESSON_STATES.CANCELLED)}
+                             title={'Ακύρωση'}/>
+                <CheckBoxBtm value={lessonState.NO_PARTICIPATION}
+                             onClick={() => filterByState(LESSON_STATES.NO_PARTICIPATION)} title={'Δε δόθηκε'}/>
+            </View>
+        </Card>
     );
 };
 
@@ -44,9 +42,11 @@ const GradeSlider = ({gradeRange, multiSliderValuesChange}) => {
     let space = '                                                                   ';
 
     return (
-        <View>
-            <Text>Βαθμοί</Text>
-            <View style={{marginTop: 30, marginLeft: 20, marginRight: 20}}>
+        <Card>
+            <CardItem header>
+                <Text style={{fontWeight: 'bold'}}>Βαθμοί</Text>
+            </CardItem>
+            <View style={{marginLeft: 25, marginRight: 20}}>
                 <View style={{marginBottom: 10}}>
                     <Text>{gradeRange.from}{space}{gradeRange.to}</Text>
                 </View>
@@ -57,32 +57,36 @@ const GradeSlider = ({gradeRange, multiSliderValuesChange}) => {
                     max={10}
                     step={0.5}/>
             </View>
-        </View>
+        </Card>
     );
 };
 
 const Sorting = ({filterSortBy, configBys}) => {
     return (
-        <View>
-            <Text>Ταξινόμηση</Text>
-            <View style={{flex: 1, flexDirection: 'row'}}>
+        <Card>
+            <CardItem header>
+                <Text style={{fontWeight: 'bold'}}>Ταξινόμηση</Text>
+            </CardItem>
+            <View style={style.checkboxRow}>
                 <CheckBoxBtm value={filterSortBy === configBys.enrollDate} title={'Ημ. δήλωσης'}/>
                 <CheckBoxBtm value={filterSortBy === configBys.grade} title={'Βαθμός'}/>
                 <CheckBoxBtm value={filterSortBy === configBys.semester} title={'Εξάμηνο'}/>
             </View>
-        </View>
+        </Card>
     );
 };
 
 const Order = ({filterSortOrder, configOrders}) => {
     return (
-        <View>
-            <Text>Κατάταξη</Text>
-            <View style={{flex: 1, flexDirection: 'row'}}>
+        <Card>
+            <CardItem header>
+                <Text style={{fontWeight: 'bold'}}>Κατάταξη</Text>
+            </CardItem>
+            <View style={style.checkboxRow}>
                 <CheckBoxBtm value={filterSortOrder === configOrders.desc} title={'Φθίνουσα'}/>
                 <CheckBoxBtm value={filterSortOrder === configOrders.asc} title={'Αύξουσα'}/>
             </View>
-        </View>
+        </Card>
     );
 };
 
@@ -113,3 +117,7 @@ export default class Filter extends Component {
         );
     }
 }
+
+const style = {
+    checkboxRow: {flex: 1, flexDirection: 'row'}
+};
