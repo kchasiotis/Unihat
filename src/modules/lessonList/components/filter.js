@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
-import {CheckBox, View, Content, Text, ListItem, Body, Card, CardItem} from 'native-base';
+import {CheckBox, View, Content, Text, ListItem, Card, CardItem} from 'native-base';
 
-const CheckBoxL = ({value, onClick, title}) => {
+const CheckBoxBtm = ({value, onClick, title}) => {
     return (
         <View style={{
             flex: 1, alignItems: 'center', flexDirection: 'column', borderRadius: 1,
@@ -26,14 +26,14 @@ const LessonStates = ({lessonState, LESSON_STATES, filterByState}) => {
                     <Text style={{fontWeight: 'bold'}}>Κατάσταση</Text>
                 </CardItem>
                 <View style={{flex: 1, flexDirection: 'row'}}>
-                    <CheckBoxL value={lessonState.SUCCEEDED} onClick={() => filterByState(LESSON_STATES.SUCCEEDED)}
-                               title={'Επιτυχία'}/>
-                    <CheckBoxL value={lessonState.FAILED} onClick={() => filterByState(LESSON_STATES.FAILED)}
-                               title={'Αποτυχία'}/>
-                    <CheckBoxL value={lessonState.CANCELLED} onClick={() => filterByState(LESSON_STATES.CANCELLED)}
-                               title={'Ακύρωση'}/>
-                    <CheckBoxL value={lessonState.NO_PARTICIPATION}
-                               onClick={() => filterByState(LESSON_STATES.NO_PARTICIPATION)} title={'Δε δόθηκε'}/>
+                    <CheckBoxBtm value={lessonState.SUCCEEDED} onClick={() => filterByState(LESSON_STATES.SUCCEEDED)}
+                                 title={'Επιτυχία'}/>
+                    <CheckBoxBtm value={lessonState.FAILED} onClick={() => filterByState(LESSON_STATES.FAILED)}
+                                 title={'Αποτυχία'}/>
+                    <CheckBoxBtm value={lessonState.CANCELLED} onClick={() => filterByState(LESSON_STATES.CANCELLED)}
+                                 title={'Ακύρωση'}/>
+                    <CheckBoxBtm value={lessonState.NO_PARTICIPATION}
+                                 onClick={() => filterByState(LESSON_STATES.NO_PARTICIPATION)} title={'Δε δόθηκε'}/>
                 </View>
             </Card>
         </View>
@@ -61,36 +61,16 @@ const GradeSlider = ({gradeRange, multiSliderValuesChange}) => {
     );
 };
 
-const SortingItem = ({filterSortBy, configBy, title}) => {
-    return (
-        <ListItem>
-            <CheckBox checked={filterSortBy === configBy}/>
-            <Body>
-            <Text>{title}</Text>
-            </Body>
-        </ListItem>
-    );
-};
-
 const Sorting = ({filterSortBy, configBys}) => {
     return (
         <View>
             <Text>Ταξινόμηση</Text>
-            <SortingItem filterSortBy={filterSortBy} configBy={configBys.enrollDate} title={'Ημερομηνία δήλωσης'}/>
-            <SortingItem filterSortBy={filterSortBy} configBy={configBys.grade} title={'Βαθμός'}/>
-            <SortingItem filterSortBy={filterSortBy} configBy={configBys.semester} title={'Εξάμηνο'}/>
+            <View style={{flex: 1, flexDirection: 'row'}}>
+                <CheckBoxBtm value={filterSortBy === configBys.enrollDate} title={'Ημ. δήλωσης'}/>
+                <CheckBoxBtm value={filterSortBy === configBys.grade} title={'Βαθμός'}/>
+                <CheckBoxBtm value={filterSortBy === configBys.semester} title={'Εξάμηνο'}/>
+            </View>
         </View>
-    );
-};
-
-const OrderItem = ({filterSortOrder, configOrder, title}) => {
-    return (
-        <ListItem>
-            <CheckBox checked={filterSortOrder === configOrder}/>
-            <Body>
-            <Text>{title}</Text>
-            </Body>
-        </ListItem>
     );
 };
 
@@ -98,8 +78,10 @@ const Order = ({filterSortOrder, configOrders}) => {
     return (
         <View>
             <Text>Κατάταξη</Text>
-            <OrderItem filterSortOrder={filterSortOrder} configOrder={configOrders.desc} title={'Φθίνουσα'}/>
-            <OrderItem filterSortOrder={filterSortOrder} configOrder={configOrders.asc} title={'Αύξουσα'}/>
+            <View style={{flex: 1, flexDirection: 'row'}}>
+                <CheckBoxBtm value={filterSortOrder === configOrders.desc} title={'Φθίνουσα'}/>
+                <CheckBoxBtm value={filterSortOrder === configOrders.asc} title={'Αύξουσα'}/>
+            </View>
         </View>
     );
 };
