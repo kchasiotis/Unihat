@@ -21,14 +21,14 @@ const LessonStates = ({lessonState, LESSON_STATES, filterByState}) => {
                 <Text style={style.cardTitle}>Κατάσταση</Text>
             </CardItem>
             <View style={style.checkboxRow}>
-                <CheckBoxBtm value={lessonState.SUCCEEDED} onClick={() => filterByState(LESSON_STATES.SUCCEEDED)}
+                <CheckBoxBtm value={lessonState.SUCCEEDED} onClick={() => filterByState('SUCCEEDED')}
                              title={'Επιτυχία'}/>
-                <CheckBoxBtm value={lessonState.FAILED} onClick={() => filterByState(LESSON_STATES.FAILED)}
+                <CheckBoxBtm value={lessonState.FAILED} onClick={() => filterByState('FAILED')}
                              title={'Αποτυχία'}/>
-                <CheckBoxBtm value={lessonState.CANCELLED} onClick={() => filterByState(LESSON_STATES.CANCELLED)}
+                <CheckBoxBtm value={lessonState.CANCELLED} onClick={() => filterByState('CANCELLED')}
                              title={'Ακύρωση'}/>
                 <CheckBoxBtm value={lessonState.NO_PARTICIPATION}
-                             onClick={() => filterByState(LESSON_STATES.NO_PARTICIPATION)} title={'Δε δόθηκε'}/>
+                             onClick={() => filterByState('NO_PARTICIPATION')} title={'Δε δόθηκε'}/>
             </View>
         </Card>
     );
@@ -59,59 +59,125 @@ const GradeSlider = ({gradeRange, multiSliderValuesChange}) => {
     );
 };
 
-const Sorting = ({filterSortBy, configBys}) => {
-    return (
-        <Card>
-            <CardItem header>
-                <Text style={style.cardTitle}>Ταξινόμηση</Text>
-            </CardItem>
-            <View style={style.checkboxRow}>
-                <CheckBoxBtm value={filterSortBy === configBys.enrollDate} title={'Ημ. δήλωσης'}/>
-                <CheckBoxBtm value={filterSortBy === configBys.grade} title={'Βαθμός'}/>
-                <CheckBoxBtm value={filterSortBy === configBys.semester} title={'Εξάμηνο'}/>
-            </View>
-        </Card>
-    );
+class Sorting extends Component {
+    constructor(props) {
+        super(props);
+        const {filterSortBy} = this.props;
+
+        this.state = {radioGroup: {enrollDate: false, grade: false, semester: false}};
+        this.state.radioGroup[filterSortBy] = true;
+
+        this.onClick = this.onClick.bind(this);
+    }
+
+    onClick(configBy) {
+        return function () {
+            let newState = {enrollDate: false, grade: false, semester: false};
+            newState[configBy] = true;
+            this.setState({radioGroup: newState});
+            this.props.setSortBy(configBy);
+        }.bind(this)
+    }
+
+    render() {
+        const {enrollDate, grade, semester} = this.props.configBys;
+        const {radioGroup} = this.state;
+
+        return (
+            <Card>
+                <CardItem header>
+                    <Text style={style.cardTitle}>Ταξινόμηση</Text>
+                </CardItem>
+                <View style={style.checkboxRow}>
+                    <CheckBoxBtm value={radioGroup.enrollDate} title={'Ημ. δήλωσης'}
+                                 onClick={this.onClick(enrollDate)}/>
+                    <CheckBoxBtm value={radioGroup.grade} title={'Βαθμός'} onClick={this.onClick(grade)}/>
+                    <CheckBoxBtm value={radioGroup.semester} title={'Εξάμηνο'} onClick={this.onClick(semester)}/>
+                </View>
+            </Card>
+        );
+    }
 };
 
-const Order = ({filterSortOrder, configOrders}) => {
-    return (
-        <Card>
-            <CardItem header>
-                <Text style={style.cardTitle}>Κατάταξη</Text>
-            </CardItem>
-            <View style={style.checkboxRow}>
-                <CheckBoxBtm value={filterSortOrder === configOrders.desc} title={'Φθίνουσα'}/>
-                <CheckBoxBtm value={filterSortOrder === configOrders.asc} title={'Αύξουσα'}/>
-            </View>
-        </Card>
-    );
-};
+class Order extends Component {
+    constructor(props) {
+        super(props);
+        const {filterSortOrder} = this.props;
+
+        this.state = {radioGroup: {asc: false, desc: false}};
+        this.state.radioGroup[filterSortOrder] = true;
+    }
+
+    onClick(configOrder) {
+        return function () {
+            let newState = {asc: false, desc: false};
+            newState[configOrder] = true;
+            this.setState({radioGroup: newState});
+            this.props.setOrderBy(configOrder);
+        }.bind(this)
+    }
+
+    render() {
+        const {radioGroup} = this.state;
+        const {configOrders} = this.props;
+
+        return (
+            <Card>
+                <CardItem header>
+                    <Text style={style.cardTitle}>Κατάταξη</Text>
+                </CardItem>
+                <View style={style.checkboxRow}>
+                    <CheckBoxBtm value={radioGroup.desc} title={'Φθίνουσα'} onClick={this.onClick(configOrders.desc)}/>
+                    <CheckBoxBtm value={radioGroup.asc} title={'Αύξουσα'} onClick={this.onClick(configOrders.asc)}/>
+                </View>
+            </Card>
+        );
+
+    }
+}
 
 export default class Filter extends Component {
     constructor(props) {
         super(props);
+
+        this.state = this.props.filter;
     }
 
     multiSliderValuesChange = (values) => {
-        this.props.filterGradeRange({from: values[0], to: values[1]});
+        this.setState({gradeRange: {from: values[0], to: values[1]}});
+    };
+
+    setSortBy = (value) => {
+        this.setState({sort: {by: value, order: this.state.sort.order}});
+    };
+
+    setSortOrder = (value) => {
+        this.setState({sort: {by: this.state.sort.by, order: value}});
+    };
+
+    filterByState = (stateAction) => {
+        let newState = this.state.lessonState;
+        newState[stateAction] = !newState[stateAction];
+
+        this.setState({lessonState: newState});
     };
 
     render() {
-        const {lessonState, gradeRange, sort} = this.props.filter;
-        const {filterSortConfig, filterByState, LESSON_STATES} = this.props;
+        const {lessonState, gradeRange, sort} = this.state;
+        const {filterSortConfig, LESSON_STATES} = this.props;
 
         return (
             <View style={{flex: 1}}>
                 <Content>
                     <LessonStates lessonState={lessonState} LESSON_STATES={LESSON_STATES}
-                                  filterByState={filterByState}/>
+                                  filterByState={this.filterByState}/>
 
-                    <GradeSlider gradeRange={gradeRange} multiSliderValuesChange={this.multiSliderValuesChange}/>
+                    <GradeSlider gradeRange={gradeRange}
+                                 multiSliderValuesChange={this.multiSliderValuesChange}/>
 
-                    <Sorting filterSortBy={sort.by} configBys={filterSortConfig.by}/>
+                    <Sorting filterSortBy={sort.by} configBys={filterSortConfig.by} setSortBy={this.setSortBy}/>
 
-                    <Order filterSortOrder={sort.order} configOrders={filterSortConfig.order}/>
+                    <Order filterSortOrder={sort.order} configOrders={filterSortConfig.order} setOrderBy={this.setSortOrder}/>
 
                 </Content>
                 <Button block style={{backgroundColor: colorPalette.sanMarino}}><Text> Εφαρμογή </Text></Button>
