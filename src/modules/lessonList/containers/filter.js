@@ -7,7 +7,7 @@ import {filterSortConfig, sortOrder, sortBy, filterByState, filterGradeRange, se
 import {STATES as LESSON_STATES} from '../../../tools/crawler/lesson'
 
 const mapStateToProps = (state) => {
-    return {filter: state.filter, filterSortConfig: filterSortConfig, LESSON_STATES: LESSON_STATES};
+    return {filter: state.filter, filterSortConfig: filterSortConfig, LESSON_STATES: LESSON_STATES, user: state.user};
 };
 
 const mapDispatchToProps = (dispatch) => {

@@ -1,6 +1,13 @@
-export const STATES = {
+export const LESSON_STATES_ICSD = {
     SUCCEEDED: 'Επιτυχία',
     NO_PARTICIPATION: 'Δε δόθηκε',
+    FAILED: 'Αποτυχία',
+    CANCELLED: 'Ακύρωση'
+};
+
+export const LESSON_STATES_SEF = {
+    SUCCEEDED: 'Επιτυχία',
+    NO_PARTICIPATION: 'Δεν δόθηκε',
     FAILED: 'Αποτυχία',
     CANCELLED: 'Ακύρωση'
 };

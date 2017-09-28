@@ -93,7 +93,12 @@ class Sorting extends Component {
                     <CheckBoxBtm value={radioGroup.enrollDate} title={'Ημ. δήλωσης'}
                                  onClick={this.onClick(enrollDate)}/>
                     <CheckBoxBtm value={radioGroup.grade} title={'Βαθμός'} onClick={this.onClick(grade)}/>
-                    <CheckBoxBtm value={radioGroup.semester} title={'Εξάμηνο'} onClick={this.onClick(semester)}/>
+                    {
+                        this.props.showSemesterChb
+                            ? <CheckBoxBtm value={radioGroup.semester} title={'Εξάμηνο'}
+                                           onClick={this.onClick(semester)}/>
+                            : null
+                    }
                 </View>
             </Card>
         );
@@ -181,13 +186,16 @@ export default class Filter extends Component {
                     <GradeSlider gradeRange={gradeRange}
                                  multiSliderValuesChange={this.multiSliderValuesChange}/>
 
-                    <Sorting filterSortBy={sort.by} configBys={filterSortConfig.by} setSortBy={this.setSortBy}/>
+                    <Sorting filterSortBy={sort.by} configBys={filterSortConfig.by}
+                             showSemesterChb={this.props.user.department === 321} setSortBy={this.setSortBy}/>
 
                     <Order filterSortOrder={sort.order} configOrders={filterSortConfig.order}
                            setOrderBy={this.setSortOrder}/>
 
                 </Content>
-                <Button block style={{backgroundColor: colorPalette.sanMarino}} onPress={this.onSubmit}><Text> ΕΦΑΡΜΟΓΗ </Text></Button>
+                <Button block style={{backgroundColor: colorPalette.sanMarino}} onPress={this.onSubmit}>
+                    <Text> ΕΦΑΡΜΟΓΗ </Text>
+                </Button>
             </View>
         );
     }

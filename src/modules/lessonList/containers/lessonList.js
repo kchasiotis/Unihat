@@ -5,7 +5,7 @@ let moment = require('moment');
 import LessonList from '../components/lessonList'
 import {actions} from '../../login'
 import {filterSortConfig} from '../actions'
-import {STATES as LESSON_STATES} from '../../../tools/crawler/lesson'
+import {LESSON_STATES_ICSD, LESSON_STATES_SEF} from '../../../tools/crawler/lesson'
 
 const mapStateToProps = (state, ownProps) => {
     let lessons = null;
@@ -19,6 +19,8 @@ const mapStateToProps = (state, ownProps) => {
     }
 
     if(state.grades.aGrades === undefined) return state;
+
+    let LESSON_STATES = state.user.department === '321' ? LESSON_STATES_ICSD : LESSON_STATES_SEF;
 
     const {gradeRange, lessonState, sort} = state.filter;
     for (let key in LESSON_STATES) {
