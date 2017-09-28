@@ -35,7 +35,7 @@ const LessonStates = ({lessonState, LESSON_STATES, filterByState}) => {
 };
 
 const GradeSlider = ({gradeRange, multiSliderValuesChange}) => {
-    let space = '                                                                   ';
+    let space = '                                                              ';
 
     return (
         <Card>
@@ -44,7 +44,7 @@ const GradeSlider = ({gradeRange, multiSliderValuesChange}) => {
             </CardItem>
             <View style={{marginLeft: 25, marginRight: 20}}>
                 <View style={{marginBottom: 10}}>
-                    <Text>{gradeRange.from}{space}{gradeRange.to}</Text>
+                    <Text>{gradeRange.from}{gradeRange.from - parseInt(gradeRange.from) === 0 ? '   ' : ''}{space}{gradeRange.to}</Text>
                 </View>
                 <MultiSlider
                     selectedStyle={{backgroundColor: colorPalette.orange,}}
