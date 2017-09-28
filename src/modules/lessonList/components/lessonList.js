@@ -90,6 +90,7 @@ class LessonList extends Component {
         return (
             <View style={{flex: 1}}>
                 <FlatList
+                    style={{backgroundColor: 'white'}}
                     keyExtractor={(item) => (item.id)}
                     refreshControl={
                         <RefreshControl
@@ -102,7 +103,7 @@ class LessonList extends Component {
                     }
                     data={this.props.grades}
                     renderItem={({item}) =>
-                        <ListItem onPress={this.openLesson(item)}>
+                        <ListItem onPress={this.openLesson(item)} style={{backgroundColor: 'white'}}>
                             <Body>
                             <Text>{item.title}</Text>
                             </Body>
