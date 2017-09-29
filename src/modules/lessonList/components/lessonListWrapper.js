@@ -5,8 +5,14 @@ import {Fab, Icon} from "native-base";
 
 class LessonListWrapper extends Component {
     constructor(props) {
-        super(props)
+        super(props);
+
+        this.state = {showFab: true};
     }
+
+    handleFab = (visible) => {
+        this.setState({showFab: visible});
+    };
 
     render() {
         const {navigation} = this.props;
@@ -17,12 +23,13 @@ class LessonListWrapper extends Component {
                     backgroundColor="#2137AA"
                     barStyle="light-content"
                 />
-                <LessonList routeName={navigation.state.routeName} navigation={navigation}/>
+                <LessonList routeName={navigation.state.routeName} navigation={navigation} handleFab={this.handleFab}/>
                 {
-                    navigation.state.routeName === 'aGrades'
+                    navigation.state.routeName === 'aGrades' && this.state.showFab
                         ? <Fab
+                            active={this.state.showFab}
                             direction="up"
-                            style={{backgroundColor: '#3F51B5'}}
+                            style={{backgroundColor: 'rgba(105, 114, 104, 0.6)'}}
                             position="bottomRight"
                             onPress={() => navigation.navigate('filter')}>
                             <Icon name="ios-funnel"/>

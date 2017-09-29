@@ -106,6 +106,18 @@ class LessonList extends Component {
         this.setState({loading: false});
     };
 
+    onEndScroll= (nativeEvent) => {
+        if(this.state.loading === true) return;
+
+        const {layoutMeasurement, contentOffset, contentSize} = nativeEvent;
+
+        if(contentOffset.y > 10 && layoutMeasurement.height + contentOffset.y >= contentSize.height - 45){
+            this.props.handleFab(false);
+        }else{
+            this.props.handleFab(true);
+        }
+    };
+
     render() {
         // if (this.props.grades.length === 0) return <Text>Άδεια λίστα μαθημάτων</Text>;
 
@@ -115,6 +127,7 @@ class LessonList extends Component {
                 keyExtractor={(item) => (item.id)}
                 ListFooterComponent={<LoadingList loading={this.state.loading}/>}
                 onEndReached={(info) => this.onEndReached(info)}
+                onScroll={({nativeEvent}) => this.onEndScroll(nativeEvent)}
                 refreshControl={
                     <RefreshControl
                         refreshing={this.state.refreshing}

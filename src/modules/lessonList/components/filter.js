@@ -191,7 +191,7 @@ export default class Filter extends Component {
                                  multiSliderValuesChange={this.multiSliderValuesChange}/>
 
                     <Sorting filterSortBy={sort.by} configBys={filterSortConfig.by}
-                             showSemesterChb={this.props.user.department === 321} setSortBy={this.setSortBy}/>
+                             showSemesterChb={this.props.user.department === '321'} setSortBy={this.setSortBy}/>
 
                     <Order filterSortOrder={sort.order} configOrders={filterSortConfig.order}
                            setOrderBy={this.setSortOrder}/>
