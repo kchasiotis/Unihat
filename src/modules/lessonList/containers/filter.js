@@ -3,7 +3,8 @@ import {connect} from 'react-redux'
 
 
 import FilterComponent from '../components/filter'
-import {filterSortConfig, sortOrder, sortBy, filterByState, filterGradeRange, setFilters} from '../actions'
+import {filterSortConfig} from '../actionTypes'
+import {setFilters} from '../actions'
 import {STATES as LESSON_STATES} from '../../../tools/crawler/lesson'
 
 const mapStateToProps = (state) => {
@@ -14,18 +15,6 @@ const mapDispatchToProps = (dispatch) => {
     return {
         setFilters: (filters) => {
             dispatch(setFilters(filters));
-        },
-        sortOrder: (filter) => {
-            dispatch(sortOrder(filter));
-        },
-        sortBy: (filter) => {
-            dispatch(sortBy(filter));
-        },
-        filterByState: (lessonState) => {
-            dispatch(filterByState(lessonState));
-        },
-        filterGradeRange: (filter) => {
-            dispatch(filterGradeRange(filter));
         }
     }
 };

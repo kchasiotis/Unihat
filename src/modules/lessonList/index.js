@@ -1,9 +1,12 @@
 import LessonListWrapper from './components/lessonListWrapper'
 import {Filter} from './containers/filter'
-import {filter} from './reducers'
+import * as reducers from './reducers'
+import * as actions from './actions'
+import * as actionTypes from './actionTypes'
 
 export {LessonListWrapper};
 
-const reducers = {filter};
-export {reducers};
 export {Filter};
+export {actions};
+export {actionTypes};
+export {reducers};

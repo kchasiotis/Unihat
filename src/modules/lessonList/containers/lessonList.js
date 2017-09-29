@@ -4,7 +4,7 @@ let moment = require('moment');
 
 import LessonList from '../components/lessonList'
 import {actions} from '../../login'
-import {filterSortConfig} from '../actions'
+import {filterSortConfig} from '../actionTypes'
 import {LESSON_STATES_ICSD, LESSON_STATES_SEF} from '../../../tools/crawler/lesson'
 
 const mapStateToProps = (state, ownProps) => {
