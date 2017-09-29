@@ -115,8 +115,7 @@ export function postLessonsCheck(username, lessons) {
 }
 
 export function postLessons(lessons) {
-    // todo: remove dispatch (refactoring)
-    return function (dispatch) {
+    return function () {
         let onResponse = (res) => {
             res.json().then((resJs) => {
                 Logger.log('Sent ' + resJs.insertedNumber)

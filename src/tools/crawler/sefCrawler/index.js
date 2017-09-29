@@ -74,8 +74,6 @@ export default class SefCrawler {
 
     fetchPage(username, password, onResponse) {
         Logger.info('logging in user: ' + username);
-        // todo: remove cheerio
-        let cheerio = require('cheerio-without-node-native');
 
         // region Set up message
         let url = 'https://sef.samos.aegean.gr/authentication.php';

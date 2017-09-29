@@ -13,7 +13,6 @@ function grades(state = {}, action) {
     }
 }
 
-// todo: remove lessonList
 function appState(state = {loginState: LoginState.INITIAL}, action) {
     const {SET_LOGIN_STATE, RESET_STATE} = actionTypes;
 
