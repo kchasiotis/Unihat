@@ -63,7 +63,7 @@ class Lesson extends Component {
                         </Right>
                     </CardItem>
                 </Card>
-                <Statistics lessons={this.props.lessonList}/>
+                <Statistics lesson={currentLesson}/>
             </Content>
         );
 

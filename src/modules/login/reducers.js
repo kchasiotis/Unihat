@@ -18,14 +18,12 @@ function grades(state = {}, action) {
 }
 
 // todo: remove lessonList
-function appState(state = {loginState: LoginState.INITIAL, lessonList: []}, action) {
+function appState(state = {loginState: LoginState.INITIAL}, action) {
     switch (action.type) {
         case SET_LOGIN_STATE:
             return Object.assign({}, state, {loginState: action.login_state});
         case RESET_STATE:
             return Object.assign({}, state, {loginState: LoginState.INITIAL});
-        case SET_LESSON_LIST:
-            return Object.assign({}, state, {lessonList: action.lessonList});
         default:
             return state;
     }

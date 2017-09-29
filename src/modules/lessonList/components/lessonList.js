@@ -62,7 +62,6 @@ class LessonList extends Component {
 
     openLesson(lesson) {
         return () => {
-            this.props.getLessonStatistics(lesson);
             this.props.navigation.navigate('lesson', lesson);
         }
     }
