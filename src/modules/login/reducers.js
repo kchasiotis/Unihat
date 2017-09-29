@@ -1,14 +1,10 @@
-import {
-    SET_GRADES,
-    SET_LOGIN_STATE,
-    RESET_STATE,
-    SET_CURRENT_LESSON,
-    SET_LESSON_LIST,
-    SET_USER,
-    LoginState
-} from './actions'
+import * as actionTypes from './actionTypes'
+
+const {LoginState} = actionTypes;
 
 function grades(state = {}, action) {
+    const {SET_GRADES} = actionTypes;
+
     switch (action.type) {
         case SET_GRADES:
             return Object.assign({}, state, action.grades);
@@ -19,6 +15,8 @@ function grades(state = {}, action) {
 
 // todo: remove lessonList
 function appState(state = {loginState: LoginState.INITIAL}, action) {
+    const {SET_LOGIN_STATE, RESET_STATE} = actionTypes;
+
     switch (action.type) {
         case SET_LOGIN_STATE:
             return Object.assign({}, state, {loginState: action.login_state});
@@ -30,6 +28,8 @@ function appState(state = {loginState: LoginState.INITIAL}, action) {
 }
 
 function user(state = {username: null, department: null}, action) {
+    const {SET_USER} = actionTypes;
+
     switch (action.type) {
         case SET_USER:
             let username = action.user.username;

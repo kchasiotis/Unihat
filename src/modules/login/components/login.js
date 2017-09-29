@@ -10,7 +10,7 @@ import {Logger} from '../../../tools/logger';
 import env from '../../../../environment'
 import 'react-native-console-time-polyfill';
 import {NavigationActions} from 'react-navigation'
-import {LoginState} from '../actions'
+import {LoginState} from '../actionTypes'
 
 export default class Login extends Component {
     constructor(props) {
