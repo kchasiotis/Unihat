@@ -16,8 +16,6 @@ class Statistics extends Component {
         const {lesson} = this.props;
 
         lessonAPI.getLessons(lesson.code, lesson.examDate, (res) => res.json().then((ls => {
-            console.log('Aloha');
-            console.log(ls);
             that.setState({lessons: ls})
         })))
     }
