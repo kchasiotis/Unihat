@@ -7,7 +7,6 @@ import {Logger} from '../../tools/logger';
 import env from '../../../environment'
 
 export const SET_GRADES = 'SET_GRADES';
-export const SET_CURRENT_LESSON = 'SET_CURRENT_LESSON';
 export const SET_LESSON_LIST = 'SET_LESSON_LIST';
 export const SET_LOGIN_STATE = 'SET_LOGIN_STATE';
 export const RESET_STATE = 'RESET_STATE';
@@ -36,13 +35,6 @@ export const setGrades = (grades) => {
     return {
         type: SET_GRADES,
         grades: grades
-    }
-};
-
-export const setCurrentLesson = (lesson) => {
-    return {
-        type: SET_CURRENT_LESSON,
-        currentLesson: lesson
     }
 };
 

@@ -3,15 +3,8 @@ import {Card, CardItem, Content, Text, Right, Badge} from 'native-base';
 import Statistics from './statistics';
 
 class Lesson extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
-        const {currentLesson, navigation} = this.props;
-        // Logger.log(navigation);
-
-        if (currentLesson === null) return null;
+        let currentLesson = this.props.navigation.state.params;
 
         return (
             <Content>
@@ -20,8 +13,6 @@ class Lesson extends Component {
                         <Text style={lessonStyle.headerText}>{currentLesson.title}</Text>
                     </CardItem>
                     <CardItem>
-                        {/*<CardItem icon>*/}
-                        {/*<Icon active name="logo-googleplus"/>*/}
                         <Text style={lessonStyle.itemTitle}>Βαθμός</Text>
                         {
                             currentLesson.grade !== null ?

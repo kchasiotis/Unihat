@@ -72,9 +72,6 @@ const mapDispatchToProps = (dispatch) => {
         updateGrades: (grades) => {
             dispatch(actions.setGrades(grades));
         },
-        setCurrentLesson: (lesson) => {
-            dispatch(actions.setCurrentLesson(lesson));
-        },
         getLessonStatistics: (lesson) => {
             dispatch(actions.getLessonStatistics(lesson));
         }
