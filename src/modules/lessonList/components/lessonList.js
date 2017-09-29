@@ -101,21 +101,14 @@ class LessonList extends Component {
         this.setState({appState: nextAppState});
     };
 
-    onEndReached = (info) => {
-        console.log(info);
+    onEndReached = () => {
         this.setState({loading: false});
     };
 
     onEndScroll= (nativeEvent) => {
         if(this.state.loading === true) return;
 
-        const {layoutMeasurement, contentOffset, contentSize} = nativeEvent;
-
-        if(contentOffset.y > 10 && layoutMeasurement.height + contentOffset.y >= contentSize.height - 45){
-            this.props.handleFab(false);
-        }else{
-            this.props.handleFab(true);
-        }
+        this.props.handleFab(nativeEvent);
     };
 
     render() {
@@ -126,7 +119,7 @@ class LessonList extends Component {
                 style={{backgroundColor: 'white'}}
                 keyExtractor={(item) => (item.id)}
                 ListFooterComponent={<LoadingList loading={this.state.loading}/>}
-                onEndReached={(info) => this.onEndReached(info)}
+                onEndReached={() => this.onEndReached()}
                 onScroll={({nativeEvent}) => this.onEndScroll(nativeEvent)}
                 refreshControl={
                     <RefreshControl

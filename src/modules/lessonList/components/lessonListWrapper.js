@@ -10,8 +10,14 @@ class LessonListWrapper extends Component {
         this.state = {showFab: true};
     }
 
-    handleFab = (visible) => {
-        this.setState({showFab: visible});
+    handleFab = (nativeEvent) => {
+        const {layoutMeasurement, contentOffset, contentSize} = nativeEvent;
+
+        if (contentOffset.y > 10 && layoutMeasurement.height + contentOffset.y >= contentSize.height - 45) {
+            this.setState({showFab: false});
+        } else {
+            this.setState({showFab: true});
+        }
     };
 
     render() {
@@ -23,7 +29,8 @@ class LessonListWrapper extends Component {
                     backgroundColor="#2137AA"
                     barStyle="light-content"
                 />
-                <LessonList routeName={navigation.state.routeName} navigation={navigation} handleFab={this.handleFab}/>
+                <LessonList routeName={navigation.state.routeName} navigation={navigation}
+                            handleFab={navigation.state.routeName === 'aGrades' ? this.handleFab : () => {}}/>
                 {
                     navigation.state.routeName === 'aGrades' && this.state.showFab
                         ? <Fab
