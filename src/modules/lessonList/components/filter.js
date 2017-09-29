@@ -14,7 +14,7 @@ const CheckBoxBtm = ({value, onClick, title}) => {
     );
 };
 
-const LessonStates = ({lessonState, LESSON_STATES, filterByState}) => {
+const LessonStates = ({lessonState, filterByState}) => {
     return (
         <Card>
             <CardItem>
