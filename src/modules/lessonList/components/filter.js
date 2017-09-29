@@ -5,7 +5,7 @@ import {CheckBox, View, Content, Text, ListItem, Card, CardItem, Button} from 'n
 const CheckBoxBtm = ({value, onClick, title}) => {
     return (
         <View style={{flex: 1, alignItems: 'center', flexDirection: 'column'}}>
-            <ListItem>
+            <ListItem style={{borderBottomWidth: 0}}>
                 <CheckBox color={colorPalette.orange} checked={value}
                           onPress={onClick}/>
             </ListItem>
@@ -35,26 +35,30 @@ const LessonStates = ({lessonState, LESSON_STATES, filterByState}) => {
 };
 
 const GradeSlider = ({gradeRange, multiSliderValuesChange}) => {
-    let space = '                                                              ';
-
     return (
         <Card>
             <CardItem header>
                 <Text style={style.cardTitle}>Βαθμοί</Text>
             </CardItem>
             <View style={{marginLeft: 25, marginRight: 20}}>
-                <View style={{marginBottom: 10}}>
-                    <Text style={{color: colorPalette.willowGrove}}>{gradeRange.from}{gradeRange.from - parseInt(gradeRange.from) === 0 ? '   ' : ''}{space}{gradeRange.to}</Text>
+                <View style={{marginBottom: 10, flex: 1, flexDirection: 'row'}}>
+                    <View style={{flex: 1, flexDirection: 'row'}}>
+                        <Text
+                            style={{color: colorPalette.willowGrove}}>{gradeRange.from}{gradeRange.from - parseInt(gradeRange.from) === 0 ? '   ' : ''}</Text>
+                    </View>
+                    <Text style={{color: colorPalette.willowGrove}}>{gradeRange.to}</Text>
                 </View>
-                <MultiSlider
-                    selectedStyle={{backgroundColor: colorPalette.orange,}}
-                    markerStyle={{backgroundColor: colorPalette.orange}}
-                    values={[gradeRange.from, gradeRange.to]}
-                    onValuesChange={multiSliderValuesChange}
-                    allowOverlap
-                    min={0}
-                    max={10}
-                    step={0.5}/>
+                <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+                    <MultiSlider
+                        selectedStyle={{backgroundColor: colorPalette.orange,}}
+                        markerStyle={{backgroundColor: colorPalette.orange}}
+                        values={[gradeRange.from, gradeRange.to]}
+                        onValuesChange={multiSliderValuesChange}
+                        allowOverlap
+                        min={0}
+                        max={10}
+                        step={0.5}/>
+                </View>
             </View>
         </Card>
     );
