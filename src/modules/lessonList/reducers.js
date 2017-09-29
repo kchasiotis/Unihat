@@ -3,7 +3,7 @@ import {STATES as LESSON_STATES} from '../../tools/crawler/lesson'
 
 // todo: Add exemption to ui
 function filter(state = {
-    lessonState: {SUCCEEDED: true, NO_PARTICIPATION: false, FAILED: false, CANCELLED: false, EXEMPTION: false},
+    lessonState: {SUCCEEDED: true, NO_PARTICIPATION: true, FAILED: true, CANCELLED: false, EXEMPTION: false},
     gradeRange: {from: 0, to: 10},
     sort: {by: filterSortConfig.by.enrollDate, order: filterSortConfig.order.desc}
 }, action) {
