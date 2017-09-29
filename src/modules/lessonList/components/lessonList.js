@@ -70,12 +70,12 @@ class LessonList extends Component {
 
 
     componentDidMount() {
-        AppState.addEventListener('change', this._handleAppStateChange);
+        if(this.props.routeName === 'exGrades') AppState.addEventListener('change', this._handleAppStateChange);
         if (env.debug && env.openFilter) this.props.navigation.navigate('filter');
     }
 
     componentWillUnmount() {
-        AppState.removeEventListener('change', this._handleAppStateChange);
+        if(this.props.routeName === 'exGrades') AppState.removeEventListener('change', this._handleAppStateChange);
         this.setState({loading: true});
     }
 
@@ -87,9 +87,9 @@ class LessonList extends Component {
                     return;
                 }
 
-                if (this.props.routeName === 'exGrades' && refresh === true) {
-                    this.setState({refreshing: true});
+                if (refresh) {
                     this.props.navigation.navigate('exGrades');
+                    this.setState({refreshing: true});
                     LocalStorage.loadGrades((err, grades) => {
                         this.props.updateGrades(grades);
                         this.setState({refreshing: false});
