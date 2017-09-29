@@ -1,56 +1,46 @@
 import crawler from '../../tools/crawler'
 import {lessonAPI} from '../../tools/api'
-import {CredentialStorage, LocalStorage} from '../../tools/localStorage';
+
 import BackgroundJob from 'react-native-background-job';
 import {jobNames} from '../../tools/backgroundJob'
+
+import {CredentialStorage, LocalStorage} from '../../tools/localStorage';
 import {Logger} from '../../tools/logger';
 import env from '../../../environment'
 
-export const SET_GRADES = 'SET_GRADES';
-export const SET_LOGIN_STATE = 'SET_LOGIN_STATE';
-export const RESET_STATE = 'RESET_STATE';
-export const SET_USER = 'SET_USER';
-
-export const LoginState = {
-    INITIAL: 'INITIAL',
-    LOADED_CREDENTIALS: 'LOADED_CREDENTIALS',
-    LOADING: 'LOADING',
-    LOGGED_IN: 'LOGGED_IN',
-    LOGGED_OUT: 'LOGGED_OUT',
-    FAILED: 'FAILED',
-    NETWORK_ERROR: 'NETWORK_ERROR'
-};
+import * as actionTypes from "./actionTypes";
 
 crawlerObj = new crawler();
 
 export const setUser = (user) => {
     return {
-        type: SET_USER,
+        type: actionTypes.SET_USER,
         user: user
     }
 };
 
 export const setGrades = (grades) => {
     return {
-        type: SET_GRADES,
+        type: actionTypes.SET_GRADES,
         grades: grades
     }
 };
 
 export const resetState = () => {
     return {
-        type: RESET_STATE
+        type: actionTypes.RESET_STATE
     }
 };
 
 export const setLoginState = (state) => {
     return {
-        type: SET_LOGIN_STATE,
+        type: actionTypes.SET_LOGIN_STATE,
         login_state: state
     }
 };
 
 export function login(username, password, chkBox) {
+    const {LoginState} = actionTypes;
 
     return function (dispatch) {
         let onResponse = (error, loggedIn, grades) => {
@@ -125,7 +115,7 @@ export function postLessonsCheck(username, lessons) {
 }
 
 export function postLessons(lessons) {
-
+    // todo: remove dispatch (refactoring)
     return function (dispatch) {
         let onResponse = (res) => {
             res.json().then((resJs) => {

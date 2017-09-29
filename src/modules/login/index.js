@@ -1,9 +1,9 @@
 import Login from './components/login'
 
 import {connect} from 'react-redux'
-import {SET_LOGIN_STATE, RESET_STATE, SET_GRADES, LoginState} from './actions';
-import {login, resetState, setLoginState, setGrades} from './actions';
-import {grades, appState, user} from './reducers';
+import * as actionTypes from './actionTypes';
+import * as actions from './actions';
+import * as reducers from './reducers';
 
 const mapStateToProps = (state) => {
     return {
@@ -14,13 +14,13 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => {
     return {
         login: (username, password, chkBox) => {
-            dispatch(login(username, password, chkBox));
+            dispatch(actions.login(username, password, chkBox));
         },
         resetState: () => {
-            dispatch(resetState());
+            dispatch(actions.resetState());
         },
         setLoginState: (state) => {
-            dispatch(setLoginState(state));
+            dispatch(actions.setLoginState(state));
         }
     };
 };
@@ -30,9 +30,6 @@ const loginRedux = connect(
     mapDispatchToProps
 )(Login);
 
-const actions = {login, resetState, setLoginState, setGrades};
-const actionTypes = {SET_LOGIN_STATE, RESET_STATE, SET_GRADES, LoginState};
-const reducers = {grades, appState, user};
 
 export {loginRedux as Login};
 export {actions};
