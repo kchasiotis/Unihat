@@ -1,8 +1,9 @@
 import IcarusCrawler from './icarusCrawler';
 import SefCrawler from './sefCrawler';
 
+import {Lesson, LESSON_STATES_ICSD, LESSON_STATES_SEF} from './lesson'
 
-class crawler {
+class Crawler {
     fetchPage(username, password, onResponse) {
         // todo: add bachelors
         if (username.includes('icsd')) {
@@ -38,4 +39,4 @@ class crawler {
     }
 }
 
-export default crawler;
+export {Crawler, Lesson, LESSON_STATES_ICSD, LESSON_STATES_SEF};

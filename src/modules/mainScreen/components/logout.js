@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Icon} from 'native-base';
-import Crawler from '../../../tools/crawler';
+import {Crawler} from '../../../tools/crawler';
 import {CredentialStorage, LocalStorage} from '../../../tools/localStorage';
 import {actionTypes} from '../../login';
 import BackgroundJob from 'react-native-background-job';

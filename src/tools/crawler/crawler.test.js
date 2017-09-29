@@ -1,4 +1,4 @@
-import Crawler from './index';
+import {Crawler} from './index';
 import icarusUser from './icarusCrawler/.user'
 import sefUser from './sefCrawler/.user'
 

@@ -1,4 +1,4 @@
-import crawler from '../../tools/crawler'
+import {Crawler} from '../../tools/crawler'
 import {lessonAPI} from '../../tools/api'
 
 import BackgroundJob from 'react-native-background-job';
@@ -10,7 +10,7 @@ import env from '../../../environment'
 
 import * as actionTypes from "./actionTypes";
 
-crawlerObj = new crawler();
+crawlerObj = new Crawler();
 
 export const setUser = (user) => {
     return {

@@ -1,4 +1,4 @@
-import Crawler from '../crawler'
+import {Crawler} from '../crawler'
 import {CredentialStorage, LocalStorage} from '../../tools/localStorage';
 import {Logger, LogFormat} from '../../tools/logger';
 

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {FlatList, RefreshControl, AppState} from 'react-native';
 import {ListItem, Right, Text, Badge, Body, View} from 'native-base';
 
-import Crawler from '../../../tools/crawler';
+import {Crawler} from '../../../tools/crawler';
 import {Logger} from '../../../tools/logger';
 import {CredentialStorage, LocalStorage} from '../../../tools/localStorage';
 import lesson from '../../lesson/components/lesson';
