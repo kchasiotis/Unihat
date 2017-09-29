@@ -1,8 +1,8 @@
-import InitializeLessonList from './components/initializeLessonList'
+import LessonListWrapper from './components/lessonListWrapper'
 import {Filter} from './containers/filter'
 import {filter} from './reducers'
 
-export {InitializeLessonList};
+export {LessonListWrapper};
 
 const reducers = {filter};
 export {reducers};

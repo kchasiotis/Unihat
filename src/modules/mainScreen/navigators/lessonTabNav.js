@@ -1,21 +1,18 @@
-import {InitializeLessonList} from '../../lessonList'
+import {LessonListWrapper} from '../../lessonList'
 import {ChartScreen} from '../../chartScreen'
 import {TabNavigator} from 'react-navigation';
 import env from '../../../../environment'
 
 export default function LessonsTabNav() {
-    let aGrades = InitializeLessonList();
-    let exGrades = InitializeLessonList();
-
     let initRoute = env.debug ? env.drawerRoute : null;
 
     return TabNavigator({
             aGrades: {
-                screen: aGrades,
+                screen: LessonListWrapper,
                 navigationOptions: {title: 'Όλα '}
             },
             exGrades: {
-                screen: exGrades,
+                screen: LessonListWrapper,
                 navigationOptions: {title: 'Εξεταστική '}
             },
             ChartScreen: {
