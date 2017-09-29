@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {FlatList, RefreshControl, AppState} from 'react-native';
-import {ListItem, Right, Text, Badge, Body, Fab, Icon, View} from 'native-base';
+import {ListItem, Right, Text, Badge, Body, View} from 'native-base';
 
 import Crawler from '../../../tools/crawler';
 import {Logger} from '../../../tools/logger';
@@ -8,12 +8,29 @@ import {CredentialStorage, LocalStorage} from '../../../tools/localStorage';
 import lesson from '../../lesson/components/lesson';
 import env from '../../../../environment'
 
+const LoadingList = ({loading}) => {
+    if (loading === false) return null;
+    return (
+        <View style={{
+            flex: 1,
+            paddingLeft: 25,
+            paddingTop: 5,
+            paddingBottom: 5,
+            flexDirection: 'row',
+            backgroundColor: '#697268'
+        }}>
+            <Text style={{color: 'white', fontWeight: 'bold'}}>Loading...</Text>
+        </View>
+    );
+};
+
 class LessonList extends Component {
     constructor(props) {
         super(props);
         this.state = {
             refreshing: false,
-            appState: AppState.currentState
+            appState: AppState.currentState,
+            loading: true
         };
         this.crawler = new Crawler();
         this.refreshLessons = this.refreshLessons.bind(this);
@@ -59,6 +76,7 @@ class LessonList extends Component {
 
     componentWillUnmount() {
         AppState.removeEventListener('change', this._handleAppStateChange);
+        this.setState({loading: true});
     }
 
     _handleAppStateChange = (nextAppState) => {
@@ -83,6 +101,11 @@ class LessonList extends Component {
         this.setState({appState: nextAppState});
     };
 
+    onEndReached = (info) => {
+        console.log(info);
+        this.setState({loading: false});
+    };
+
     render() {
         // if (this.props.grades.length === 0) return <Text>Άδεια λίστα μαθημάτων</Text>;
 
@@ -90,6 +113,8 @@ class LessonList extends Component {
             <FlatList
                 style={{backgroundColor: 'white'}}
                 keyExtractor={(item) => (item.id)}
+                ListFooterComponent={<LoadingList loading={this.state.loading}/>}
+                onEndReached={(info) => this.onEndReached(info)}
                 refreshControl={
                     <RefreshControl
                         refreshing={this.state.refreshing}
