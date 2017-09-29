@@ -14,9 +14,9 @@ class LessonListWrapper extends Component {
         const {layoutMeasurement, contentOffset, contentSize} = nativeEvent;
 
         if (contentOffset.y > 10 && layoutMeasurement.height + contentOffset.y >= contentSize.height - 45) {
-            this.setState({showFab: false});
+            if (this.state.showFab === true) this.setState({showFab: false});
         } else {
-            this.setState({showFab: true});
+            if (this.state.showFab === false) this.setState({showFab: true});
         }
     };
 

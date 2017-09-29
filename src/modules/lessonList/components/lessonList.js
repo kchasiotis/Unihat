@@ -68,6 +68,9 @@ class LessonList extends Component {
         }
     }
 
+    componentWillReceiveProps(){
+        this.setState({loading: true});
+    }
 
     componentDidMount() {
         if(this.props.routeName === 'exGrades') AppState.addEventListener('change', this._handleAppStateChange);
