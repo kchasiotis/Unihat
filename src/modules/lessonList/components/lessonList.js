@@ -42,7 +42,7 @@ class LessonList extends Component {
 
         let onResponse = (error, loggedIn, allGrades) => {
             if (error) {
-                // todo: add error message on UI
+                // todo: (UI) add error message
                 Logger.error(error);
             }
             this.setState({refreshing: false});
@@ -113,7 +113,7 @@ class LessonList extends Component {
     };
 
     render() {
-        // todo: integrate to Flatlist
+        // todo: (UI) integrate to Flatlist
         // if (this.props.grades.length === 0) return <Text>Άδεια λίστα μαθημάτων</Text>;
 
         return (

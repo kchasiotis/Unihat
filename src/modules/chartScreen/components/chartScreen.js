@@ -48,10 +48,10 @@ class ChartScreen extends Component {
 
         //region Set up UI
         let pieSize = this.state.screenSize.width / 2;
-        // todo: change formula when flex functionality is supported from package
+        // todo: (priority 3) change formula when flex functionality is supported from package
         let barWidth = this.state.screenSize.width * 0.85;
 
-        // todo: Review implementation of UI logic to pie component
+        // todo: (priority 3) Review implementation of UI logic to pie component
         let fillColor = {'r': 240, 'g': 240, 'b': 240};
         let pie1 = {'r': 51, 'g': 202, 'b': 70};
         let pie2 = {'r': 255, 'g': 189, 'b': 27};

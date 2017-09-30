@@ -86,7 +86,7 @@ const lessonStyle = {
         color: 'gray'
     },
     itemRight: {
-        flex: 1 // todo: remove if possible
+        flex: 1 // todo: (priority 3) remove if possible
     },
     lessonState: (state) => {
         let color = '';

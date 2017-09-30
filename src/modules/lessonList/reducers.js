@@ -2,7 +2,7 @@ import * as actionTypes from './actionTypes'
 
 const {filterSortConfig} = actionTypes;
 
-// todo: Add exemption to ui
+// todo: (priority 1)(ui) Add exemption
 function filter(state = {
     lessons: {},
     filteredLessons: [],

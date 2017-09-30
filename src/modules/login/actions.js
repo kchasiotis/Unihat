@@ -65,7 +65,7 @@ export function login(username, password, chkBox) {
                         networkType: BackgroundJob.NETWORK_TYPE_UNMETERED
                     };
 
-                    // todo: change networkType to mobile
+                    // todo: (priority 2) change networkType to mobile
                     let newGradeCheckScheduleMobile = {
                         jobKey: jobNames.newGradeCheck.mobile,
                         timeout: 15000,

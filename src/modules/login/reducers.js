@@ -21,7 +21,7 @@ function user(state = {username: null, department: null}, action) {
     switch (action.type) {
         case SET_USER:
             let username = action.user.username;
-            console.log(action.user);
+
             let department = '';
             if (username.includes('math')) {
                 department = '311';

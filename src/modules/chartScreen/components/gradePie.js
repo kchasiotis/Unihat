@@ -20,7 +20,7 @@ export default class GradePie extends Component {
             })
         }
 
-        // todo: check size formulas with width
+        // todo: (priority 3) check size formulas with width
         let options = {
             margin: {
                 top: 20,
