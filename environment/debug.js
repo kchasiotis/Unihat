@@ -6,12 +6,12 @@ const env = {
     debug: true,
     autoLogin: true,
     shortSchedule: true,
+    backgroundCheck: true,
     logger: true,
     openFilter: false,
-    backgroundCheck: false,
     serverUrl: config.serverUrl,
     mockPage: ['examsOpen', 'examsClosed'][0],
-    drawerRoute: ['aGrades', 'exGrades', 'chartScreen'][3],
+    drawerRoute: ['aGrades', 'exGrades', 'chartScreen'][0],
     user: [icarusUser, sefUser][0]
 };
 
