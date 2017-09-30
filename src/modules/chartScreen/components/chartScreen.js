@@ -1,6 +1,7 @@
 'use strict';
 
 import React, {Component} from 'react';
+// todo: remove Text
 import {View, Text, ScrollView, StyleSheet} from 'react-native';
 import BarChart from './barChart'
 import {PieChartWrapper} from "../container/pieChartWrapper";
@@ -30,7 +31,7 @@ class ChartScreen extends Component {
     }
 
     render() {
-        if (this.props.lessonsLists.sGrades === undefined) return null;
+        if (this.props.lessonsLists.sGrades.length === 0 && this.props.lessonsLists.exGrades.length === 0) return null;
 
         // region Calculate succeeded grades average
         let lessonsLists = this.props.lessonsLists.sGrades.concat(this.props.lessonsLists.exGrades);

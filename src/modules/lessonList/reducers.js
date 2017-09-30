@@ -3,8 +3,9 @@ import * as actionTypes from './actionTypes'
 const {filterSortConfig} = actionTypes;
 
 // todo: (priority 1)(ui) Add exemption
+// todo: (refactor) lessons to lessonsLists
 function filter(state = {
-    lessons: {},
+    lessons: {aGrades: [], exGrades: [], sGrades: []},
     filteredLessons: [],
     lessonState: {SUCCEEDED: true, NO_PARTICIPATION: false, FAILED: true, CANCELLED: true, EXEMPTION: false},
     gradeRange: {from: 0, to: 10},

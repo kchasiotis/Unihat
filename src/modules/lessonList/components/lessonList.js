@@ -24,6 +24,14 @@ const LoadingList = ({loading}) => {
     );
 };
 
+const EmptyList = () => {
+    return (
+        <View style={{height: 500, flexDirection:'column', alignItems: 'center', justifyContent: 'center'}}>
+            <Text style={{fontWeight:'bold', color: '#697268'}}>Η λίστα είναι άδεια</Text>
+        </View>
+    );
+};
+
 class LessonList extends Component {
     constructor(props) {
         super(props);
@@ -66,18 +74,17 @@ class LessonList extends Component {
         }
     }
 
-    componentWillReceiveProps(){
+    componentWillReceiveProps() {
         this.setState({loading: true});
     }
 
     componentDidMount() {
-        if(this.props.routeName === 'exGrades') AppState.addEventListener('change', this._handleAppStateChange);
+        if (this.props.routeName === 'exGrades') AppState.addEventListener('change', this._handleAppStateChange);
         if (env.debug && env.openFilter) this.props.navigation.navigate('filter');
     }
 
     componentWillUnmount() {
-        if(this.props.routeName === 'exGrades') AppState.removeEventListener('change', this._handleAppStateChange);
-        this.setState({loading: true});
+        if (this.props.routeName === 'exGrades') AppState.removeEventListener('change', this._handleAppStateChange);
     }
 
     _handleAppStateChange = (nextAppState) => {
@@ -106,21 +113,19 @@ class LessonList extends Component {
         this.setState({loading: false});
     };
 
-    onEndScroll= (nativeEvent) => {
-        if(this.state.loading === true) return;
+    onEndScroll = (nativeEvent) => {
+        if (this.state.loading === true) return;
 
         this.props.handleFab(nativeEvent);
     };
 
     render() {
-        // todo: (UI) integrate to Flatlist
-        // if (this.props.grades.length === 0) return <Text>Άδεια λίστα μαθημάτων</Text>;
-
         return (
             <FlatList
                 style={{backgroundColor: 'white'}}
                 keyExtractor={(item) => (item.id)}
-                ListFooterComponent={<LoadingList loading={this.state.loading}/>}
+                ListEmptyComponent={<EmptyList/>}
+                ListFooterComponent={<LoadingList loading={this.state.loading && this.props.lessons.length !== 0}/>}
                 onEndReached={() => this.onEndReached()}
                 onScroll={({nativeEvent}) => this.onEndScroll(nativeEvent)}
                 refreshControl={
