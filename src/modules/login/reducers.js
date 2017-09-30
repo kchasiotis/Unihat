@@ -2,18 +2,6 @@ import * as actionTypes from './actionTypes'
 
 const {LoginState} = actionTypes;
 
-// todo: remove grades
-function grades(state = {}, action) {
-    const {SET_GRADES} = actionTypes;
-
-    switch (action.type) {
-        case SET_GRADES:
-            return Object.assign({}, state, action.grades);
-        default:
-            return state;
-    }
-}
-
 function appState(state = {loginState: LoginState.INITIAL}, action) {
     const {SET_LOGIN_STATE, RESET_STATE} = actionTypes;
 
@@ -49,6 +37,5 @@ function user(state = {username: null, department: null}, action) {
     }
 }
 
-export {grades};
 export {appState};
 export {user};
