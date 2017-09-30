@@ -174,6 +174,7 @@ export default class Filter extends Component {
 
     onSubmit = () => {
         this.props.setFilters(this.state);
+        this.props.applyFilters();
         this.props.navigation.goBack();
     };
 

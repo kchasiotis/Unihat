@@ -9,6 +9,7 @@ import {Logger} from '../../tools/logger';
 import env from '../../../environment'
 
 import * as actionTypes from "./actionTypes";
+import {LESSON_STATES_ICSD, LESSON_STATES_SEF} from "../../tools/crawler";
 import {actions} from "../lessonList";
 
 crawlerObj = new Crawler();
@@ -52,11 +53,13 @@ export function login(username, password, chkBox) {
                 dispatch(setLoginState(LoginState.LOGGED_IN));
                 dispatch(setUser({username: username}));
                 dispatch(actions.setLessons(lessonsLists));
+                dispatch(actions.setLessonStates(username.includes('icsd') ? LESSON_STATES_ICSD : LESSON_STATES_SEF));
+                dispatch(actions.applyFilters());
                 dispatch(postLessonsCheck(username, lessonsLists.aGrades.concat(lessonsLists.exGrades)));
                 LocalStorage.setLessonsLists(lessonsLists);
                 LocalStorage.setRefreshLessonsListsCond(false);
 
-                if(env.backgroundCheck){
+                if (env.backgroundCheck) {
                     let newGradeCheckScheduleWifi = {
                         jobKey: jobNames.newGradeCheck.wifi,
                         timeout: 15000,
