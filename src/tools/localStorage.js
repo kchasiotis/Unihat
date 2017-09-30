@@ -46,14 +46,14 @@ class LocalStorage {
         AsyncStorage.setItem('credentialCheckBox', JSON.stringify(state));
     }
 
-    static loadGrades(onLoad) {
-        AsyncStorage.getItem('grades', (err, storedGrades) => {
+    static loadLessonsLists(onLoad) {
+        AsyncStorage.getItem('LessonsLists', (err, storedGrades) => {
             onLoad(err, JSON.parse(storedGrades));
         });
     }
 
-    static setGrades(grades) {
-        AsyncStorage.setItem('grades', JSON.stringify(grades));
+    static setLessonsLists(LessonsLists) {
+        AsyncStorage.setItem('LessonsLists', JSON.stringify(LessonsLists));
     }
 
     static loadRefreshGradesCond(onLoad) {
@@ -62,7 +62,7 @@ class LocalStorage {
         });
     }
 
-    static setRefreshGradesCond(bool) {
+    static setRefreshLessonsListsCond(bool) {
         AsyncStorage.setItem('refresh', JSON.stringify(bool));
     }
 }

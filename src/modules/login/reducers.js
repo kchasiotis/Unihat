@@ -2,6 +2,7 @@ import * as actionTypes from './actionTypes'
 
 const {LoginState} = actionTypes;
 
+// todo: remove grades
 function grades(state = {}, action) {
     const {SET_GRADES} = actionTypes;
 

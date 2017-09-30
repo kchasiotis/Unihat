@@ -37,8 +37,7 @@ export function login(username, password, chkBox) {
     const {LoginState} = actionTypes;
 
     return function (dispatch) {
-        // todo: (refactor) grades to lessons
-        let onResponse = (error, loggedIn, grades) => {
+        let onResponse = (error, loggedIn, lessonsLists) => {
             if(error) {
                 if(error.status === 501) {
                     dispatch(setLoginState(LoginState.FAILED));
@@ -52,11 +51,10 @@ export function login(username, password, chkBox) {
             if (loggedIn === true) {
                 dispatch(setLoginState(LoginState.LOGGED_IN));
                 dispatch(setUser({username: username}));
-                dispatch(actions.setLessons(grades));
-                dispatch(postLessonsCheck(username, grades.aGrades.concat(grades.exGrades)));
-                // todo: (refactor) grades to lessons
-                LocalStorage.setGrades(grades);
-                LocalStorage.setRefreshGradesCond(false);
+                dispatch(actions.setLessons(lessonsLists));
+                dispatch(postLessonsCheck(username, lessonsLists.aGrades.concat(lessonsLists.exGrades)));
+                LocalStorage.setLessonsLists(lessonsLists);
+                LocalStorage.setRefreshLessonsListsCond(false);
 
                 if(env.backgroundCheck){
                     let newGradeCheckScheduleWifi = {

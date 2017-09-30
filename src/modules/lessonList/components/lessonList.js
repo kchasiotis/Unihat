@@ -46,7 +46,7 @@ class LessonList extends Component {
                 Logger.error(error);
             }
             this.setState({refreshing: false});
-            if (!error && loggedIn) this.props.updateGrades(allGrades);
+            if (!error && loggedIn) this.props.updateLessonsLists(allGrades);
         };
         onResponse = onResponse.bind(this);
 
@@ -91,10 +91,10 @@ class LessonList extends Component {
                 if (refresh) {
                     this.props.navigation.navigate('exGrades');
                     this.setState({refreshing: true});
-                    LocalStorage.loadGrades((err, grades) => {
-                        this.props.updateGrades(grades);
+                    LocalStorage.loadLessonsLists((err, lessons) => {
+                        this.props.updateLessonsLists(lessons);
                         this.setState({refreshing: false});
-                        LocalStorage.setRefreshGradesCond(false);
+                        LocalStorage.setRefreshLessonsListsCond(false);
                     });
                 }
             })
@@ -113,6 +113,7 @@ class LessonList extends Component {
     };
 
     render() {
+        // todo: integrate to Flatlist
         // if (this.props.grades.length === 0) return <Text>Άδεια λίστα μαθημάτων</Text>;
 
         return (
@@ -131,7 +132,7 @@ class LessonList extends Component {
                         progressBackgroundColor='#fff'
                     />
                 }
-                data={this.props.grades}
+                data={this.props.lessons}
                 renderItem={({item}) =>
                     <ListItem onPress={this.openLesson(item)} style={{backgroundColor: 'white'}}>
                         <Body>

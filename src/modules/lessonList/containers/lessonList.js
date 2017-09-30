@@ -18,7 +18,7 @@ const mapStateToProps = (state, ownProps) => {
             break;
     }
 
-    if(ownProps.routeName === 'exGrades' || state.filter.lessons.aGrades === undefined) return {grades: lessons};
+    if(ownProps.routeName === 'exGrades' || state.filter.lessons.aGrades === undefined) return {lessons: lessons};
 
     let LESSON_STATES = state.user.department === '321' ? LESSON_STATES_ICSD : LESSON_STATES_SEF;
 
@@ -64,12 +64,12 @@ const mapStateToProps = (state, ownProps) => {
             break;
     }
 
-    return {grades: lessons};
+    return {lessons: lessons};
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        updateGrades: (lessons) => {
+        updateLessonsLists: (lessons) => {
             dispatch(actions.setLessons(lessons));
         }
     }

@@ -26,7 +26,7 @@ const newGradeCheckJob = (jobName) => {
                         }
 
                         if (logged) {
-                            LocalStorage.loadGrades((error, storedGrades) => {
+                            LocalStorage.loadLessonsLists((error, storedGrades) => {
                                 if (error) {
                                     Logger.error(error);
                                     return;
@@ -44,8 +44,8 @@ const newGradeCheckJob = (jobName) => {
                                                 playSound: true, // (optional) default: true
                                                 soundName: 'default', // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)
                                             });
-                                            LocalStorage.setGrades(serverGrades);
-                                            LocalStorage.setRefreshGradesCond(true);
+                                            LocalStorage.setLessonsLists(serverGrades);
+                                            LocalStorage.setRefreshLessonsListsCond(true);
                                         }
                                     }
                                 }
