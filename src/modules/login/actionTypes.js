@@ -1,4 +1,3 @@
-export const SET_GRADES = 'SET_GRADES';
 export const SET_LOGIN_STATE = 'SET_LOGIN_STATE';
 export const RESET_STATE = 'RESET_STATE';
 export const SET_USER = 'SET_USER';

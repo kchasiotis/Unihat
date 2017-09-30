@@ -9,6 +9,7 @@ import {Logger} from '../../tools/logger';
 import env from '../../../environment'
 
 import * as actionTypes from "./actionTypes";
+import {actions} from "../lessonList";
 
 crawlerObj = new Crawler();
 
@@ -16,13 +17,6 @@ export const setUser = (user) => {
     return {
         type: actionTypes.SET_USER,
         user: user
-    }
-};
-
-export const setGrades = (grades) => {
-    return {
-        type: actionTypes.SET_GRADES,
-        grades: grades
     }
 };
 
@@ -43,6 +37,7 @@ export function login(username, password, chkBox) {
     const {LoginState} = actionTypes;
 
     return function (dispatch) {
+        // todo: (refactor) grades to lessons
         let onResponse = (error, loggedIn, grades) => {
             if(error) {
                 if(error.status === 501) {
@@ -57,8 +52,9 @@ export function login(username, password, chkBox) {
             if (loggedIn === true) {
                 dispatch(setLoginState(LoginState.LOGGED_IN));
                 dispatch(setUser({username: username}));
-                dispatch(setGrades(grades));
+                dispatch(actions.setLessons(grades));
                 dispatch(postLessonsCheck(username, grades.aGrades.concat(grades.exGrades)));
+                // todo: (refactor) grades to lessons
                 LocalStorage.setGrades(grades);
                 LocalStorage.setRefreshGradesCond(false);
 

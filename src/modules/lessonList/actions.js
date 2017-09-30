@@ -6,3 +6,10 @@ export const setFilters = (filters) => {
         filters: filters
     }
 };
+
+export const setLessons = (lessons) => {
+    return {
+        type: actionTypes.SET_LESSONS,
+        lessons: lessons
+    }
+};

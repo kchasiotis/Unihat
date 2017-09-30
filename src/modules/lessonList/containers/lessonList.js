@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 let moment = require('moment');
 
 import LessonList from '../components/lessonList'
-import {actions} from '../../login'
+import * as actions from '../actions'
 import {filterSortConfig} from '../actionTypes'
 import {LESSON_STATES_ICSD, LESSON_STATES_SEF} from '../../../tools/crawler'
 
@@ -11,14 +11,14 @@ const mapStateToProps = (state, ownProps) => {
     let lessons = null;
     switch (ownProps.routeName) {
         case 'aGrades':
-            lessons = state.grades.aGrades;
+            lessons = state.filter.lessons.aGrades;
             break;
         case 'exGrades':
-            lessons = state.grades.exGrades;
+            lessons = state.filter.lessons.exGrades;
             break;
     }
 
-    if(ownProps.routeName === 'exGrades' || state.grades.aGrades === undefined) return {grades: lessons};
+    if(ownProps.routeName === 'exGrades' || state.filter.lessons.aGrades === undefined) return {grades: lessons};
 
     let LESSON_STATES = state.user.department === '321' ? LESSON_STATES_ICSD : LESSON_STATES_SEF;
 
@@ -69,8 +69,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        updateGrades: (grades) => {
-            dispatch(actions.setGrades(grades));
+        updateGrades: (lessons) => {
+            dispatch(actions.setLessons(lessons));
         }
     }
 };

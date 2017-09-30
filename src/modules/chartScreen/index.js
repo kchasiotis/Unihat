@@ -1,8 +1,10 @@
 import { connect } from 'react-redux'
+// todo: (refactor) ChartScreen to ChartScreenComponent
 import ChartScreen from './components/chartScreen'
 
-const mapStateToProps = (state,) => {
-    return {allGrades: state.grades}
+// todo: (refactor) refactor grades to lessons
+const mapStateToProps = (state) => {
+    return {allGrades: state.filter.lessons}
 };
 
 const ChartScreenRedux = connect(
