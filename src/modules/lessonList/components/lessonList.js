@@ -125,7 +125,7 @@ class LessonList extends Component {
                 style={{backgroundColor: 'white'}}
                 keyExtractor={(item) => (item.id)}
                 ListEmptyComponent={<EmptyList/>}
-                ListFooterComponent={<LoadingList loading={this.state.loading && this.props.lessons.length !== 0}/>}
+                ListFooterComponent={<LoadingList loading={this.state.loading && this.props.lessons.length > 10}/>}
                 onEndReached={() => this.onEndReached()}
                 onScroll={({nativeEvent}) => this.onEndScroll(nativeEvent)}
                 refreshControl={
