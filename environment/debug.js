@@ -8,6 +8,7 @@ const env = {
     shortSchedule: true,
     logger: true,
     openFilter: false,
+    backgroundCheck: false,
     serverUrl: config.serverUrl,
     mockPage: ['examsOpen', 'examsClosed'][0],
     drawerRoute: ['aGrades', 'exGrades', 'chartScreen'][3],

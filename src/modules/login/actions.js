@@ -58,24 +58,26 @@ export function login(username, password, chkBox) {
                 LocalStorage.setGrades(grades);
                 LocalStorage.setRefreshGradesCond(false);
 
-                let newGradeCheckScheduleWifi = {
-                    jobKey: jobNames.newGradeCheck.wifi,
-                    timeout: 15000,
-                    period: 60 * 60 * 1000,
-                    override: true,
-                    networkType: BackgroundJob.NETWORK_TYPE_UNMETERED
-                };
+                if(env.backgroundCheck){
+                    let newGradeCheckScheduleWifi = {
+                        jobKey: jobNames.newGradeCheck.wifi,
+                        timeout: 15000,
+                        period: 60 * 60 * 1000,
+                        override: true,
+                        networkType: BackgroundJob.NETWORK_TYPE_UNMETERED
+                    };
 
-                // todo: change networkType to mobile
-                let newGradeCheckScheduleMobile = {
-                    jobKey: jobNames.newGradeCheck.mobile,
-                    timeout: 15000,
-                    period: env.debug && env.shortSchedule ? 5 * 1000 : 12 * 60 * 60 * 1000,
-                    override: true,
-                    networkType: BackgroundJob.NETWORK_TYPE_ANY
-                };
-                BackgroundJob.schedule(newGradeCheckScheduleWifi);
-                BackgroundJob.schedule(newGradeCheckScheduleMobile);
+                    // todo: change networkType to mobile
+                    let newGradeCheckScheduleMobile = {
+                        jobKey: jobNames.newGradeCheck.mobile,
+                        timeout: 15000,
+                        period: env.debug && env.shortSchedule ? 5 * 1000 : 12 * 60 * 60 * 1000,
+                        override: true,
+                        networkType: BackgroundJob.NETWORK_TYPE_ANY
+                    };
+                    BackgroundJob.schedule(newGradeCheckScheduleWifi);
+                    BackgroundJob.schedule(newGradeCheckScheduleMobile);
+                }
 
                 if (chkBox === true) CredentialStorage.set(username, password);
             } else if (loggedIn === false) {
