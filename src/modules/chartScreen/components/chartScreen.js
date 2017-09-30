@@ -30,17 +30,17 @@ class ChartScreen extends Component {
     }
 
     render() {
-        if (this.props.allGrades.sGrades === undefined) return null;
+        if (this.props.lessonsLists.sGrades === undefined) return null;
 
         // region Calculate succeeded grades average
-        let grades = this.props.allGrades.sGrades.concat(this.props.allGrades.exGrades);
+        let lessonsLists = this.props.lessonsLists.sGrades.concat(this.props.lessonsLists.exGrades);
 
-        grades = grades.filter((lesson) => {
+        lessonsLists = lessonsLists.filter((lesson) => {
             return lesson.grade >= 5 && lesson.state === 'Επιτυχία';
         });
 
-        let lessonsNumber = grades.length;
-        let sum = grades.reduce((acc, val) => acc + val.grade, 0);
+        let lessonsNumber = lessonsLists.length;
+        let sum = lessonsLists.reduce((acc, val) => acc + val.grade, 0);
 
         let average = (sum / lessonsNumber).toPrecision(3);
         // endregion
@@ -69,7 +69,7 @@ class ChartScreen extends Component {
                 <View style={styles.barChart}>
                     <ChartTitle title={pieChartType['lessonsPerGrade'].title}
                                 description={pieChartType['lessonsPerGrade'].description}/>
-                    <BarChart width={barWidth} grades={grades}/>
+                    <BarChart width={barWidth} lessonsLists={lessonsLists}/>
                 </View>
             </ScrollView>
         );

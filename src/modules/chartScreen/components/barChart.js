@@ -5,26 +5,26 @@ import {Bar} from 'react-native-pathjs-charts'
 
 export default class BarChart extends Component {
     render() {
-        let grades = this.props.grades;
+        let lessonsLists = this.props.lessonsLists;
 
-        grades = grades.filter((lesson) => {
+        lessonsLists = lessonsLists.filter((lesson) => {
             return lesson.grade >= 5
         });
 
-        grades.sort(function (lesson1, lesson2) {
+        lessonsLists.sort(function (lesson1, lesson2) {
             return lesson1.grade - lesson2.grade;
         });
 
         // Count occurrences
         let gradeArray = [], counterArray = [], prev = null;
-        for (let i = 0; i < grades.length; i++) {
-            if (grades[i].grade !== prev) {
-                gradeArray.push(grades[i].grade);
+        for (let i = 0; i < lessonsLists.length; i++) {
+            if (lessonsLists[i].grade !== prev) {
+                gradeArray.push(lessonsLists[i].grade);
                 counterArray.push(1);
             } else {
                 counterArray[counterArray.length - 1]++;
             }
-            prev = grades[i].grade;
+            prev = lessonsLists[i].grade;
         }
 
         // Construct data input for graph
