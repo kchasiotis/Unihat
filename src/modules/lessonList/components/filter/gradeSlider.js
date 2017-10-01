@@ -2,7 +2,7 @@ import React from 'react';
 
 import MultiSlider from "@ptomasroos/react-native-multi-slider";
 import {Text, View} from "native-base";
-import {gradeSlider} from "../../../../../theme/components/gradeSlider";
+import Theme from "../../../../../theme/components/gradeSlider";
 import FilterCard from "./filterCard";
 
 // todo: (ui) dynamic slider width
@@ -32,16 +32,10 @@ const GradeSlider = ({gradeRange, multiSliderValuesChange, theme}) => {
 
 GradeSlider.defaultProps = {
     theme: {
-        sliderColor: gradeSlider.sliderColor,
-        markerColor: gradeSlider.markerColor,
-        labelColor: gradeSlider.labelColor
+        sliderColor: Theme.sliderColor,
+        markerColor: Theme.markerColor,
+        labelColor: Theme.labelColor
     }
-};
-
-// todo: (ui) move card to different component
-const style = {
-    cardTitle: {fontWeight: 'bold', color: '#333'},
-    checkboxRow: {flex: 1, flexDirection: 'row'}
 };
 
 export default GradeSlider;

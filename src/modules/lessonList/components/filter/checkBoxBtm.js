@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {CheckBox, ListItem, Text, View} from "native-base";
-import {checkBoxBtm} from "../../../../../theme/components/checkBoxBtm";
+import Theme from "../../../../../theme/components/checkBoxBtm";
 
 const CheckBoxBtm = ({value, onClick, title, theme}) => {
     return (
@@ -15,7 +15,7 @@ const CheckBoxBtm = ({value, onClick, title, theme}) => {
 };
 
 CheckBoxBtm.defaultProps = {
-    theme: {checkBoxColor: checkBoxBtm.checkBoxColor, textColor: checkBoxBtm.textColor}
+    theme: {checkBoxColor: Theme.checkBoxColor, textColor: Theme.textColor}
 };
 
 export default CheckBoxBtm;

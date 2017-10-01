@@ -6,4 +6,4 @@ const gradeSlider = {
     labelColor: colorPalette.willowGrove
 };
 
-export {gradeSlider};
+export default gradeSlider;

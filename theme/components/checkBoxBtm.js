@@ -5,4 +5,4 @@ const checkBoxBtm = {
     textColor: colorPalette.willowGrove
 };
 
-export {checkBoxBtm};
+export default checkBoxBtm;
