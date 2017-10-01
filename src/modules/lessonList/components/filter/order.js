@@ -27,7 +27,7 @@ export default class Order extends Component {
 
         return (
             <FilterCard title={'Κατάταξη'}>
-                <View style={style.checkboxRow}>
+                <View style={{flex: 1, flexDirection: 'row'}}>
                     <CheckBoxBtm value={radioGroup.desc} title={'Φθίνουσα'} onClick={this.onClick(configOrders.desc)}/>
                     <CheckBoxBtm value={radioGroup.asc} title={'Αύξουσα'} onClick={this.onClick(configOrders.asc)}/>
                 </View>
@@ -36,8 +36,3 @@ export default class Order extends Component {
 
     }
 }
-
-const style = {
-    cardTitle: {fontWeight: 'bold', color: '#333'},
-    checkboxRow: {flex: 1, flexDirection: 'row'}
-};

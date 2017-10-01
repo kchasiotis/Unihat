@@ -6,7 +6,7 @@ import FilterCard from "./filterCard"
 const LessonStates = ({lessonState, filterByState}) => {
     return (
         <FilterCard title={'Κατάσταση'}>
-            <View style={style.checkboxRow}>
+            <View style={{flex: 1, flexDirection: 'row'}}>
                 <CheckBoxBtm value={lessonState.SUCCEEDED} onClick={() => filterByState('SUCCEEDED')}
                              title={'Επιτυχία'}/>
                 <CheckBoxBtm value={lessonState.FAILED} onClick={() => filterByState('FAILED')}
@@ -18,11 +18,6 @@ const LessonStates = ({lessonState, filterByState}) => {
             </View>
         </FilterCard>
     );
-};
-
-const style = {
-    cardTitle: {fontWeight: 'bold', color: '#333'},
-    checkboxRow: {flex: 1, flexDirection: 'row'}
 };
 
 export default LessonStates;

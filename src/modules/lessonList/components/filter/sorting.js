@@ -29,7 +29,7 @@ export default class Sorting extends Component {
 
         return (
             <FilterCard title={'Ταξινόμηση'}>
-                <View style={style.checkboxRow}>
+                <View style={{flex: 1, flexDirection: 'row'}}>
                     <CheckBoxBtm value={radioGroup.enrollDate} title={'Ημ. δήλωσης'}
                                  onClick={this.onClick(enrollDate)}/>
                     <CheckBoxBtm value={radioGroup.grade} title={'Βαθμός'} onClick={this.onClick(grade)}/>
@@ -43,9 +43,4 @@ export default class Sorting extends Component {
             </FilterCard>
         );
     }
-};
-
-const style = {
-    cardTitle: {fontWeight: 'bold', color: '#333'},
-    checkboxRow: {flex: 1, flexDirection: 'row'}
 };
