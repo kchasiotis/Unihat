@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {CheckBox, ListItem, Text, View} from "native-base";
 import Theme from "../../../../../theme/components/checkBoxBtm";
 
