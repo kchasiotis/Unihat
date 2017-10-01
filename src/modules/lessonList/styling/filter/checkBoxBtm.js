@@ -1,8 +1,8 @@
-import {colorPalette} from "../../../../../theme/colorPalette";
+import colorScheme from './colorScheme';
 
 const checkBoxBtm = {
-    checkBoxColor: colorPalette.orange,
-    textColor: colorPalette.willowGrove
+    checkBoxColor: colorScheme.primaryColor,
+    textColor: colorScheme.labelColor
 };
 
 export default checkBoxBtm;

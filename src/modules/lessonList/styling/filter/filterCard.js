@@ -1,7 +1,7 @@
-import {colorPalette} from "../../../../../theme/colorPalette";
+import colorScheme from './colorScheme';
 
 const filterCard = {
-    titleColor: colorPalette.mineShaft
+    titleColor: colorScheme.titleColor
 };
 
 export default filterCard;

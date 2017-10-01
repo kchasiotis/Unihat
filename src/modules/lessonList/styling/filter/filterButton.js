@@ -1,7 +1,7 @@
-import {colorPalette} from "../../../../../theme/colorPalette";
+import colorScheme from './colorScheme';
 
 const filterButton = {
-    buttonColor: colorPalette.sanMarino
+    buttonColor: colorScheme.buttonColor
 };
 
 export default filterButton;

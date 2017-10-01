@@ -1,9 +1,9 @@
-import {colorPalette} from "../../../../../theme/colorPalette";
+import colorScheme from './colorScheme';
 
 const gradeSlider = {
-    sliderColor: colorPalette.orange,
-    markerColor: colorPalette.orange,
-    labelColor: colorPalette.willowGrove
+    sliderColor: colorScheme.primaryColor,
+    markerColor: colorScheme.primaryColor,
+    labelColor: colorScheme.labelColor
 };
 
 export default gradeSlider;
