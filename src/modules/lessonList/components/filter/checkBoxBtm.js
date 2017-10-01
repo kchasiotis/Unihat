@@ -1,6 +1,6 @@
 import React from 'react';
 import {CheckBox, ListItem, Text, View} from "native-base";
-import Theme from "../../styling/filter/checkBoxBtm";
+import Theme from "../../styling/filterColorScheme";
 
 const CheckBoxBtm = ({value, onClick, title, theme}) => {
     return (
@@ -9,13 +9,13 @@ const CheckBoxBtm = ({value, onClick, title, theme}) => {
                 <CheckBox color={theme.checkBoxColor} checked={value}
                           onPress={onClick}/>
             </ListItem>
-            <Text style={{color: theme.textColor}}>{title}</Text>
+            <Text style={{color: theme.labelColor}}>{title}</Text>
         </View>
     );
 };
 
 CheckBoxBtm.defaultProps = {
-    theme: {checkBoxColor: Theme.checkBoxColor, textColor: Theme.textColor}
+    theme: {checkBoxColor: Theme.primaryColor, labelColor: Theme.labelColor}
 };
 
 export default CheckBoxBtm;

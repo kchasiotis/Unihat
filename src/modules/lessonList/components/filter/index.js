@@ -5,7 +5,7 @@ import GradeSlider from "./gradeSlider";
 import Sorting from "./sorting";
 import Order from "./order";
 import FilterButton from "./filterButton";
-import Theme from '../../styling/filter/colorScheme'
+import Theme from '../../styling/filterColorScheme'
 
 class Filter extends Component {
     constructor(props) {

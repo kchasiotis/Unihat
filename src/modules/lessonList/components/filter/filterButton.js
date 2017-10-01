@@ -1,6 +1,6 @@
 import React from 'react'
 import {Text, Button} from 'native-base';
-import Theme from '../../styling/filter/filterButton'
+import Theme from '../../styling/filterColorScheme'
 
 const FilterButton = ({theme}) => {
     return (

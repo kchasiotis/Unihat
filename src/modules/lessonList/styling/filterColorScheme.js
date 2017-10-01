@@ -1,4 +1,4 @@
-import {colorPalette} from "../../../../../theme/colorPalette";
+import {colorPalette} from "../../../../theme/colorPalette";
 
 const colorScheme = {
     primaryColor: colorPalette.orange,

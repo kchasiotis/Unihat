@@ -2,7 +2,7 @@ import React from 'react';
 
 import MultiSlider from "@ptomasroos/react-native-multi-slider";
 import {Text, View} from "native-base";
-import Theme from "../../styling/filter/gradeSlider";
+import Theme from "../../styling/filterColorScheme";
 import FilterCard from "./filterCard";
 
 // todo: (ui) dynamic slider width
@@ -32,8 +32,8 @@ const GradeSlider = ({gradeRange, multiSliderValuesChange, theme}) => {
 
 GradeSlider.defaultProps = {
     theme: {
-        sliderColor: Theme.sliderColor,
-        markerColor: Theme.markerColor,
+        sliderColor: Theme.primaryColor,
+        markerColor: Theme.primaryColor,
         labelColor: Theme.labelColor
     }
 };

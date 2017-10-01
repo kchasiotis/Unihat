@@ -1,6 +1,6 @@
 import React from 'react';
 import {Card, CardItem, Text} from "native-base";
-import Theme from '../../styling/filter/filterCard'
+import Theme from '../../styling/filterColorScheme'
 
 const FilterCard = ({title, children, theme}) => {
     return (
@@ -14,7 +14,7 @@ const FilterCard = ({title, children, theme}) => {
 };
 
 FilterCard.defaultProps = {
-    theme: {titleColor: Theme.titleColor, backgroundColor: Theme.backgroundColor}
+    theme: {titleColor: Theme.titleColor, backgroundColor: Theme.cardBackgroundColor}
 };
 
 export default FilterCard;
