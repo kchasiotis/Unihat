@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import {View, Content, Text, Button} from 'native-base';
+import {View, Content} from 'native-base';
 import LessonStates from "./lessonStates";
 import GradeSlider from "./gradeSlider";
 import Sorting from "./sorting";
 import Order from "./order";
+import FilterButton from "./filterButton";
 
 export default class Filter extends Component {
     constructor(props) {
@@ -57,9 +58,7 @@ export default class Filter extends Component {
                            setOrderBy={this.setSortOrder}/>
 
                 </Content>
-                <Button block style={{backgroundColor: '#3F51B5'}} onPress={this.onSubmit}>
-                    <Text> ΕΦΑΡΜΟΓΗ </Text>
-                </Button>
+                <FilterButton/>
             </View>
         );
     }
