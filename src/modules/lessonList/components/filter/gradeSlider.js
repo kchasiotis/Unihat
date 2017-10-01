@@ -4,6 +4,7 @@ import MultiSlider from "@ptomasroos/react-native-multi-slider";
 import {Card, CardItem, Text, View} from "native-base";
 import {colorPalette} from "./colorPalette";
 
+// todo: (ui) dynamic slider width
 const GradeSlider = ({gradeRange, multiSliderValuesChange}) => {
     return (
         <Card>
@@ -11,14 +12,11 @@ const GradeSlider = ({gradeRange, multiSliderValuesChange}) => {
                 <Text style={style.cardTitle}>Βαθμοί</Text>
             </CardItem>
             <View style={{marginLeft: 25, marginRight: 20}}>
-                <View style={{marginBottom: 10, flex: 1, flexDirection: 'row'}}>
-                    <View style={{flex: 1, flexDirection: 'row'}}>
-                        <Text
-                            style={{color: colorPalette.willowGrove}}>{gradeRange.from}{gradeRange.from - parseInt(gradeRange.from) === 0 ? '   ' : ''}</Text>
-                    </View>
+                <View style={{marginBottom: 10, flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
+                    <Text style={{color: colorPalette.willowGrove}}>{gradeRange.from}</Text>
                     <Text style={{color: colorPalette.willowGrove}}>{gradeRange.to}</Text>
                 </View>
-                <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+                <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
                     <MultiSlider
                         selectedStyle={{backgroundColor: colorPalette.orange,}}
                         markerStyle={{backgroundColor: colorPalette.orange}}
