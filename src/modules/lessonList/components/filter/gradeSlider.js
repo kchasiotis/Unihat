@@ -2,7 +2,7 @@ import React from 'react';
 
 import MultiSlider from "@ptomasroos/react-native-multi-slider";
 import {Text, View} from "native-base";
-import Theme from "../../../../../theme/components/gradeSlider";
+import Theme from "../../styling/filter/gradeSlider";
 import FilterCard from "./filterCard";
 
 // todo: (ui) dynamic slider width

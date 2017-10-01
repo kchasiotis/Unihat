@@ -1,6 +1,6 @@
 import React from 'react';
 import {CheckBox, ListItem, Text, View} from "native-base";
-import Theme from "../../../../../theme/components/checkBoxBtm";
+import Theme from "../../styling/filter/checkBoxBtm";
 
 const CheckBoxBtm = ({value, onClick, title, theme}) => {
     return (

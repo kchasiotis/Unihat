@@ -1,6 +1,6 @@
 import React from 'react';
 import {Card, CardItem, Text} from "native-base";
-import Theme from '../../../../../theme/components/filterCard'
+import Theme from '../../styling/filter/filterCard'
 
 const FilterCard = ({title, children, theme}) => {
     return (

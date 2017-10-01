@@ -1,4 +1,4 @@
-import {colorPalette} from "../colorPalette";
+import {colorPalette} from "../../../../../theme/colorPalette";
 
 const gradeSlider = {
     sliderColor: colorPalette.orange,
