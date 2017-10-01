@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Card, CardItem, Text, View} from "native-base";
 import CheckBoxBtm from "./checkBoxBtm";
-import {colorPalette} from "./colorPalette";
 
 const LessonStates = ({lessonState, filterByState}) => {
     return (
@@ -24,7 +23,7 @@ const LessonStates = ({lessonState, filterByState}) => {
 };
 
 const style = {
-    cardTitle: {fontWeight: 'bold', color: colorPalette.mineShaft},
+    cardTitle: {fontWeight: 'bold', color: '#333'},
     checkboxRow: {flex: 1, flexDirection: 'row'}
 };
 

@@ -4,7 +4,6 @@ import LessonStates from "./lessonStates";
 import GradeSlider from "./gradeSlider";
 import Sorting from "./sorting";
 import Order from "./order";
-import {colorPalette} from "./colorPalette";
 
 export default class Filter extends Component {
     constructor(props) {
@@ -58,7 +57,7 @@ export default class Filter extends Component {
                            setOrderBy={this.setSortOrder}/>
 
                 </Content>
-                <Button block style={{backgroundColor: colorPalette.sanMarino}} onPress={this.onSubmit}>
+                <Button block style={{backgroundColor: '#3F51B5'}} onPress={this.onSubmit}>
                     <Text> ΕΦΑΡΜΟΓΗ </Text>
                 </Button>
             </View>
