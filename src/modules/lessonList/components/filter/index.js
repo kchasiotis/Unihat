@@ -5,8 +5,9 @@ import GradeSlider from "./gradeSlider";
 import Sorting from "./sorting";
 import Order from "./order";
 import FilterButton from "./filterButton";
+import Theme from '../../styling/filter/colorScheme'
 
-export default class Filter extends Component {
+class Filter extends Component {
     constructor(props) {
         super(props);
 
@@ -40,10 +41,10 @@ export default class Filter extends Component {
 
     render() {
         const {lessonState, gradeRange, sort} = this.state;
-        const {filterSortConfig, LESSON_STATES} = this.props;
+        const {filterSortConfig, LESSON_STATES, theme} = this.props;
 
         return (
-            <View style={{flex: 1}}>
+            <View style={{flex: 1, backgroundColor: theme.backgroundColor}}>
                 <Content>
                     <LessonStates lessonState={lessonState} LESSON_STATES={LESSON_STATES}
                                   filterByState={this.filterByState}/>
@@ -63,3 +64,9 @@ export default class Filter extends Component {
         );
     }
 }
+
+Filter.defaultProps = {
+    theme: {backgroundColor: Theme.backgroundColor}
+};
+
+export default Filter;

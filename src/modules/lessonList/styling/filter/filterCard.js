@@ -1,7 +1,8 @@
 import colorScheme from './colorScheme';
 
 const filterCard = {
-    titleColor: colorScheme.titleColor
+    titleColor: colorScheme.titleColor,
+    backgroundColor: colorScheme.cardBackgroundColor
 };
 
 export default filterCard;
