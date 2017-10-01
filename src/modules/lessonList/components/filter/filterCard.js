@@ -1,19 +1,20 @@
 import React from 'react';
 import {Card, CardItem, Text} from "native-base";
+import Theme from '../../../../../theme/components/filterCard'
 
-const FilterCard = ({title, children}) => {
+const FilterCard = ({title, children, theme}) => {
     return (
         <Card>
             <CardItem>
-                <Text style={style.cardTitle}>{title}</Text>
+                <Text style={{fontWeight: 'bold', color: theme.titleColor}}>{title}</Text>
             </CardItem>
             {children}
         </Card>
     );
 };
 
-const style = {
-    cardTitle: {fontWeight: 'bold', color: '#333'}
+FilterCard.defaultProps = {
+    theme: {titleColor: Theme.titleColor}
 };
 
 export default FilterCard;
