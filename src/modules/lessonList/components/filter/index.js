@@ -59,7 +59,7 @@ class Filter extends Component {
                            setOrderBy={this.setSortOrder}/>
 
                 </Content>
-                <FilterButton/>
+                <FilterButton onPress={this.onSubmit}/>
             </View>
         );
     }

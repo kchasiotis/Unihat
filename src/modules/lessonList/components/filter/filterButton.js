@@ -2,9 +2,9 @@ import React from 'react'
 import {Text, Button} from 'native-base';
 import Theme from '../../styling/filterColorScheme'
 
-const FilterButton = ({theme}) => {
+const FilterButton = ({onPress, theme}) => {
     return (
-        <Button block style={{backgroundColor: theme.buttonColor}} onPress={this.onSubmit}>
+        <Button block style={{backgroundColor: theme.buttonColor}} onPress={onPress}>
             <Text>ΕΦΑΡΜΟΓΗ</Text>
         </Button>
     );

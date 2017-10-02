@@ -5,6 +5,8 @@ const colorPalette = {
     mineShaft: '#333333',
     white: '#FFF',
     black: '#000',
+    success: '#5CB85C',
+    failure: '#ED1727',
 };
 
 export {colorPalette}
