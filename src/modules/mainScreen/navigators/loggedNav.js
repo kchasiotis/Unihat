@@ -28,28 +28,17 @@ export default class LoggedNav extends Component {
 
         const MenuNavigator = StackNavigator({
             screenNavigator: {screen: LessonsTabNav()},
-            filter: {screen: Filter},
-            lesson: {screen: Lesson}
+            filter: {screen: Filter, navigationOptions: {headerTitle: 'Φίλτρα', headerRight: null}},
+            lesson: {screen: Lesson, navigationOptions: {headerTitle: 'Μάθημα', headerRight: null}}
         }, {
-            navigationOptions: ({navigation}) => {
-                let headerTitle = 'Unihat';
-                switch (navigation.state.routeName){
-                    case 'filter':
-                        headerTitle = 'Φίλτρα';
-                        break;
-                    case 'lesson':
-                        headerTitle = 'Μάθημα';
-                        break;
-                }
+            navigationOptions: ({navigation}) => ({
+                headerTitle: 'Unihat',
+                headerTintColor: '#F86624',
+                headerRight: <Logout navigation={navigation}/>,
+                headerStyle: {backgroundColor: '#3F51B5'},
+                headerTitleStyle: {color: '#FFF'}
+            })
 
-                return {
-                    headerTitle: headerTitle,
-                    headerTintColor: '#f86624',
-                    headerRight: navigation.state.routeName === 'screenNavigator' ? <Logout navigation={navigation}/> : null,
-                    headerStyle: {backgroundColor: '#3F51B5'},
-                    headerTitleStyle: {color: 'white'},
-                }
-            },
         });
 
         return <MenuNavigator onNavigationStateChange={null}/>
