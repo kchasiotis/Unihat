@@ -14,14 +14,17 @@ class LessonListWrapper extends React.Component {
                     barStyle="light-content"
                 />
                 <LessonList routeName={navigation.state.routeName} navigation={navigation}/>
-                <Fab
-                    active={true}
-                    direction="up"
-                    style={{backgroundColor: 'rgba(105, 114, 104, 0.6)'}}
-                    position="bottomRight"
-                    onPress={() => navigation.navigate('filter')}>
-                    <Icon name="ios-funnel"/>
-                </Fab>
+                {
+                    navigation.state.routeName === 'aGrades' ?
+                        <Fab
+                            direction="up"
+                            style={{backgroundColor: 'rgba(105, 114, 104, 0.6)'}}
+                            position="bottomRight"
+                            onPress={() => navigation.navigate('filter')}>
+                            <Icon name="ios-funnel"/>
+                        </Fab>
+                        : null
+                }
             </View>
         )
     }
