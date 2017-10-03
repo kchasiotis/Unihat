@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import {View, Content, Text, Button} from 'native-base';
+import {View, Content} from 'native-base';
 import LessonStates from "./lessonStates";
 import GradeSlider from "./gradeSlider";
 import Sorting from "./sorting";
 import Order from "./order";
-import {colorPalette} from "./colorPalette";
+import FilterButton from "./filterButton";
 
-export default class Filter extends Component {
+class Filter extends Component {
     constructor(props) {
         super(props);
 
@@ -40,10 +40,10 @@ export default class Filter extends Component {
 
     render() {
         const {lessonState, gradeRange, sort} = this.state;
-        const {filterSortConfig, LESSON_STATES} = this.props;
+        const {filterSortConfig, LESSON_STATES, theme} = this.props;
 
         return (
-            <View style={{flex: 1}}>
+            <View style={{flex: 1, backgroundColor: theme.backgroundColor}}>
                 <Content>
                     <LessonStates lessonState={lessonState} LESSON_STATES={LESSON_STATES}
                                   filterByState={this.filterByState}/>
@@ -58,10 +58,14 @@ export default class Filter extends Component {
                            setOrderBy={this.setSortOrder}/>
 
                 </Content>
-                <Button block style={{backgroundColor: colorPalette.sanMarino}} onPress={this.onSubmit}>
-                    <Text> ΕΦΑΡΜΟΓΗ </Text>
-                </Button>
+                <FilterButton onPress={this.onSubmit}/>
             </View>
         );
     }
 }
+
+Filter.defaultProps = {
+    theme: {backgroundColor: null}
+};
+
+export default Filter;

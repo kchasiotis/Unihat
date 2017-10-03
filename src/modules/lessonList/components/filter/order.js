@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {Card, CardItem, Text, View} from "native-base";
+import {View} from "native-base";
 import CheckBoxBtm from "./checkBoxBtm";
-import {colorPalette} from "./colorPalette";
+import FilterCard from "./filterCard";
 
 export default class Order extends Component {
     constructor(props) {
@@ -26,21 +26,13 @@ export default class Order extends Component {
         const {configOrders} = this.props;
 
         return (
-            <Card>
-                <CardItem header>
-                    <Text style={style.cardTitle}>Κατάταξη</Text>
-                </CardItem>
-                <View style={style.checkboxRow}>
+            <FilterCard title={'Κατάταξη'}>
+                <View style={{flex: 1, flexDirection: 'row'}}>
                     <CheckBoxBtm value={radioGroup.desc} title={'Φθίνουσα'} onClick={this.onClick(configOrders.desc)}/>
                     <CheckBoxBtm value={radioGroup.asc} title={'Αύξουσα'} onClick={this.onClick(configOrders.asc)}/>
                 </View>
-            </Card>
+            </FilterCard>
         );
 
     }
 }
-
-const style = {
-    cardTitle: {fontWeight: 'bold', color: colorPalette.mineShaft},
-    checkboxRow: {flex: 1, flexDirection: 'row'}
-};

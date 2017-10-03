@@ -20,8 +20,9 @@ class LessonListWrapper extends Component {
         }
     };
 
+    // todo: (refactoring) move statusbar
     render() {
-        const {navigation} = this.props;
+        const {navigation, theme} = this.props;
 
         return (
             <View style={{flex: 1}}>
@@ -36,7 +37,7 @@ class LessonListWrapper extends Component {
                         ? <Fab
                             active={this.state.showFab}
                             direction="up"
-                            style={{backgroundColor: 'rgba(105, 114, 104, 0.6)'}}
+                            style={{backgroundColor: theme.fabBackground}}
                             position="bottomRight"
                             onPress={() => navigation.navigate('filter')}>
                             <Icon name="ios-funnel"/>
@@ -47,5 +48,9 @@ class LessonListWrapper extends Component {
         )
     }
 }
+
+LessonListWrapper.defaultProps = {
+    theme: {fabBackground: 'rgba(105, 114, 104, 0.6)'}
+};
 
 export default LessonListWrapper;

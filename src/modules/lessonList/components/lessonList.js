@@ -8,7 +8,7 @@ import {CredentialStorage, LocalStorage} from '../../../tools/localStorage';
 import lesson from '../../lesson/components/lesson';
 import env from '../../../../environment'
 
-const LoadingList = ({loading}) => {
+const LoadingList = ({loading, theme}) => {
     if (loading === false) return null;
     return (
         <View style={{
@@ -17,19 +17,39 @@ const LoadingList = ({loading}) => {
             paddingTop: 5,
             paddingBottom: 5,
             flexDirection: 'row',
-            backgroundColor: '#697268'
+            backgroundColor: theme.background
         }}>
-            <Text style={{color: 'white', fontWeight: 'bold'}}>Loading...</Text>
+            <Text style={{color: theme.textColor, fontWeight: 'bold'}}>Loading...</Text>
         </View>
     );
 };
 
-const EmptyList = () => {
+LoadingList.defaultProps = {
+    theme: {
+        background: '#697268',
+        textColor: '#FFF'
+    }
+};
+
+const EmptyList = ({theme}) => {
     return (
-        <View style={{height: 500, flexDirection:'column', alignItems: 'center', justifyContent: 'center'}}>
-            <Text style={{fontWeight:'bold', color: '#697268'}}>Η λίστα είναι άδεια</Text>
+        <View style={{
+            height: 500,
+            backgroundColor: theme.background,
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center'
+        }}>
+            <Text style={{fontWeight: 'bold', color: theme.textColor}}>Η λίστα είναι άδεια</Text>
         </View>
     );
+};
+
+EmptyList.defaultProps = {
+    theme: {
+        background: null,
+        textColor: '#697268'
+    }
 };
 
 class LessonList extends Component {
@@ -120,9 +140,11 @@ class LessonList extends Component {
     };
 
     render() {
+        const {theme} = this.props;
+
         return (
             <FlatList
-                style={{backgroundColor: 'white'}}
+                style={{backgroundColor: theme.background}}
                 keyExtractor={(item) => (item.id)}
                 ListEmptyComponent={<EmptyList/>}
                 ListFooterComponent={<LoadingList loading={this.state.loading && this.props.lessons.length > 10}/>}
@@ -134,14 +156,14 @@ class LessonList extends Component {
                         onRefresh={this.refreshLessons}
                         title="Pull to refresh"
                         colors={['#3F51B5', 'green']}
-                        progressBackgroundColor='#fff'
+                        progressBackgroundColor={'#FFF'}
                     />
                 }
                 data={this.props.lessons}
                 renderItem={({item}) =>
-                    <ListItem onPress={this.openLesson(item)} style={{backgroundColor: 'white'}}>
+                    <ListItem onPress={this.openLesson(item)} style={{backgroundColor: theme.background}}>
                         <Body>
-                        <Text>{item.title}</Text>
+                        <Text style={{color: theme.text}}>{item.title}</Text>
                         </Body>
                         <Right>
                             {
@@ -159,10 +181,17 @@ class LessonList extends Component {
     }
 }
 
+LessonList.defaultProps = {
+    theme: {
+        background: '#FFF',
+        text: '#000',
+    }
+};
+
 const style = {
     badgeStyle: (state, grade) => {
         if (state === 'Ακύρωση') {
-            return 'black';
+            return '#000';
         }
         if (grade >= 5) return '#5CB85C';
         else return '#ED1727';
