@@ -1,6 +1,6 @@
 {
   "name": "Unihat",
-  "version": "v1.0.0-alpha.2",
+  "version": "v1.0.0-alpha.3",
   "private": true,
   "scripts": {
     "start": "npm run setEnv debug && node node_modules/react-native/local-cli/cli.js start",
