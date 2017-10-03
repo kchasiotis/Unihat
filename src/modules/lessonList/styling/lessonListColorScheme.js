@@ -15,6 +15,9 @@ const colorScheme = {
         success: colorPalette.success,
         failure: colorPalette.failure,
         cancelled: colorPalette.black,
+    },
+    lessonListWrapper: {
+        fabBackground: 'rgba(105, 114, 104, 0.6)'
     }
 };
 

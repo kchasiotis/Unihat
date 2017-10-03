@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {LessonList} from '../containers/lessonList';
 import {StatusBar, View} from "react-native";
 import {Fab, Icon} from "native-base";
+import colorScheme from "../styling/lessonListColorScheme";
 
 class LessonListWrapper extends Component {
     constructor(props) {
@@ -20,6 +21,7 @@ class LessonListWrapper extends Component {
         }
     };
 
+    // todo: (refactoring) move statusbar
     render() {
         const {navigation} = this.props;
 
@@ -36,7 +38,7 @@ class LessonListWrapper extends Component {
                         ? <Fab
                             active={this.state.showFab}
                             direction="up"
-                            style={{backgroundColor: 'rgba(105, 114, 104, 0.6)'}}
+                            style={{backgroundColor: this.props.theme.fabBackground}}
                             position="bottomRight"
                             onPress={() => navigation.navigate('filter')}>
                             <Icon name="ios-funnel"/>
@@ -47,5 +49,9 @@ class LessonListWrapper extends Component {
         )
     }
 }
+
+LessonListWrapper.defaultProps = {
+    fabBackground: colorScheme.lessonListWrapper.fabBackground
+};
 
 export default LessonListWrapper;
