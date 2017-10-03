@@ -1,6 +1,7 @@
 import React from 'react';
-import {Card, CardItem, Text, View} from "native-base";
+import {View} from "native-base";
 import CheckBoxBtm from "./checkBoxBtm";
+import FilterCard from "./filterCard";
 
 export default class Sorting extends React.Component {
     constructor(props) {
@@ -27,11 +28,8 @@ export default class Sorting extends React.Component {
         const {radioGroup} = this.state;
 
         return (
-            <Card>
-                <CardItem header>
-                    <Text style={style.cardTitle}>Ταξινόμηση</Text>
-                </CardItem>
-                <View style={style.checkboxRow}>
+            <FilterCard title={'Ταξινόμηση'}>
+                <View style={{flex: 1, flexDirection: 'row'}}>
                     <CheckBoxBtm value={radioGroup.enrollDate} title={'Ημ. δήλωσης'}
                                  onClick={this.onClick(enrollDate)}/>
                     <CheckBoxBtm value={radioGroup.grade} title={'Βαθμός'} onClick={this.onClick(grade)}/>
@@ -42,12 +40,7 @@ export default class Sorting extends React.Component {
                             : null
                     }
                 </View>
-            </Card>
+            </FilterCard>
         );
     }
-};
-
-const style = {
-    cardTitle: {fontWeight: 'bold', color: '#333333'},
-    checkboxRow: {flex: 1, flexDirection: 'row'}
 };

@@ -1,14 +1,12 @@
 import React from 'react';
-import {Card, CardItem, Text, View} from "native-base";
+import {View} from "native-base";
 import CheckBoxBtm from "./checkBoxBtm";
+import FilterCard from "./filterCard";
 
 const LessonStates = ({lessonState, filterByState}) => {
     return (
-        <Card>
-            <CardItem>
-                <Text style={style.cardTitle}>Κατάσταση</Text>
-            </CardItem>
-            <View style={style.checkboxRow}>
+        <FilterCard title={'Κατάσταση'}>
+            <View style={{flex: 1, flexDirection: 'row'}}>
                 <CheckBoxBtm value={lessonState.SUCCEEDED} onClick={() => filterByState('SUCCEEDED')}
                              title={'Επιτυχία'}/>
                 <CheckBoxBtm value={lessonState.FAILED} onClick={() => filterByState('FAILED')}
@@ -18,13 +16,8 @@ const LessonStates = ({lessonState, filterByState}) => {
                 <CheckBoxBtm value={lessonState.NO_PARTICIPATION}
                              onClick={() => filterByState('NO_PARTICIPATION')} title={'Δε δόθηκε'}/>
             </View>
-        </Card>
+        </FilterCard>
     );
-};
-
-const style = {
-    cardTitle: {fontWeight: 'bold', color: '#333333'},
-    checkboxRow: {flex: 1, flexDirection: 'row'}
 };
 
 export default LessonStates;

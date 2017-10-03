@@ -1,15 +1,13 @@
 import React from 'react';
 
 import MultiSlider from "@ptomasroos/react-native-multi-slider";
-import {Card, CardItem, Text, View} from "native-base";
+import {View, Text} from "native-base";
+import FilterCard from "./filterCard";
 
 // todo: (ui) dynamic slider width
 const GradeSlider = ({gradeRange, multiSliderValuesChange}) => {
     return (
-        <Card>
-            <CardItem header>
-                <Text style={style.cardTitle}>Βαθμοί</Text>
-            </CardItem>
+        <FilterCard title={'Βαθμοί'}>
             <View style={{marginLeft: 25, marginRight: 20}}>
                 <View style={{marginBottom: 10, flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
                     <Text style={{color: '#697268'}}>{gradeRange.from}</Text>
@@ -27,13 +25,8 @@ const GradeSlider = ({gradeRange, multiSliderValuesChange}) => {
                         step={0.5}/>
                 </View>
             </View>
-        </Card>
+        </FilterCard>
     );
-};
-
-const style = {
-    cardTitle: {fontWeight: 'bold', color: '#333'},
-    checkboxRow: {flex: 1, flexDirection: 'row'}
 };
 
 export default GradeSlider;
