@@ -31,13 +31,25 @@ export default class LoggedNav extends Component {
             filter: {screen: Filter},
             lesson: {screen: Lesson}
         }, {
-            navigationOptions: ({navigation}) => ({
-                headerTitle: 'Unihat',
-                headerTintColor: '#f86624',
-                headerRight: <Logout navigation={navigation}/>,
-                headerStyle: {backgroundColor: '#3F51B5'},
-                headerTitleStyle: {color: 'white'},
-            }),
+            navigationOptions: ({navigation}) => {
+                let headerTitle = 'Unihat';
+                switch (navigation.state.routeName){
+                    case 'filter':
+                        headerTitle = 'Φίλτρα';
+                        break;
+                    case 'lesson':
+                        headerTitle = 'Μάθημα';
+                        break;
+                }
+
+                return {
+                    headerTitle: headerTitle,
+                    headerTintColor: '#f86624',
+                    headerRight: navigation.state.routeName === 'screenNavigator' ? <Logout navigation={navigation}/> : null,
+                    headerStyle: {backgroundColor: '#3F51B5'},
+                    headerTitleStyle: {color: 'white'},
+                }
+            },
         });
 
         return <MenuNavigator onNavigationStateChange={null}/>
