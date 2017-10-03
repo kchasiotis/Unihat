@@ -1,9 +1,8 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Card, CardItem, Text, View} from "native-base";
 import CheckBoxBtm from "./checkBoxBtm";
-import {colorPalette} from "./colorPalette";
 
-export default class Sorting extends Component {
+export default class Sorting extends React.Component {
     constructor(props) {
         super(props);
         const {filterSortBy} = this.props;
@@ -49,6 +48,6 @@ export default class Sorting extends Component {
 };
 
 const style = {
-    cardTitle: {fontWeight: 'bold', color: colorPalette.mineShaft},
+    cardTitle: {fontWeight: 'bold', color: '#333333'},
     checkboxRow: {flex: 1, flexDirection: 'row'}
 };

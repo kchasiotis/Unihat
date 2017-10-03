@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Card, CardItem, Text, View} from "native-base";
 import CheckBoxBtm from "./checkBoxBtm";
-import {colorPalette} from "./colorPalette";
 
 export default class Order extends Component {
     constructor(props) {
@@ -41,6 +40,6 @@ export default class Order extends Component {
 }
 
 const style = {
-    cardTitle: {fontWeight: 'bold', color: colorPalette.mineShaft},
+    cardTitle: {fontWeight: 'bold', color: '#333'},
     checkboxRow: {flex: 1, flexDirection: 'row'}
 };
