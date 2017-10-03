@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Icon} from 'native-base';
 import {Crawler} from '../../../tools/crawler';
 import {CredentialStorage, LocalStorage} from '../../../tools/localStorage';
 import {actionTypes} from '../../login';
 import BackgroundJob from 'react-native-background-job';
 
-export default class Logout extends Component {
+export default class Logout extends React.Component {
     crawler = new Crawler();
     constructor(props){
         super(props);

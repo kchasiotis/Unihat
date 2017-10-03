@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Pie} from 'react-native-pathjs-charts'
 import pieChartType from './pieChartType';
 
-export default class GradePie extends Component {
+export default class GradePie extends React.Component {
     render() {
         if (this.props.size === 0) return null;
 

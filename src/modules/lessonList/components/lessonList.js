@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {FlatList, RefreshControl, AppState} from 'react-native';
 import {ListItem, Right, Text, Badge, Body, View} from 'native-base';
 
@@ -32,7 +32,7 @@ const EmptyList = () => {
     );
 };
 
-class LessonList extends Component {
+class LessonList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {

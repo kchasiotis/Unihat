@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {View} from "native-base";
 import CheckBoxBtm from "./checkBoxBtm";
 import FilterCard from "./filterCard";
 
-export default class Order extends Component {
+export default class Order extends React.Component {
     constructor(props) {
         super(props);
         const {filterSortOrder} = this.props;

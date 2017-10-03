@@ -1,12 +1,12 @@
 // React imports
-import React, {Component} from 'react';
+import React from 'react';
 
 // UI components imports
 import {Login} from '../../login'
 import LoggedNav from './loggedNav';
 import {StackNavigator} from 'react-navigation';
 
-export default class Main extends Component {
+export default class Main extends React.Component {
     render() {
         let loginNavOptions = {header: null};
 

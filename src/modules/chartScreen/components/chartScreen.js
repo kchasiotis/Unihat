@@ -1,15 +1,14 @@
 'use strict';
 
-import React, {Component} from 'react';
-// todo: remove Text
-import {View, Text, ScrollView, StyleSheet} from 'react-native';
+import React from 'react';
+import {View, ScrollView, StyleSheet} from 'react-native';
 import BarChart from './barChart'
 import {PieChartWrapper} from "../container/pieChartWrapper";
 import ChartTitle from "./chartTitle";
 import pieChartType from "./pieChartType";
 const Dimensions = require('Dimensions');
 
-class ChartScreen extends Component {
+class ChartScreen extends React.Component {
     constructor(props) {
         super(props);
 

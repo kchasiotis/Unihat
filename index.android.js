@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {AppRegistry} from 'react-native';
 import {MainNavigator} from './src/modules/mainScreen'
 
@@ -18,7 +18,7 @@ const {mobile, wifi} = jobNames.newGradeCheck;
 BackgroundJob.register(newGradeCheckJob(mobile));
 BackgroundJob.register(newGradeCheckJob(wifi));
 
-class Unihat extends Component {
+class Unihat extends React.Component {
     render() {
         return (
             <Provider store={store}>

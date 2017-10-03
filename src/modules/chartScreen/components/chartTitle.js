@@ -1,8 +1,8 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {Text, TouchableOpacity, View} from 'react-native'
 import {Icon} from 'native-base';
 
-export default class ChartTitle extends Component {
+export default class ChartTitle extends React.Component {
     constructor(props) {
         super(props);
         this.state = {descVisible: false};

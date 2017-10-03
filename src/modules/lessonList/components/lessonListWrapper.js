@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {LessonList} from '../containers/lessonList';
 import {StatusBar, View} from "react-native";
 import {Fab, Icon} from "native-base";
 
-class LessonListWrapper extends Component {
+class LessonListWrapper extends React.Component {
     render() {
         const {navigation} = this.props;
 

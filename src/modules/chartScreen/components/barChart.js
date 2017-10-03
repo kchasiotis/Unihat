@@ -1,9 +1,9 @@
 'use strict';
 
-import React, {Component} from 'react';
+import React from 'react';
 import {Bar} from 'react-native-pathjs-charts'
 
-export default class BarChart extends Component {
+export default class BarChart extends React.Component {
     render() {
         let lessonsLists = this.props.lessonsLists;
 

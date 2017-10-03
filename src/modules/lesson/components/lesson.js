@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Card, CardItem, Content, Text, Right, Badge} from 'native-base';
 import Statistics from './statistics';
 
-class Lesson extends Component {
+class Lesson extends React.Component {
     render() {
         let currentLesson = this.props.navigation.state.params;
 

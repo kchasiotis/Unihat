@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {ListItem, CheckBox, Text} from 'native-base'
 
 const CredentialCheckbox = ({handleCheckbox, value}) => {

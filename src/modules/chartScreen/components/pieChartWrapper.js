@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import GradePie from './gradePie'
 import ChartTitle from "./chartTitle";
 import pieChartType from './pieChartType'
 
-export default class PieChartWrapper extends Component {
+export default class PieChartWrapper extends React.Component {
     constructor(props) {
         super(props);
         const {chartType, user} = this.props;

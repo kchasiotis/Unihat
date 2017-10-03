@@ -1,10 +1,10 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {Card, CardItem} from 'native-base'
 import {Bar} from 'react-native-pathjs-charts'
 
 import {lessonAPI} from "../../../tools/api/lesson";
 
-class Statistics extends Component {
+class Statistics extends React.Component {
     constructor(props){
         super(props);
 

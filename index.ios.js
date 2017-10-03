@@ -12,7 +12,7 @@ import {
   View
 } from 'react-native';
 
-export default class Unihat extends Component {
+export default class Unihat extends React.Component {
   render() {
     return (
       <View style={styles.container}>

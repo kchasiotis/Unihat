@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {View, Content, Text, Button} from 'native-base';
 import LessonStates from "./lessonStates";
 import GradeSlider from "./gradeSlider";
 import Sorting from "./sorting";
 import Order from "./order";
 
-export default class Filter extends Component {
+export default class Filter extends React.Component {
     constructor(props) {
         super(props);
 

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {View, Image, StatusBar, Keyboard} from 'react-native';
 
 import {Item, Icon, Input, Button, Text, Badge} from 'native-base';
@@ -12,7 +12,7 @@ import 'react-native-console-time-polyfill';
 import {NavigationActions} from 'react-navigation'
 import {LoginState} from '../actionTypes'
 
-export default class Login extends Component {
+export default class Login extends React.Component {
     constructor(props) {
         super(props);
 

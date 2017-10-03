@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 
 import LessonsTabNav from './lessonTabNav'
 import {Lesson} from '../../lesson'
@@ -6,7 +6,7 @@ import {Filter} from '../../lessonList'
 import {Logout} from '../containers/logout'
 import {NavigationActions, StackNavigator} from 'react-navigation';
 
-export default class LoggedNav extends Component {
+export default class LoggedNav extends React.Component {
     constructor(props) {
         super(props);
         this.loginRoute = this.loginRoute.bind(this);
