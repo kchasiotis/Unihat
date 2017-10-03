@@ -113,12 +113,6 @@ class LessonList extends Component {
         this.setState({loading: false});
     };
 
-    onEndScroll = (nativeEvent) => {
-        if (this.state.loading === true) return;
-
-        this.props.handleFab(nativeEvent);
-    };
-
     render() {
         return (
             <FlatList
@@ -127,7 +121,6 @@ class LessonList extends Component {
                 ListEmptyComponent={<EmptyList/>}
                 ListFooterComponent={<LoadingList loading={this.state.loading && this.props.lessons.length > 10}/>}
                 onEndReached={() => this.onEndReached()}
-                onScroll={({nativeEvent}) => this.onEndScroll(nativeEvent)}
                 refreshControl={
                     <RefreshControl
                         refreshing={this.state.refreshing}
