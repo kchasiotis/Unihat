@@ -9,7 +9,7 @@
     "test": "npm run setEnv debug && jest || true",
     "postinstall": "react-native link && react-native link react-native-svg && node ./scripts/generateConfigFiles.js",
     "init": "mkdir android/app/src/main/assets",
-    "clean": "rm -rf node_modules && watchman watch-del-all && npm install",
+    "clean": "rm -rf node_modules && watchman watch-del-all && yarn",
     "preStart": "./scripts/watchmanIncreaseLimits.sh && ncu && $ANDROID_HOME/tools/emulator -avd First",
     "server": "node ../IcarusAegean-server/bin/www",
     "build": "cd android && ./gradlew clean && cd ../",
