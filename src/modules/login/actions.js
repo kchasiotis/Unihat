@@ -52,9 +52,8 @@ export function login(username, password, chkBox) {
             if (loggedIn === true) {
                 dispatch(setLoginState(LoginState.LOGGED_IN));
                 dispatch(setUser({username: username}));
-                dispatch(actions.setLessons(lessonsLists));
                 dispatch(actions.setLessonStates(username.includes('icsd') ? LESSON_STATES_ICSD : LESSON_STATES_SEF));
-                dispatch(actions.applyFilters());
+                dispatch(actions.setLessons(lessonsLists));
                 dispatch(postLessonsCheck(username, lessonsLists.aGrades.concat(lessonsLists.exGrades)));
                 LocalStorage.setLessonsLists(lessonsLists);
                 LocalStorage.setRefreshLessonsListsCond(false);
