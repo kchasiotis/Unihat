@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Image, StatusBar, Keyboard} from 'react-native';
+import {View, StatusBar, Keyboard, ImageBackground} from 'react-native';
 
 import {Item, Icon, Input, Button, Text, Badge} from 'native-base';
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -118,12 +118,13 @@ export default class Login extends React.Component {
         switch (loginState) {
             case INITIAL:
                 gui = (
-                    <Image source={require('./background.png')} style={style.backgroundImage}>
+                    <ImageBackground source={require('./background.png')} style={{width: undefined}}
+                                     imageStyle={style.backgroundImage}>
                         <StatusBar
                             backgroundColor="#2137AA"
                             barStyle="light-content"
                         />
-                    </Image>
+                    </ImageBackground>
                 );
                 break;
             case LOADED_CREDENTIALS:
@@ -131,7 +132,8 @@ export default class Login extends React.Component {
             case FAILED:
             case NETWORK_ERROR:
                 gui = (
-                    <Image source={require('./background.png')} style={style.backgroundImage}>
+                    <ImageBackground source={require('./background.png')} style={{width: undefined}}
+                                     imageStyle={style.backgroundImage}>
                         <StatusBar
                             backgroundColor="#2137AA"
                             barStyle="light-content"
@@ -177,7 +179,7 @@ export default class Login extends React.Component {
                                     value={this.state.credentialCheckBox}/>
                             </View>
                         </View>
-                    </Image>
+                    </ImageBackground>
                 );
                 break;
             case LOGGED_IN:
@@ -218,7 +220,6 @@ let style = {
     },
     backgroundImage: {
         flex: 1,
-        width: '100%',
         resizeMode: 'stretch',
         backgroundColor: 'white',
     },
