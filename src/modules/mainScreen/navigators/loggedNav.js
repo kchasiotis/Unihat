@@ -29,7 +29,7 @@ export default class LoggedNav extends React.Component {
         const MenuNavigator = StackNavigator({
             screenNavigator: {screen: LessonsTabNav()},
             filter: {screen: Filter, navigationOptions: {headerTitle: 'Φίλτρα', headerRight: null}},
-            lesson: {screen: Lesson, navigationOptions: {headerTitle: 'Μάθημα', headerRight: null}}
+            lesson: {screen: Lesson, navigationOptions: {header: null}}
         }, {
             navigationOptions: ({navigation}) => ({
                 headerTitle: 'Unihat',

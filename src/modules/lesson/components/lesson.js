@@ -1,18 +1,40 @@
 import React from 'react';
-import {Card, CardItem, Content, Text, Right, Badge} from 'native-base';
+import {CardItem, ListItem, Content, Text, Icon, Right, Badge, List} from 'native-base';
 import Statistics from './statistics';
+import {NavigationActions} from 'react-navigation'
+import {StatusBar} from "react-native";
 
 class Lesson extends React.Component {
+    constructor(props) {
+        super(props);
+        this.goBack = this.goBack.bind(this);
+    }
+
+    goBack() {
+        const backAction = NavigationActions.back({
+            key: null
+        });
+
+        this.props.navigation.dispatch(backAction);
+    }
+
     render() {
         let currentLesson = this.props.navigation.state.params;
 
+        //todo: increase back button press area
         return (
-            <Content>
-                <Card>
-                    <CardItem header style={lessonStyle.header(currentLesson.grade)}>
-                        <Text style={lessonStyle.headerText}>{currentLesson.title}</Text>
-                    </CardItem>
-                    <CardItem>
+            <Content style={{backgroundColor:'white'}}>
+                <StatusBar
+                    backgroundColor={lessonStyle.statusBar(currentLesson.grade)}
+                    barStyle="light-content"
+                />
+                <CardItem header style={{backgroundColor: lessonStyle.header(currentLesson.grade)}}>
+                    <Icon name="arrow-back" onPress={this.goBack} style={{color: 'white'}}/>
+                    <Text style={lessonStyle.headerText}>{currentLesson.title}</Text>
+                </CardItem>
+
+                <List>
+                    <ListItem>
                         <Text style={lessonStyle.itemTitle}>Βαθμός</Text>
                         {
                             currentLesson.grade !== null ?
@@ -23,56 +45,59 @@ class Lesson extends React.Component {
                                 </Right> :
                                 null
                         }
-                    </CardItem>
+                    </ListItem>
                     {
                         currentLesson.semester !== null ?
-                            <CardItem>
+                            <ListItem>
                                 <Text style={lessonStyle.itemTitle}>Εξάμηνο</Text>
                                 <Right style={lessonStyle.itemRight}>
                                     <Badge style={{backgroundColor: 'gray'}}>
                                         <Text>{currentLesson.semester + 'ο'}</Text>
                                     </Badge>
                                 </Right>
-                            </CardItem> :
+                            </ListItem> :
                             null
                     }
-                    <CardItem>
+                    <ListItem>
                         <Text style={lessonStyle.itemTitle}>Κατάσταση</Text>
                         <Right style={lessonStyle.itemRight}>
                             <Badge style={lessonStyle.lessonState(currentLesson.state)}>
                                 <Text>{currentLesson.state}</Text>
                             </Badge>
                         </Right>
-                    </CardItem>
-                    <CardItem>
+                    </ListItem>
+                    <ListItem>
                         <Text style={lessonStyle.itemTitle}>Ημερομηνία δήλωσης</Text>
                         <Right style={lessonStyle.itemRight}>
                             <Text style={lessonStyle.itemContent}>{currentLesson.enrollDate}</Text>
                         </Right>
-                    </CardItem>
-                    <CardItem>
+                    </ListItem>
+                    <ListItem>
                         <Text style={lessonStyle.itemTitle}>Ημερομηνία Εξέτασης</Text>
                         <Right style={lessonStyle.itemRight}>
                             <Text style={lessonStyle.itemContent}>{currentLesson.examDate}</Text>
                         </Right>
-                    </CardItem>
-                    <CardItem>
+                    </ListItem>
+                    <ListItem>
                         <Text style={lessonStyle.itemTitle}>Κωδικός</Text>
                         <Right style={lessonStyle.itemRight}>
                             <Text style={lessonStyle.itemContent}>{currentLesson.code}</Text>
                         </Right>
-                    </CardItem>
-                </Card>
+                    </ListItem>
+                </List>
                 <Statistics lesson={currentLesson}/>
             </Content>
         );
-
     }
 }
 
+//todo: change colors according to lesson state
 const lessonStyle = {
     header: (grade) => {
-        return {backgroundColor: grade >= 5 ? '#5CB85C' : '#ED1727'}
+        return grade >= 5 ? '#5CB85C' : '#ED1727';
+    },
+    statusBar: (grade) => {
+        return grade >= 5 ? '#4a9b4a' : '#af131f';
     },
     headerText: {
         fontWeight: 'bold',
