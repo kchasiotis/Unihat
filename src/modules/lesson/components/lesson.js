@@ -3,6 +3,8 @@ import {CardItem, ListItem, Content, Text, Icon, Right, Badge, List} from 'nativ
 import Statistics from './statistics';
 import {NavigationActions} from 'react-navigation'
 import {StatusBar} from "react-native";
+import {lessonStateColor} from "../../../tools/colors";
+var Color = require('color');
 
 class Lesson extends React.Component {
     constructor(props) {
@@ -23,12 +25,12 @@ class Lesson extends React.Component {
 
         //todo: increase back button press area
         return (
-            <Content style={{backgroundColor:'white'}}>
+            <Content style={{backgroundColor: 'white'}}>
                 <StatusBar
-                    backgroundColor={lessonStyle.statusBar(currentLesson.grade)}
+                    backgroundColor={Color(lessonStateColor(currentLesson.state)).darken(0.3)}
                     barStyle="light-content"
                 />
-                <CardItem header style={{backgroundColor: lessonStyle.header(currentLesson.grade)}}>
+                <CardItem header style={{backgroundColor: lessonStateColor(currentLesson.state)}}>
                     <Icon name="arrow-back" onPress={this.goBack} style={{color: 'white'}}/>
                     <Text style={lessonStyle.headerText}>{currentLesson.title}</Text>
                 </CardItem>
@@ -61,7 +63,7 @@ class Lesson extends React.Component {
                     <ListItem>
                         <Text style={lessonStyle.itemTitle}>Κατάσταση</Text>
                         <Right style={lessonStyle.itemRight}>
-                            <Badge style={lessonStyle.lessonState(currentLesson.state)}>
+                            <Badge style={{backgroundColor: lessonStateColor(currentLesson.state)}}>
                                 <Text>{currentLesson.state}</Text>
                             </Badge>
                         </Right>
@@ -112,27 +114,6 @@ const lessonStyle = {
     },
     itemRight: {
         flex: 1 // todo: (priority 3) remove if possible
-    },
-    lessonState: (state) => {
-        let color = '';
-        switch (state) {
-            case 'Επιτυχία':
-                color = '#5CB85C';
-                break;
-            case 'Αποτυχία':
-                color = '#ED1727';
-                break;
-            case 'Ακύρωση':
-                color = 'black';
-                break;
-            case 'Δε δόθηκε':
-                color = 'gray';
-                break;
-            default:
-                color = 'gray'
-        }
-
-        return {backgroundColor: color};
     }
 };
 

@@ -7,6 +7,7 @@ import {Logger} from '../../../tools/logger';
 import {CredentialStorage, LocalStorage} from '../../../tools/localStorage';
 import lesson from '../../lesson/components/lesson';
 import env from '../../../../environment'
+import {lessonStateColor} from '../../../tools/colors'
 
 const LoadingList = ({loading}) => {
     if (loading === false) return null;
@@ -139,7 +140,7 @@ class LessonList extends React.Component {
                         <Right>
                             {
                                 item.grade !== null ?
-                                    <Badge style={{backgroundColor: style.badgeStyle(item.state, item.grade)}}>
+                                    <Badge style={{backgroundColor: lessonStateColor(item.state)}}>
                                         <Text>{item.grade}</Text>
                                     </Badge> :
                                     null
@@ -151,15 +152,5 @@ class LessonList extends React.Component {
         );
     }
 }
-
-const style = {
-    badgeStyle: (state, grade) => {
-        if (state === 'Ακύρωση') {
-            return 'black';
-        }
-        if (grade >= 5) return '#5CB85C';
-        else return '#ED1727';
-    }
-};
 
 export default LessonList;
