@@ -113,6 +113,7 @@ export default class IcarusCrawler {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
+                'Referer': 'https://icarus-icsd.aegean.gr/index.php',
             },
             responseType: 'arraybuffer',
             data: formBody
