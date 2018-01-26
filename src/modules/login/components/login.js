@@ -93,7 +93,7 @@ export default class Login extends React.Component {
         !env.debug || console.time("fetch");
 
         Keyboard.dismiss();
-        this.props.login(this.state.username, this.state.password, this.state.credentialCheckBox);
+        this.props.login(this.state.username.toLowerCase(), this.state.password, this.state.credentialCheckBox);
     }
 
     handleUsername(text) {
@@ -158,7 +158,7 @@ export default class Login extends React.Component {
                                 <Item regular style={style.input}>
                                     <Icon active style={style.icon} name='person'/>
                                     <Input value={this.state.username} onChangeText={this.handleUsername}
-                                           placeholder='Όνομα χρήστη'/>
+                                           autoCapitalize='none' placeholder='Όνομα χρήστη'/>
                                 </Item>
                                 <Item regular style={style.input}>
                                     <Icon active style={style.icon} name='key'/>
