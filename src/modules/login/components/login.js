@@ -143,18 +143,15 @@ export default class Login extends React.Component {
                                 {
                                     loginState === FAILED ?
                                         <View style={style.errorMessage}>
-                                            <Badge danger>
-                                                <Text>Λάθος στοιχεία</Text>
-                                            </Badge>
+                                            <Text style={{color: 'white', textAlign: 'center'}}>Λάθος στοιχεία</Text>
                                         </View> :
                                         null
                                 }
                                 {
                                     loginState === NETWORK_ERROR ?
                                         <View style={style.errorMessage}>
-                                            <Badge danger>
-                                                <Text>Πρόβλημα σύνδεσης στο διαδύκτιο</Text>
-                                            </Badge>
+                                            <Text style={{color: 'white', textAlign: 'center'}}>Πρόβλημα σύνδεσης στο
+                                                διαδύκτιο</Text>
                                         </View> :
                                         null
                                 }
@@ -224,6 +221,12 @@ let style = {
         backgroundColor: 'white',
     },
     errorMessage: {
+        backgroundColor: '#D9534F',
+        paddingTop: 3,
+        paddingBottom: 3,
+        paddingLeft: 10,
+        paddingRight: 10,
+        borderRadius: 25,
         marginTop: -60,
         marginBottom: 20
     },
