@@ -5,7 +5,7 @@ import com.facebook.react.ReactActivity;
 public class MainActivity extends ReactActivity {
     @Override
     public void invokeDefaultOnBackPressed() {
-        moveTaskToBack(true);
+//        moveTaskToBack(true);
     }
 
     /**
