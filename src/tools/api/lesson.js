@@ -3,6 +3,10 @@ import env from '../../../environment';
 const url = env.serverUrl;
 
 const getLessons = function (code, examDate, onResponse) {
+    //disable api
+    onResponse({message: 'statistics api disabled'});
+    return;
+
     // region Set up url params
     let params = {
         code: code,
@@ -27,6 +31,10 @@ const getLessons = function (code, examDate, onResponse) {
 };
 
 const getUserLessonsNumber = function (user, onResponse) {
+    //disable api
+    onResponse({message: 'statistics api disabled'});
+    return;
+
     fetch(url + '/' + user, {
         method: 'GET'
     })
@@ -39,6 +47,9 @@ const getUserLessonsNumber = function (user, onResponse) {
 };
 
 const postLessons = function (lessons, onResponse) {
+    //disable api
+    onResponse({message: 'statistics api disabled'});
+    return;
 
     fetch(url + '/save', {
         method: 'POST',

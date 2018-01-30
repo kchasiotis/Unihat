@@ -39,12 +39,12 @@ export function login(username, password, chkBox) {
 
     return function (dispatch) {
         let onResponse = (error, loggedIn, lessonsLists) => {
-            if(error) {
-                if(error.status === 501) {
+            if (error) {
+                if (error.status === 501) {
                     dispatch(setLoginState(LoginState.FAILED));
                     Logger.warn(error.status + ' wrong username');
                 }
-                else if(error.request) dispatch(setLoginState(LoginState.NETWORK_ERROR));
+                else if (error.request) dispatch(setLoginState(LoginState.NETWORK_ERROR));
                 Logger.warn(error);
                 return;
             }
@@ -98,7 +98,12 @@ export function login(username, password, chkBox) {
 export function postLessonsCheck(username, lessons) {
 
     return function (dispatch) {
-        let onResponse = (res) => {
+        let onResponse = (error, res) => {
+            if (error) {
+                Logger.error(error.message);
+                return;
+            }
+
             res.json().then((resJs) => {
                 if (resJs.lessonsNumber !== lessons.length) dispatch(postLessons({
                     lessons: lessons,
@@ -114,7 +119,12 @@ export function postLessonsCheck(username, lessons) {
 
 export function postLessons(lessons) {
     return function () {
-        let onResponse = (res) => {
+        let onResponse = (error, res) => {
+            if (error) {
+                Logger.error(error.message);
+                return;
+            }
+
             res.json().then((resJs) => {
                 Logger.log('Sent ' + resJs.insertedNumber)
             })

@@ -3,24 +3,32 @@ import {Card, CardItem} from 'native-base'
 import {Bar} from 'react-native-pathjs-charts'
 
 import {lessonAPI} from "../../../tools/api/lesson";
+import {Logger} from "../../../tools/logger";
 
 class Statistics extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.state = {lessons: []};
     }
 
-    componentDidMount(){
+    componentDidMount() {
         let that = this;
         const {lesson} = this.props;
 
-        lessonAPI.getLessons(lesson.code, lesson.examDate, (res) => res.json().then((ls => {
-            that.setState({lessons: ls})
-        })))
+        lessonAPI.getLessons(lesson.code, lesson.examDate, (error, res) => {
+            if (error) {
+                Logger.error(error.message);
+                return;
+            }
+
+            res.json().then((ls => {
+                that.setState({lessons: ls})
+            }))
+        })
     }
 
-    render(){
+    render() {
         const {lessons} = this.state;
 
         if (lessons.length === 0) return null;
@@ -45,7 +53,7 @@ class Statistics extends React.Component {
         let data = [];
         for (let i = 0; i < gradeArray.length; i++) {
             // data.push([{v: gradeArray[i], name: ((counterArray[i] / lessons.length).toFixed(2) * 100) + '%'}]);
-            data.push([{v:((counterArray[i] / lessons.length).toFixed(2) * 100), name:  gradeArray[i]}]);
+            data.push([{v: ((counterArray[i] / lessons.length).toFixed(2) * 100), name: gradeArray[i]}]);
             // data.push([{v:counterArray[i], name:  gradeArray[i]}]);
         }
 
