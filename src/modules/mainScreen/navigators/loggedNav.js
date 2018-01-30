@@ -22,7 +22,6 @@ export default class LoggedNav extends React.Component {
         this.props.navigation.dispatch(resetAction)
     }
 
-
     render() {
         Logout.defaultProps = {loginRoute: this.loginRoute};
 
@@ -33,7 +32,7 @@ export default class LoggedNav extends React.Component {
         }, {
             navigationOptions: ({navigation}) => ({
                 headerTitle: 'Unihat',
-                headerTintColor: '#F86624',
+                headerTintColor: '#FFF',
                 headerRight: <Logout navigation={navigation}/>,
                 headerStyle: {backgroundColor: '#3F51B5'},
                 headerTitleStyle: {color: '#FFF'}
