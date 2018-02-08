@@ -18,7 +18,7 @@ class Statistics extends React.Component {
 
         lessonAPI.getLessons(lesson.code, lesson.examDate, (error, res) => {
             if (error) {
-                Logger.error(error.message);
+                Logger.warn(error.message);
                 return;
             }
 

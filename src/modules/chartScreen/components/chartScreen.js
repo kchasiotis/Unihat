@@ -6,6 +6,7 @@ import BarChart from './barChart'
 import {PieChartWrapper} from "../container/pieChartWrapper";
 import ChartTitle from "./chartTitle";
 import pieChartType from "./pieChartType";
+import SucceededCount from "./succeededCount";
 const Dimensions = require('Dimensions');
 
 class ChartScreen extends React.Component {
@@ -54,7 +55,7 @@ class ChartScreen extends React.Component {
         // todo: (priority 3) Review implementation of UI logic to pie component
         let fillColor = {'r': 240, 'g': 240, 'b': 240};
         let pie1 = {'r': 51, 'g': 202, 'b': 70};
-        let pie2 = {'r': 255, 'g': 189, 'b': 27};
+        // let pie2 = {'r': 255, 'g': 189, 'b': 27};
         //endregion
 
         return (
@@ -63,8 +64,7 @@ class ChartScreen extends React.Component {
                     <PieChartWrapper chartValue={average} chartType="average"
                                      pieSize={pieSize} mainColor={pie1} fillColor={fillColor}/>
 
-                    <PieChartWrapper chartValue={lessonsNumber} chartType="succeedLessons"
-                                     pieSize={pieSize} mainColor={pie2} fillColor={fillColor}/>
+                    <SucceededCount lessonsNumber={lessonsNumber} contentHeight={pieSize}/>
                 </View>
                 <View style={styles.barChart}>
                     <ChartTitle title={pieChartType['lessonsPerGrade'].title}

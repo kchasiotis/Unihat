@@ -100,7 +100,7 @@ export function postLessonsCheck(username, lessons) {
     return function (dispatch) {
         let onResponse = (error, res) => {
             if (error) {
-                Logger.error(error.message);
+                Logger.warn(error.message);
                 return;
             }
 
@@ -121,7 +121,7 @@ export function postLessons(lessons) {
     return function () {
         let onResponse = (error, res) => {
             if (error) {
-                Logger.error(error.message);
+                Logger.warn(error.message);
                 return;
             }
 
