@@ -1,7 +1,8 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import ChartTitle from "./chartTitle";
 import chartType from './pieChartType'
+import {Text} from "native-base";
 
 export default class SucceededCount extends React.Component {
     constructor(props) {
@@ -19,7 +20,7 @@ export default class SucceededCount extends React.Component {
 
                 <View style={{height: contentHeight, justifyContent: 'center', alignItems: 'center'}}>
                     <View style={styles.circle(contentHeight)}>
-                        <Text style={{color: 'black', fontSize: contentHeight / 3.5}}>{this.props.lessonsNumber}</Text>
+                        <Text style={{color: 'black', fontSize: contentHeight / 4}}>{this.props.lessonsNumber}</Text>
                     </View>
                 </View>
             </View>
@@ -36,11 +37,11 @@ let styles = {
         margin: 7
     },
     circle: (contentHeight) => {
-        contentHeight/=1.3;
+        contentHeight /= 1.3;
         return {
             width: contentHeight,
             height: contentHeight,
-            borderRadius: contentHeight/2,
+            borderRadius: contentHeight / 2,
             backgroundColor: '#ffbd1b', justifyContent: 'center', alignItems: 'center'
         }
     }
