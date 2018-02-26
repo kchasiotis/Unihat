@@ -49,7 +49,7 @@ class Logger {
     static warn(msg, logFormat) {
         if (logOn === false) return;
         let message = this.formatter(LogType.warn, msg, logFormat);
-        console.warn(message);
+        console.log(message);
     }
 
     static error(msg, logFormat) {

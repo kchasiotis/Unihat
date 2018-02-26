@@ -3,7 +3,7 @@
 import React from 'react';
 import {View, ScrollView, StyleSheet} from 'react-native';
 import BarChart from './barChart'
-import {PieChartWrapper} from "../container/pieChartWrapper";
+import PieChartWrapper from "./pieChartWrapper";
 import ChartTitle from "./chartTitle";
 import pieChartType from "../pieChartType";
 import SucceededCount from "./succeededCount";
@@ -53,18 +53,12 @@ class ChartScreen extends React.Component {
         let pieSize = this.state.screenSize.width / 2;
         // todo: (priority 3) change formula when flex functionality is supported from package
         let barWidth = this.state.screenSize.width * 0.85;
-
-        // todo: (priority 3) Review implementation of UI logic to pie component
-        let fillColor = {'r': 240, 'g': 240, 'b': 240};
-        let pie1 = {'r': 51, 'g': 202, 'b': 70};
-        // let pie2 = {'r': 255, 'g': 189, 'b': 27};
         //endregion
 
         return (
             <ScrollView style={styles.main} onLayout={this.orientationChange}>
                 <View style={{flexDirection: 'row'}}>
-                    <PieChartWrapper chartValue={average} chartType="average"
-                                     pieSize={pieSize} mainColor={pie1} fillColor={fillColor}/>
+                    <PieChartWrapper chartValue={average} pieSize={pieSize}/>
 
                     <SucceededCount lessonsNumber={lessonsNumber} contentHeight={pieSize}/>
                 </View>

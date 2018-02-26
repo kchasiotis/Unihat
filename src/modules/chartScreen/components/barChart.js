@@ -7,13 +7,8 @@ export default class BarChart extends React.Component {
     render() {
         let lessonsLists = this.props.lessonsLists;
 
-        lessonsLists = lessonsLists.filter((lesson) => {
-            return lesson.grade >= 5
-        });
-
-        lessonsLists.sort(function (lesson1, lesson2) {
-            return lesson1.grade - lesson2.grade;
-        });
+        lessonsLists = lessonsLists.filter(lesson => lesson.grade >= 5);
+        lessonsLists.sort((lesson1, lesson2) => lesson1.grade - lesson2.grade);
 
         // Count occurrences
         let gradeArray = [], counterArray = [], prev = null;

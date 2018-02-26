@@ -4,54 +4,26 @@ import GradePie from './gradePie'
 import ChartTitle from "./chartTitle";
 import pieChartType from '../pieChartType'
 
-export default class PieChartWrapper extends React.Component {
-    constructor(props) {
-        super(props);
-        const {chartType, user} = this.props;
+function PieChartWrapper(props) {
+    const {pieSize, chartValue} = props;
+    const {title, description, total} = pieChartType["average"];
 
-        if (chartType === 'average')
-            this.state = {total: pieChartType[chartType].total};
-        else {
-            let total = null;
-            let chType = pieChartType[chartType];
+    let fillColor = {'r': 240, 'g': 240, 'b': 240};
+    let mainColor = {'r': 51, 'g': 202, 'b': 70};
 
-            switch (user.department) {
-                case '311':
-                    total = chType.total['math'];
-                    break;
-                case '321':
-                    total = chType.total['icsd'];
-                    break;
-                case '331':
-                    total = chType.total['sas'];
-                    break;
-            }
+    return (
+        <View style={styles.pieChart}>
+            <ChartTitle title={title} description={description}/>
 
-            this.state = {total: total};
-        }
-    }
-
-    render() {
-        const {pieSize, mainColor, fillColor, chartValue, chartType} = this.props;
-        const {title, description} = pieChartType[chartType];
-
-        return (
-            <View style={styles.pieChart}>
-                <ChartTitle title={title}
-                            description={description}/>
-
-
-                <View style={{height: pieSize}}>
-                    <GradePie size={pieSize}
-                              chartTitle={title}
-                              pallete={[mainColor, fillColor]}
-                              value={chartValue} total={this.state.total}/>
-                </View>
+            <View style={{height: pieSize}}>
+                <GradePie size={pieSize}
+                          chartTitle={title}
+                          pallete={[mainColor, fillColor]}
+                          value={chartValue} total={total}/>
             </View>
-        );
-    }
+        </View>
+    );
 }
-
 
 let styles = StyleSheet.create({
     pieChart: {
@@ -62,4 +34,4 @@ let styles = StyleSheet.create({
     },
 });
 
-
+export default PieChartWrapper;
