@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 import ChartTitle from "./chartTitle";
-import chartType from '../pieChartType';
+import chartType from '../chartType';
 import {Text} from "native-base";
 
 /*

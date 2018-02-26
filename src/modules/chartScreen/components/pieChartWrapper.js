@@ -2,11 +2,11 @@ import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import GradePie from './gradePie'
 import ChartTitle from "./chartTitle";
-import pieChartType from '../pieChartType'
+import chartType from '../chartType'
 
 function PieChartWrapper(props) {
     const {pieSize, chartValue} = props;
-    const {title, description, total} = pieChartType["average"];
+    const {title, description, total} = chartType["average"];
 
     let fillColor = {'r': 240, 'g': 240, 'b': 240};
     let mainColor = {'r': 51, 'g': 202, 'b': 70};

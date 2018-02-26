@@ -5,7 +5,7 @@ import {View, ScrollView, StyleSheet} from 'react-native';
 import BarChart from './barChart'
 import PieChartWrapper from "./pieChartWrapper";
 import ChartTitle from "./chartTitle";
-import pieChartType from "../pieChartType";
+import chartType from "../chartType";
 import SucceededCount from "./succeededCount";
 const Dimensions = require('Dimensions');
 
@@ -63,8 +63,8 @@ class ChartScreen extends React.Component {
                     <SucceededCount lessonsNumber={lessonsNumber} contentHeight={pieSize}/>
                 </View>
                 <View style={styles.barChart}>
-                    <ChartTitle title={pieChartType['lessonsPerGrade'].title}
-                                description={pieChartType['lessonsPerGrade'].description}/>
+                    <ChartTitle title={chartType['lessonsPerGrade'].title}
+                                description={chartType['lessonsPerGrade'].description}/>
                     <BarChart width={barWidth} lessonsLists={allLessons}/>
                 </View>
             </ScrollView>

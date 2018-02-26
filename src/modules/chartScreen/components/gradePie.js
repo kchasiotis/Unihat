@@ -1,6 +1,6 @@
 import React from 'react';
 import {Pie} from 'react-native-pathjs-charts'
-import pieChartType from '../pieChartType';
+import chartType from '../chartType';
 
 export default class GradePie extends React.Component {
     render() {
@@ -15,7 +15,7 @@ export default class GradePie extends React.Component {
 
         if (total !== value) {
             data.push({
-                "name": chartTitle === pieChartType.succeedLessons.title ? total - value : '',
+                "name": chartTitle === chartType.succeedLessons.title ? total - value : '',
                 "value": (total - value) * 100
             })
         }

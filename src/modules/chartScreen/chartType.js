@@ -1,4 +1,4 @@
-export default pieChartType = {
+export default chartType = {
     average: {
         total: 10,
         title: 'Μέσος όρος',
