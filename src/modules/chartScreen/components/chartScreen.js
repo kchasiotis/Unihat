@@ -5,7 +5,7 @@ import {View, ScrollView, StyleSheet} from 'react-native';
 import BarChart from './barChart'
 import {PieChartWrapper} from "../container/pieChartWrapper";
 import ChartTitle from "./chartTitle";
-import pieChartType from "./pieChartType";
+import pieChartType from "../pieChartType";
 import SucceededCount from "./succeededCount";
 const Dimensions = require('Dimensions');
 
@@ -38,14 +38,12 @@ class ChartScreen extends React.Component {
         // region Calculate succeeded grades average
         let allLessons = sGrades.concat(exGrades);
 
-        allLessons = allLessons.filter((lesson) => {
-            return lesson.grade >= 5 && lesson.state === 'Επιτυχία';
-        });
+        let succeededLessons = allLessons.filter(lesson => lesson.grade >= 5 && lesson.state === 'Επιτυχία');
 
-        let lessonsNumber = allLessons.length;
+        let lessonsNumber = succeededLessons.length;
         if (lessonsNumber === 0) return null;
 
-        let sum = allLessons.reduce((acc, val) => acc + val.grade, 0);
+        let sum = succeededLessons.reduce((acc, val) => acc + val.grade, 0);
 
         let average = (sum / lessonsNumber).toPrecision(3);
         // endregion

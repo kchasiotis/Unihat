@@ -1,9 +1,12 @@
 import React from 'react';
 import {View} from 'react-native';
 import ChartTitle from "./chartTitle";
-import chartType from './pieChartType'
+import chartType from '../pieChartType';
 import {Text} from "native-base";
 
+/*
+ * Displays the number of succeeded lessons
+ */
 export default class SucceededCount extends React.Component {
     constructor(props) {
         super(props);

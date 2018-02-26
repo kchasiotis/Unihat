@@ -1,6 +1,6 @@
 import React from 'react';
 import {Pie} from 'react-native-pathjs-charts'
-import pieChartType from './pieChartType';
+import pieChartType from '../pieChartType';
 
 export default class GradePie extends React.Component {
     render() {

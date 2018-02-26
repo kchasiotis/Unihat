@@ -2,7 +2,7 @@ import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import GradePie from './gradePie'
 import ChartTitle from "./chartTitle";
-import pieChartType from './pieChartType'
+import pieChartType from '../pieChartType'
 
 export default class PieChartWrapper extends React.Component {
     constructor(props) {
