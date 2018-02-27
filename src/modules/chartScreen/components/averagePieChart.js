@@ -28,7 +28,7 @@ export default class AveragePieChart extends Component {
         // let mainColor = {'r': 51, 'g': 202, 'b': 70};
 
         return (
-            <View style={{height: pieSize, justifyContent: 'center', alignItems: 'center'}}>
+            <View style={{height: pieSize, justifyContent: 'center', alignItems: 'center'}} pointerEvents="none">
                 <VictoryPie
                     height={pieSize * 1.3}
                     padAngle={3}

@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {VictoryChart, VictoryBar, VictoryTheme, VictoryAxis, VictoryLabel} from "victory-native";
+import {View} from "react-native";
 
 export default class LessonsBarChart extends Component {
     render() {
@@ -28,20 +29,22 @@ export default class LessonsBarChart extends Component {
         }
 
         return (
-            <VictoryChart
-                theme={VictoryTheme.material}
-                domainPadding={0}
-            >
-                <VictoryAxis style={{tickLabels: {fontSize: width / 25}}}
-                             tickValues={[5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10]}/>
-                <VictoryBar
-                    style={{data: {fill: "#4947c4"}, labels: {fontSize: width / 25, fill: "white"}}}
-                    labelComponent={<VictoryLabel dy={30}/>}
-                    labels={(d) => d.y}
-                    data={data}
-                    barRatio={1}
-                />
-            </VictoryChart>
+            <View pointerEvents="none">
+                <VictoryChart
+                    theme={VictoryTheme.material}
+                    domainPadding={0}
+                >
+                    <VictoryAxis style={{tickLabels: {fontSize: width / 29}}}
+                                 tickValues={[5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10]}/>
+                    <VictoryBar
+                        style={{data: {fill: "#4947c4"}, labels: {fontSize: width / 25, fill: "white"}}}
+                        labelComponent={<VictoryLabel dy={30}/>}
+                        labels={(d) => d.y}
+                        data={data}
+                        barRatio={1}
+                    />
+                </VictoryChart>
+            </View>
         );
     }
 }
