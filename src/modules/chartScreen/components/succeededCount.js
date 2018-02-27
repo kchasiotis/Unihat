@@ -1,7 +1,5 @@
 import React from 'react';
 import {View} from 'react-native';
-import ChartTitle from "./chartTitle";
-import chartType from '../chartType';
 import {Text} from "native-base";
 
 /*
@@ -13,18 +11,12 @@ export default class SucceededCount extends React.Component {
     }
 
     render() {
-        const {contentHeight} = this.props;
-        const {title, description} = chartType['succeedLessons'];
+        const {contentHeight, style} = this.props;
 
         return (
-            <View style={styles.pieChart}>
-                <ChartTitle title={title}
-                            description={description}/>
-
-                <View style={{height: contentHeight, justifyContent: 'center', alignItems: 'center'}}>
-                    <View style={styles.circle(contentHeight)}>
-                        <Text style={{color: 'black', fontSize: contentHeight / 4}}>{this.props.lessonsNumber}</Text>
-                    </View>
+            <View style={{justifyContent: 'center', alignItems: 'center',...style}}>
+                <View style={styles.circle(contentHeight)}>
+                    <Text style={{color: 'black', fontSize: contentHeight / 4}}>{this.props.lessonsNumber}</Text>
                 </View>
             </View>
         );

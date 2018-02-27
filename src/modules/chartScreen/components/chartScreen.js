@@ -3,10 +3,11 @@
 import React from 'react';
 import {View, ScrollView, StyleSheet} from 'react-native';
 import BarChart from './barChart'
-import PieChartWrapper from "./pieChartWrapper";
-import ChartTitle from "./chartTitle";
-import chartType from "../chartType";
 import SucceededCount from "./succeededCount";
+import ChartContainer from "./chartContainer";
+import chartType from "../chartType";
+import GradePie from "./gradePie";
+
 const Dimensions = require('Dimensions');
 
 class ChartScreen extends React.Component {
@@ -53,20 +54,27 @@ class ChartScreen extends React.Component {
         let pieSize = this.state.screenSize.width / 2;
         // todo: (priority 3) change formula when flex functionality is supported from package
         let barWidth = this.state.screenSize.width * 0.85;
+
+        let fillColor = {'r': 240, 'g': 240, 'b': 240};
+        let mainColor = {'r': 51, 'g': 202, 'b': 70};
         //endregion
 
         return (
             <ScrollView style={styles.main} onLayout={this.orientationChange}>
                 <View style={{flexDirection: 'row'}}>
-                    <PieChartWrapper chartValue={average} pieSize={pieSize}/>
+                    <ChartContainer chType={'average'}>
+                        <GradePie style={{marginLeft: 40}}
+                                  value={average} total={chartType['average'].total}
+                                  pieSize={pieSize} pallete={[mainColor, fillColor]}/>
+                    </ChartContainer>
 
-                    <SucceededCount lessonsNumber={lessonsNumber} contentHeight={pieSize}/>
+                    <ChartContainer chType={'succeedLessons'}>
+                        <SucceededCount style={{marginTop: 15}} lessonsNumber={lessonsNumber} contentHeight={pieSize}/>
+                    </ChartContainer>
                 </View>
-                <View style={styles.barChart}>
-                    <ChartTitle title={chartType['lessonsPerGrade'].title}
-                                description={chartType['lessonsPerGrade'].description}/>
+                <ChartContainer style={{marginTop: 15}} chType={'lessonsPerGrade'}>
                     <BarChart width={barWidth} lessonsLists={allLessons}/>
-                </View>
+                </ChartContainer>
             </ScrollView>
         );
     }
@@ -75,16 +83,6 @@ class ChartScreen extends React.Component {
 let styles = StyleSheet.create({
     main: {
         backgroundColor: 'white'
-    }, header: {
-        color: 'black',
-        fontWeight: 'bold'
-    },
-    barChart: {
-        flex: 1,
-        backgroundColor: 'white',
-        elevation: 12,
-        margin: 7,
-        marginTop: 15
     }
 });
 

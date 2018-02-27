@@ -1,12 +1,13 @@
 import React from 'react';
+import {View} from 'react-native';
 import {Pie} from 'react-native-pathjs-charts'
 import chartType from '../chartType';
 
 export default class GradePie extends React.Component {
     render() {
-        if (this.props.size === 0) return null;
+        if (this.props.pieSize === 0) return null;
 
-        const {chartTitle, total, value, size, pallete} = this.props;
+        const {chartTitle, total, value, pieSize, pallete} = this.props;
 
         let data = [{
             "name": this.props.value,
@@ -28,10 +29,10 @@ export default class GradePie extends React.Component {
                 right: 20,
                 bottom: 20
             },
-            width: size,
-            height: size,
-            r: size / 8,
-            R: size / 2.5,
+            width: pieSize,
+            height: pieSize,
+            r: pieSize / 8,
+            R: pieSize / 2.5,
             legendPosition: 'topLeft',
             animate: {
                 type: 'oneByOne',
@@ -49,10 +50,12 @@ export default class GradePie extends React.Component {
         };
 
         return (
-            <Pie
-                data={data}
-                options={options}
-                accessorKey="value"/>
+            <View style={{height: pieSize,...this.props.style}}>
+                <Pie
+                    data={data}
+                    options={options}
+                    accessorKey="value"/>
+            </View>
         )
     }
 }
