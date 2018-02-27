@@ -35,13 +35,14 @@
     "react-native-console-time-polyfill": "0.0.6",
     "react-native-keychain": "2.0.0",
     "react-native-loading-spinner-overlay": "~0.5.2",
-    "react-native-pathjs-charts": "0.0.34",
     "react-native-push-notification": "^3.0.2",
+    "react-native-svg": "^6.2.2",
     "react-navigation": "1.1.2",
     "react-redux": "^5.0.7",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
-    "stream": "^0.0.2"
+    "stream": "^0.0.2",
+    "victory-native": "^0.17.1"
   },
   "devDependencies": {
     "babel-jest": "22.4.1",

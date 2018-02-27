@@ -1,6 +1,6 @@
 import React from 'react';
 import {CardItem, ListItem, Content, Text, Icon, Right, Badge, List} from 'native-base';
-import Statistics from './statistics';
+// import Statistics from './statistics';
 import {NavigationActions} from 'react-navigation'
 import {StatusBar} from "react-native";
 import {lessonStateColor} from "../../../tools/colors";
@@ -87,7 +87,7 @@ class Lesson extends React.Component {
                         </Right>
                     </ListItem>
                 </List>
-                <Statistics lesson={currentLesson}/>
+                {/*<Statistics lesson={currentLesson}/>*/}
             </Content>
         );
     }
