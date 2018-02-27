@@ -53,7 +53,7 @@ class ChartScreen extends React.Component {
         //region Set up UI
         let pieSize = this.state.screenSize.width / 2;
         // todo: (priority 3) change formula when flex functionality is supported from package
-        let barWidth = this.state.screenSize.width * 0.85;
+        let barWidth = this.state.screenSize.width;
         //endregion
 
         return (

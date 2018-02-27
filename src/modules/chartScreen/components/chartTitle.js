@@ -1,6 +1,7 @@
 import React from 'react'
 import {Text, TouchableOpacity, View} from 'react-native'
 import {Icon} from 'native-base';
+const Dimensions = require('Dimensions');
 
 export default class ChartTitle extends React.Component {
     constructor(props) {
@@ -40,6 +41,7 @@ let nbStyles = {
         fontWeight: 'bold',
         width: 0,
         flexGrow: 1,
+        fontSize: Dimensions.get('window').width / 27
     },
     wrapper: {
         flexDirection: 'row',

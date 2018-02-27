@@ -35,7 +35,7 @@ export default class LessonsBarChart extends Component {
                 <VictoryAxis style={{tickLabels: {fontSize: width / 25}}}
                              tickValues={[5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10]}/>
                 <VictoryBar
-                    style={{data: {fill: "#4947c4"}, labels: {fontSize: width / 25,fill: "white"}}}
+                    style={{data: {fill: "#4947c4"}, labels: {fontSize: width / 25, fill: "white"}}}
                     labelComponent={<VictoryLabel dy={30}/>}
                     labels={(d) => d.y}
                     data={data}
