@@ -1,22 +1,45 @@
 import React, {Component} from "react";
-import {VictoryChart, VictoryBar, VictoryTheme} from "victory-native";
+import {VictoryChart, VictoryBar, VictoryTheme, VictoryAxis, VictoryLabel} from "victory-native";
 
 export default class LessonsBarChart extends Component {
     render() {
+        let lessonsLists = this.props.lessonsLists;
+        let width = this.props.width;
+
+        lessonsLists = lessonsLists.filter(lesson => lesson.grade >= 5);
+        lessonsLists.sort((lesson1, lesson2) => lesson1.grade - lesson2.grade);
+
+        // Count occurrences
+        let gradeArray = [], counterArray = [], prev = null;
+        for (let i = 0; i < lessonsLists.length; i++) {
+            if (lessonsLists[i].grade !== prev) {
+                gradeArray.push(lessonsLists[i].grade);
+                counterArray.push(1);
+            } else {
+                counterArray[counterArray.length - 1]++;
+            }
+            prev = lessonsLists[i].grade;
+        }
+
+        // Construct data input for graph
+        let data = [];
+        for (let i = 0; i < gradeArray.length; i++) {
+            data.push({x: gradeArray[i], y: counterArray[i]});
+        }
+
         return (
             <VictoryChart
                 theme={VictoryTheme.material}
-                domainPadding={10}
+                domainPadding={0}
             >
+                <VictoryAxis style={{tickLabels: {fontSize: width / 25}}}
+                             tickValues={[5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10]}/>
                 <VictoryBar
-                    style={{ data: { fill: "#c43a31" } }}
-                    data={[
-                        { x: 1, y: 2, y0: 1, width: 4 },
-                        { x: 2, y: 3, y0: 2, width: 6 },
-                        { x: 3, y: 5, y0: 2, width: 8 },
-                        { x: 4, y: 4, y0: 3, width: 10 },
-                        { x: 5, y: 6, y0: 3, width: 12 }
-                    ]}
+                    style={{data: {fill: "#4947c4"}, labels: {fontSize: width / 25,fill: "white"}}}
+                    labelComponent={<VictoryLabel dy={30}/>}
+                    labels={(d) => d.y}
+                    data={data}
+                    barRatio={1}
                 />
             </VictoryChart>
         );
