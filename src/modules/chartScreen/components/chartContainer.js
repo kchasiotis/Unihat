@@ -12,7 +12,7 @@ export default class ChartContainer extends React.Component {
             <View style={styles.chart}>
                 <ChartTitle title={title} description={description}/>
 
-                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                <View style={{flex:1, flexDirection:'column',justifyContent: 'center', alignItems: 'center'}}>
                     {this.props.children}
                 </View>
             </View>

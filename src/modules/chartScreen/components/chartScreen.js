@@ -64,7 +64,7 @@ class ChartScreen extends React.Component {
                     </ChartContainer>
 
                     <ChartContainer chType={'succeedLessons'}>
-                        <SucceededCount style={{marginTop: 15}} lessonsNumber={lessonsNumber} contentHeight={pieSize}/>
+                        <SucceededCount lessonsNumber={lessonsNumber} contentHeight={pieSize}/>
                     </ChartContainer>
                 </View>
                 <ChartContainer style={{marginTop: 15}} chType={'lessonsPerGrade'}>

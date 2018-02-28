@@ -30,10 +30,9 @@ export default class AveragePieChart extends Component {
         return (
             <View style={{height: pieSize, justifyContent: 'center', alignItems: 'center'}} pointerEvents="none">
                 <VictoryPie
-                    height={pieSize * 1.3}
+                    height={pieSize * 1.6 - pieSize/3}
                     padAngle={3}
-                    labelRadius={50}
-                    innerRadius={pieSize / 7}
+                    innerRadius={pieSize / 4}
                     style={{labels: {fill: "black", fontSize: pieSize / 12, fontWeight: "bold"}}}
                     colorScale={["tomato", "orange", "gold", "cyan", "navy"]}
                     data={data}
