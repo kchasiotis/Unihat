@@ -43,7 +43,7 @@ export default class Settings extends React.Component {
                 {
                     true &&
                     (<View style={{flex: 1, justifyContent: 'flex-end'}}>
-                        <Button onPress={this.reset} full>
+                        <Button style={{backgroundColor:'#f86624'}} onPress={this.reset} full>
                             <Text>Τέλος</Text>
                         </Button>
                     </View>)
