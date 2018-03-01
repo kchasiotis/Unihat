@@ -5,6 +5,7 @@ import {Lesson} from '../../lesson'
 import {Filter} from '../../lessonList'
 import {Logout} from '../containers/logout'
 import {NavigationActions, StackNavigator} from 'react-navigation';
+import {Settings} from "../../settings/";
 
 export default class LoggedNav extends React.Component {
     constructor(props) {
@@ -28,8 +29,10 @@ export default class LoggedNav extends React.Component {
         const MenuNavigator = StackNavigator({
             screenNavigator: {screen: LessonsTabNav()},
             filter: {screen: Filter, navigationOptions: {headerTitle: 'Φίλτρα', headerRight: null}},
-            lesson: {screen: Lesson, navigationOptions: {header: null}}
+            lesson: {screen: Lesson, navigationOptions: {header: null}},
+            settings: {screen: Settings, navigationOptions: {headerTitle: 'Ρυθμίσεις', headerRight: null}}
         }, {
+            initialRouteName: false ? 'screenNavigator' : 'settings',
             navigationOptions: ({navigation}) => ({
                 headerTitle: 'Unihat',
                 headerTintColor: '#FFF',
