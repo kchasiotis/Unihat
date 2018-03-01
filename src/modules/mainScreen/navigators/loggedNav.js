@@ -6,6 +6,7 @@ import {Filter} from '../../lessonList'
 import {Logout} from '../containers/logout'
 import {NavigationActions, StackNavigator} from 'react-navigation';
 import {Settings} from "../../settings/";
+import HeaderIconsWrapper from "../components/headerIconsWrapper";
 
 export default class LoggedNav extends React.Component {
     constructor(props) {
@@ -32,11 +33,11 @@ export default class LoggedNav extends React.Component {
             lesson: {screen: Lesson, navigationOptions: {header: null}},
             settings: {screen: Settings, navigationOptions: {headerTitle: 'Ρυθμίσεις', headerRight: null}}
         }, {
-            initialRouteName: false ? 'screenNavigator' : 'settings',
+            initialRouteName: true ? 'screenNavigator' : 'settings',
             navigationOptions: ({navigation}) => ({
                 headerTitle: 'Unihat',
                 headerTintColor: '#FFF',
-                headerRight: <Logout navigation={navigation}/>,
+                headerRight: <HeaderIconsWrapper navigation={navigation}/>,
                 headerStyle: {backgroundColor: '#3F51B5'},
                 headerTitleStyle: {color: '#FFF'}
             })
