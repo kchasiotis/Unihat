@@ -17,7 +17,7 @@ export default class SettingsModal extends Component {
                     <View style={styles.headerView}>
                         <Text style={styles.header}>Προσοχή!</Text>
                     </View>
-                    <View style={{borderBottomColor: 'black', borderBottomWidth: 1,}}/>
+                    <View style={{borderBottomColor: 'black', borderBottomWidth: 1}}/>
                     <View style={styles.textView}>
                         <Text style={styles.text}>Οι ενημερώσεις βρίσκονται σε πειραματικό στάδιο. Σε
                             περίπτωση σφαλμάτων απενεργοποιήστε τις από τις ρυθμίσεις.</Text>
