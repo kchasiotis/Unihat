@@ -13,8 +13,8 @@ export default class Main extends React.Component {
         let mainNavOptions = {header: null};
 
         const MainNavigator = StackNavigator({
-            Login: {screen: Login, navigationOptions: loginNavOptions},
-            Main: {screen: LoggedNav, navigationOptions: mainNavOptions},
+            login: {screen: Login, navigationOptions: loginNavOptions},
+            main: {screen: LoggedNav, navigationOptions: mainNavOptions},
         });
 
         return <MainNavigator onNavigationStateChange={null}/>;

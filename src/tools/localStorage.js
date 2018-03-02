@@ -52,6 +52,16 @@ class LocalStorage {
         });
     }
 
+    static setFirstRun() {
+        AsyncStorage.setItem('FirstRun', JSON.stringify(false));
+    }
+
+    static loadFirstRun(onLoad) {
+        AsyncStorage.getItem('FirstRun', (err, flag) => {
+            onLoad(err, JSON.parse(flag));
+        });
+    }
+
     static setLessonsLists(LessonsLists) {
         AsyncStorage.setItem('LessonsLists', JSON.stringify(LessonsLists));
     }

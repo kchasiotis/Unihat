@@ -31,6 +31,12 @@ export default class Login extends React.Component {
         } else {
             this.state = {username: '', password: '', credentialCheckBox: false};
         }
+
+        LocalStorage.loadFirstRun((err, flag) => {
+            if (err) return Logger.error(err);
+            this.firstRun = flag === null ? true : flag;
+            LocalStorage.setFirstRun(false);
+        });
     }
 
     componentDidMount() {
@@ -81,7 +87,7 @@ export default class Login extends React.Component {
             const resetAction = NavigationActions.reset({
                 index: 0,
                 actions: [
-                    NavigationActions.navigate({routeName: 'Main'})
+                    NavigationActions.navigate({routeName: 'main', params: {firstRun: this.firstRun}})
                 ]
             });
 

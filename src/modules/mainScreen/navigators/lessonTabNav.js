@@ -15,7 +15,7 @@ export default function LessonsTabNav() {
                 screen: LessonListWrapper,
                 navigationOptions: {title: 'Εξεταστική '}
             },
-            ChartScreen: {
+            chartScreen: {
                 screen: ChartScreen,
                 navigationOptions: {title: 'Γραφήματα '}
             },

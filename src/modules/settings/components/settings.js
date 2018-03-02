@@ -7,7 +7,7 @@ import {Logger} from "../../../tools/logger";
 import Scheduler from "../../../tools/backgroundJob/scheduler";
 
 export default class Settings extends React.Component {
-    state = {switchValue: false, showModal: false};
+    state = {switchValue: null, showModal: false};
 
     constructor(props) {
         super(props);
@@ -18,7 +18,10 @@ export default class Settings extends React.Component {
                 self.state = {switchValue: false};
                 Logger.warn(err);
             }
-            if (res === null) return;
+            if (res === null) {
+                self.setState({switchValue: false});
+                return;
+            }
 
             self.setState({switchValue: res.backgroundCheck});
         })
@@ -40,13 +43,14 @@ export default class Settings extends React.Component {
 
         this.setState({switchValue: newValue, showModal: newValue});
 
-        if(newValue===true) Scheduler.run();
+        if (newValue === true) Scheduler.run();
         else Scheduler.cancelAll();
         LocalStorage.setSettings({backgroundCheck: newValue});
     };
 
     render() {
         const {switchValue, showModal} = this.state;
+        if (switchValue === null) return null;
 
         return (
             <View style={{flex: 1}}>

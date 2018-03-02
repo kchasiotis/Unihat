@@ -18,13 +18,14 @@ export default class LoggedNav extends React.Component {
         const resetAction = NavigationActions.reset({
             index: 0,
             actions: [
-                NavigationActions.navigate({routeName: 'Login'})
+                NavigationActions.navigate({routeName: 'login'})
             ]
         });
         this.props.navigation.dispatch(resetAction)
     }
 
     render() {
+        const {params} = this.props.navigation.state;
         Logout.defaultProps = {loginRoute: this.loginRoute};
 
         const MenuNavigator = StackNavigator({
@@ -33,10 +34,11 @@ export default class LoggedNav extends React.Component {
             lesson: {screen: Lesson, navigationOptions: {header: null}},
             settings: {screen: Settings, navigationOptions: {headerTitle: 'Ρυθμίσεις', headerRight: null}}
         }, {
-            initialRouteName: true ? 'screenNavigator' : 'settings',
+            initialRouteName: params.firstRun ? 'settings' : 'screenNavigator',
             navigationOptions: ({navigation}) => ({
                 headerTitle: 'Unihat',
                 headerTintColor: '#FFF',
+                // todo: refactor navigation prop
                 headerRight: <HeaderIconsWrapper navigation={navigation}/>,
                 headerStyle: {backgroundColor: '#3F51B5'},
                 headerTitleStyle: {color: '#FFF'}
