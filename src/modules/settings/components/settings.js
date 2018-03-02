@@ -53,9 +53,9 @@ export default class Settings extends React.Component {
         if (switchValue === null) return null;
 
         return (
-            <View style={{flex: 1}}>
+            <View>
                 {showModal && <SettingsModal/>}
-                <List>
+                <List style={{backgroundColor: 'white'}}>
                     <ListItem icon>
                         <Left>
                             <Icon name="notifications"/>
@@ -68,14 +68,6 @@ export default class Settings extends React.Component {
                         </Right>
                     </ListItem>
                 </List>
-                {
-                    true &&
-                    (<View style={{flex: 1, justifyContent: 'flex-end'}}>
-                        <Button style={{backgroundColor: '#f86624'}} onPress={this.reset} full>
-                            <Text>Τέλος</Text>
-                        </Button>
-                    </View>)
-                }
             </View>
         )
     }

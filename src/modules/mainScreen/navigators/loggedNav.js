@@ -7,6 +7,7 @@ import {Logout} from '../containers/logout'
 import {NavigationActions, StackNavigator} from 'react-navigation';
 import {Settings} from "../../settings/";
 import HeaderIconsWrapper from "../components/headerIconsWrapper";
+import Welcome from "../components/welcome";
 
 export default class LoggedNav extends React.Component {
     constructor(props) {
@@ -32,6 +33,7 @@ export default class LoggedNav extends React.Component {
             screenNavigator: {screen: LessonsTabNav()},
             filter: {screen: Filter, navigationOptions: {headerTitle: 'Φίλτρα', headerRight: null}},
             lesson: {screen: Lesson, navigationOptions: {header: null}},
+            welcome: {screen: Welcome, navigationOptions: {header: null}},
             settings: {screen: Settings, navigationOptions: {headerTitle: 'Ρυθμίσεις', headerRight: null}}
         }, {
             initialRouteName: params.firstRun ? 'settings' : 'screenNavigator',

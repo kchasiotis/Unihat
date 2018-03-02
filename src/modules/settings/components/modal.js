@@ -19,8 +19,7 @@ export default class SettingsModal extends Component {
                     </View>
                     <View style={{borderBottomColor: 'black', borderBottomWidth: 1}}/>
                     <View style={styles.textView}>
-                        <Text style={styles.text}>Οι ενημερώσεις βρίσκονται σε πειραματικό στάδιο. Σε
-                            περίπτωση σφαλμάτων απενεργοποιήστε τις από τις ρυθμίσεις.</Text>
+                        <Text style={styles.text}>Οι ενημερώσεις βρίσκονται σε πειραματικό στάδιο. Εαν εντοπίσετε σφάλματα μπορείτε να τις απενεργοποιήσετε από τις ρυθμίσεις.</Text>
                     </View>
                     <View>
                         <Button color={'black'} onPress={this._toggleModal} title={'OK'}/>
