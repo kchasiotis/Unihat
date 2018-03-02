@@ -36,7 +36,7 @@ export default class LoggedNav extends React.Component {
             welcome: {screen: Welcome, navigationOptions: {header: null}},
             settings: {screen: Settings, navigationOptions: {headerTitle: 'Ρυθμίσεις', headerRight: null}}
         }, {
-            initialRouteName: params.firstRun ? 'settings' : 'screenNavigator',
+            initialRouteName: params.firstRun ? 'welcome' : 'screenNavigator',
             navigationOptions: ({navigation}) => ({
                 headerTitle: 'Unihat',
                 headerTintColor: '#FFF',
