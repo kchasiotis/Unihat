@@ -2,16 +2,29 @@ import React from 'react'
 import {List, ListItem, Left, Icon, Body, Right, Text, Switch, Button, View} from "native-base";
 import SettingsModal from "./modal";
 import {NavigationActions} from "react-navigation";
+import {LocalStorage} from "../../../tools/localStorage";
+import {Logger} from "../../../tools/logger";
+import Scheduler from "../../../tools/backgroundJob/scheduler";
 
 export default class Settings extends React.Component {
+    state = {switchValue: false, showModal: false};
+
     constructor(props) {
         super(props);
+        let self = this;
 
-        this.state = {switchValue: false};
-        this.reset = this.reset.bind(this);
+        LocalStorage.loadSettings((err, res) => {
+            if (err) {
+                self.state = {switchValue: false};
+                Logger.warn(err);
+            }
+            if (res === null) return;
+
+            self.setState({switchValue: res.backgroundCheck});
+        })
     }
 
-    reset(){
+    reset = () => {
         const resetAction = NavigationActions.reset({
             index: 0,
             actions: [
@@ -19,14 +32,25 @@ export default class Settings extends React.Component {
             ]
         });
         this.props.navigation.dispatch(resetAction)
-    }
+    };
+
+    onValueChange = () => {
+        const {switchValue} = this.state;
+        let newValue = !switchValue;
+
+        this.setState({switchValue: newValue, showModal: newValue});
+
+        if(newValue===true) Scheduler.run();
+        else Scheduler.cancelAll();
+        LocalStorage.setSettings({backgroundCheck: newValue});
+    };
 
     render() {
-        const {switchValue} = this.state;
+        const {switchValue, showModal} = this.state;
 
         return (
             <View style={{flex: 1}}>
-                {switchValue && <SettingsModal/>}
+                {showModal && <SettingsModal/>}
                 <List>
                     <ListItem icon>
                         <Left>
@@ -36,14 +60,14 @@ export default class Settings extends React.Component {
                         <Text>Ενημερώσεις</Text>
                         </Body>
                         <Right>
-                            <Switch onValueChange={() => this.setState({switchValue: !switchValue})} value={switchValue}/>
+                            <Switch onValueChange={this.onValueChange} value={switchValue}/>
                         </Right>
                     </ListItem>
                 </List>
                 {
                     true &&
                     (<View style={{flex: 1, justifyContent: 'flex-end'}}>
-                        <Button style={{backgroundColor:'#f86624'}} onPress={this.reset} full>
+                        <Button style={{backgroundColor: '#f86624'}} onPress={this.reset} full>
                             <Text>Τέλος</Text>
                         </Button>
                     </View>)

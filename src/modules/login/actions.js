@@ -1,9 +1,7 @@
 import {Crawler} from '../../tools/crawler'
 import {lessonAPI} from '../../tools/api'
 
-import BackgroundJob from 'react-native-background-job';
-import {jobNames} from '../../tools/backgroundJob'
-
+import {Scheduler} from '../../tools/backgroundJob'
 import {CredentialStorage, LocalStorage} from '../../tools/localStorage';
 import {Logger} from '../../tools/logger';
 import env from '../../../environment'
@@ -58,25 +56,15 @@ export function login(username, password, chkBox) {
                 LocalStorage.setLessonsLists(lessonsLists);
                 LocalStorage.setRefreshLessonsListsCond(false);
 
+                Scheduler.cancelAll();
                 if (env.backgroundCheck) {
-                    let newGradeCheckScheduleWifi = {
-                        jobKey: jobNames.newGradeCheck.wifi,
-                        timeout: 15000,
-                        period: 60 * 60 * 1000,
-                        override: true,
-                        networkType: BackgroundJob.NETWORK_TYPE_UNMETERED
-                    };
+                    LocalStorage.loadSettings((err, settings) => {
+                        if (err) return Logger.error(err);
+                        if (settings !== null && settings.backgroundCheck === false) return;
+                        if (settings === null) return;
 
-                    // todo: (priority 2) change networkType to mobile
-                    let newGradeCheckScheduleMobile = {
-                        jobKey: jobNames.newGradeCheck.mobile,
-                        timeout: 15000,
-                        period: env.debug && env.shortSchedule ? 5 * 1000 : 12 * 60 * 60 * 1000,
-                        override: true,
-                        networkType: BackgroundJob.NETWORK_TYPE_ANY
-                    };
-                    BackgroundJob.schedule(newGradeCheckScheduleWifi);
-                    BackgroundJob.schedule(newGradeCheckScheduleMobile);
+                        Scheduler.run();
+                    });
                 }
 
                 if (chkBox === true) CredentialStorage.set(username, password);

@@ -56,6 +56,16 @@ class LocalStorage {
         AsyncStorage.setItem('LessonsLists', JSON.stringify(LessonsLists));
     }
 
+    static loadSettings(onLoad) {
+        AsyncStorage.getItem('Settings', (err, settings) => {
+            onLoad(err, JSON.parse(settings));
+        });
+    }
+
+    static setSettings(settings) {
+        AsyncStorage.setItem('Settings', JSON.stringify(settings));
+    }
+
     static loadRefreshGradesCond(onLoad) {
         AsyncStorage.getItem('refresh', (err, refresh) => {
             onLoad(err, JSON.parse(refresh));
