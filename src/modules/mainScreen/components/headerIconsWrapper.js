@@ -7,7 +7,7 @@ const HeaderIconsWrapper = ({navigation}) => {
     return (
         <View style={{flexDirection: 'row'}}>
             <SettingsIcon navigation={navigation}/>
-            <Logout navigation={navigation}/>
+            <Logout/>
         </View>
     );
 };

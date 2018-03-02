@@ -38,7 +38,6 @@ export default class LoggedNav extends React.Component {
             navigationOptions: ({navigation}) => ({
                 headerTitle: 'Unihat',
                 headerTintColor: '#FFF',
-                // todo: refactor navigation prop
                 headerRight: <HeaderIconsWrapper navigation={navigation}/>,
                 headerStyle: {backgroundColor: '#3F51B5'},
                 headerTitleStyle: {color: '#FFF'}
