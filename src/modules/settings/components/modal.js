@@ -1,6 +1,7 @@
 import React, {Component} from "react";
-import {Text, Button, View} from "react-native";
+import {Text, View} from "react-native";
 import Modal from "react-native-modal";
+import {Button} from "native-base";
 
 export default class SettingsModal extends Component {
     state = {
@@ -12,17 +13,17 @@ export default class SettingsModal extends Component {
 
     render() {
         return (
-            <Modal isVisible={this.state.isModalVisible}>
+            <Modal isVisible={this.state.isModalVisible} onBackdropPress={() => this.setState({isModalVisible: false})}>
                 <View style={styles.modal}>
                     <View style={styles.headerView}>
-                        <Text style={styles.header}>Προσοχή!</Text>
+                        <Text style={styles.header}>Προσοχή</Text>
                     </View>
-                    <View style={{borderBottomColor: 'black', borderBottomWidth: 1}}/>
                     <View style={styles.textView}>
-                        <Text style={styles.text}>Οι ενημερώσεις βρίσκονται σε πειραματικό στάδιο. Εαν εντοπίσετε σφάλματα μπορείτε να τις απενεργοποιήσετε από τις ρυθμίσεις.</Text>
+                        <Text style={styles.text}>Οι ενημερώσεις βρίσκονται σε πειραματικό στάδιο. Εαν εντοπίσετε
+                            σφάλματα μπορείτε να τις απενεργοποιήσετε από τις ρυθμίσεις.</Text>
                     </View>
                     <View>
-                        <Button color={'black'} onPress={this._toggleModal} title={'OK'}/>
+                        <Button color={'black'} onPress={this._toggleModal} bordered full><Text>OK</Text></Button>
                     </View>
                 </View>
             </Modal>
@@ -32,24 +33,25 @@ export default class SettingsModal extends Component {
 
 const styles = {
     modal: {
-        backgroundColor: 'white',
-        height: 200
+        backgroundColor: 'white'
     },
     headerView: {
-        paddingTop: 15,
+        paddingTop: 10,
         paddingBottom: 5,
         paddingLeft: 15,
+        backgroundColor: '#009385'
     },
     textView: {
         paddingTop: 5,
         paddingLeft: 15,
         paddingRight: 15,
-        flexDirection: 'column',
-        flex: 1
+        paddingBottom: 15,
+        flexDirection: 'column'
     },
     header: {
         fontWeight: 'bold',
-        fontSize: 20
+        fontSize: 20,
+        color: 'white'
     },
     text: {
         fontWeight: 'bold',

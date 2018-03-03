@@ -33,7 +33,7 @@ export default class Welcome extends React.Component {
                     </View>
                     <Settings/>
                 </View>
-                <Button style={{backgroundColor: '#f86624'}} onPress={this.reset} full>
+                <Button style={{backgroundColor: '#009385'}} onPress={this.reset} full>
                     <Text>Τέλος</Text>
                 </Button>
             </View>
@@ -49,4 +49,4 @@ const styles = {
         paddingLeft: 20,
         paddingRight: 20
     }
-}
+};
