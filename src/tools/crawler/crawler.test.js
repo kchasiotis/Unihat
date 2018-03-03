@@ -5,7 +5,7 @@ import sefUser from './sefCrawler/.user'
 describe('Sef crawler', function () {
     let crawler = new Crawler();
     it('should fetch the grades', function (done) {
-        crawler.fetchMockPage('sas12035', (logged, grades) => {
+        crawler.fetchMockPage('sas12035', (error, logged, grades) => {
             // console.log(grades.sGrades)
             // expect(grades.aGrades[0].examDate.format("DD-MM-YYYY")).toBe('15-06-2017');
             // expect(grades.sGrades[0].enrollDate.format("DD-MM-YYYY")).toBe('15-03-2017');
@@ -19,7 +19,7 @@ describe('Sef crawler', function () {
         });
     });
 
-    it.skip('should fetch the grades asynchronously', function (done) {
+    it('should fetch the grades asynchronously', function (done) {
         crawler.fetchPage(sefUser.username, sefUser.password, (error, logged, grades) => {
                 try {
                     expect(logged).toBe(true);
@@ -38,7 +38,7 @@ describe('Sef crawler', function () {
 describe('Icarus Crawler', function () {
     let crawler = new Crawler();
     it('should fetch the grades', function (done) {
-        crawler.fetchMockPage('icsd11175', (logged, grades) => {
+        crawler.fetchMockPage('icsd11175', (error, logged, grades) => {
             expect(logged).toBe(true);
             expect(grades.aGrades.length).toBeGreaterThan(80);
             expect(grades.sGrades.length).toBeGreaterThan(40);
