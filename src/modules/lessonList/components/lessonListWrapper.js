@@ -18,7 +18,7 @@ class LessonListWrapper extends React.Component {
                     navigation.state.routeName === 'aGrades' ?
                         <Fab
                             direction="up"
-                            style={{backgroundColor: 'rgba(105, 114, 104, 0.6)'}}
+                            style={{backgroundColor: 'rgba(105, 114, 104, 1)'}}
                             position="bottomRight"
                             onPress={() => navigation.navigate('filter')}>
                             <Icon name="ios-funnel"/>

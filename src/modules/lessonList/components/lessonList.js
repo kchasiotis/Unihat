@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList, RefreshControl, AppState} from 'react-native';
+import {FlatList, RefreshControl, AppState, Image} from 'react-native';
 import {ListItem, Right, Text, Badge, Body, View} from 'native-base';
 
 import {Crawler} from '../../../tools/crawler';
@@ -10,7 +10,13 @@ import env from '../../../../environment'
 import {lessonStateColor} from '../../../tools/colors'
 
 const LoadingList = ({loading}) => {
-    if (loading === false) return null;
+    if (loading === false) {
+        return (
+            <View style={{justifyContent: 'center', alignItems: 'center', height: 90}}>
+                <Image style={{width: 50, height: 50}} source={require('../../../../resources/icon.png')}/>
+            </View>);
+    }
+
     return (
         <View style={{
             flex: 1,
@@ -27,8 +33,8 @@ const LoadingList = ({loading}) => {
 
 const EmptyList = () => {
     return (
-        <View style={{height: 500, flexDirection:'column', alignItems: 'center', justifyContent: 'center'}}>
-            <Text style={{fontWeight:'bold', color: '#697268'}}>Η λίστα είναι άδεια</Text>
+        <View style={{height: 500, flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+            <Text style={{fontWeight: 'bold', color: '#697268'}}>Η λίστα είναι άδεια</Text>
         </View>
     );
 };
