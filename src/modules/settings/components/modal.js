@@ -1,7 +1,6 @@
 import React, {Component} from "react";
-import {Text, View} from "react-native";
 import Modal from "react-native-modal";
-import {Button} from "native-base";
+import {Button, Text, View} from "native-base";
 
 export default class SettingsModal extends Component {
     state = {

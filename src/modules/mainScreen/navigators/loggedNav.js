@@ -8,6 +8,7 @@ import {NavigationActions, StackNavigator} from 'react-navigation';
 import {Settings} from "../../settings/";
 import HeaderIconsWrapper from "../components/headerIconsWrapper";
 import Welcome from "../components/welcome";
+import {Text} from "native-base";
 
 export default class LoggedNav extends React.Component {
     constructor(props) {
@@ -38,7 +39,7 @@ export default class LoggedNav extends React.Component {
         }, {
             initialRouteName: params.firstRun ? 'welcome' : 'screenNavigator',
             navigationOptions: ({navigation}) => ({
-                headerTitle: 'Unihat',
+                headerTitle: <Text style={{textAlign: 'left', marginHorizontal:16, fontSize: 20, fontWeight:'bold', color: 'white'}}>Unihat</Text>,
                 headerTintColor: '#FFF',
                 headerRight: <HeaderIconsWrapper navigation={navigation}/>,
                 headerStyle: {backgroundColor: '#3F51B5'},
@@ -47,6 +48,6 @@ export default class LoggedNav extends React.Component {
 
         });
 
-        return <MenuNavigator onNavigationStateChange={null}/>
+        return <MenuNavigator/>
     }
 }
