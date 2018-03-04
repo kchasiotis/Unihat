@@ -32,14 +32,14 @@ export default class LoggedNav extends React.Component {
 
         const MenuNavigator = StackNavigator({
             screenNavigator: {screen: LessonsTabNav()},
-            filter: {screen: Filter, navigationOptions: {headerTitle: 'Φίλτρα', headerRight: null}},
+            filter: {screen: Filter, navigationOptions: {headerTitle: <Text style={styles.headerTitle}>Φίλτρα</Text>, headerRight: null}},
             lesson: {screen: Lesson, navigationOptions: {header: null}},
             welcome: {screen: Welcome, navigationOptions: {header: null}},
-            settings: {screen: Settings, navigationOptions: {headerTitle: 'Ρυθμίσεις', headerRight: null}}
+            settings: {screen: Settings, navigationOptions: {headerTitle: <Text style={styles.headerTitle}>Ρυθμίσεις</Text>, headerRight: null}}
         }, {
             initialRouteName: params.firstRun ? 'welcome' : 'screenNavigator',
             navigationOptions: ({navigation}) => ({
-                headerTitle: <Text style={{textAlign: 'left', marginHorizontal:16, fontSize: 20, fontWeight:'bold', color: 'white'}}>Unihat</Text>,
+                headerTitle: <Text style={styles.headerTitle}>Unihat</Text>,
                 headerTintColor: '#FFF',
                 headerRight: <HeaderIconsWrapper navigation={navigation}/>,
                 headerStyle: {backgroundColor: '#3F51B5'},
@@ -51,3 +51,7 @@ export default class LoggedNav extends React.Component {
         return <MenuNavigator/>
     }
 }
+
+const styles = {
+    headerTitle: {textAlign: 'left', marginHorizontal: 16, fontSize: 20, fontWeight: 'bold', color: 'white'}
+};
