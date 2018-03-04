@@ -23,7 +23,7 @@ export default class SettingsModal extends Component {
                             σφάλματα μπορείτε να τις απενεργοποιήσετε από τις ρυθμίσεις.</Text>
                     </View>
                     <View>
-                        <Button color={'black'} onPress={this._toggleModal} bordered full><Text>OK</Text></Button>
+                        <Button warning onPress={this._toggleModal} bordered full><Text>OK</Text></Button>
                     </View>
                 </View>
             </Modal>
@@ -39,7 +39,7 @@ const styles = {
         paddingTop: 10,
         paddingBottom: 5,
         paddingLeft: 15,
-        backgroundColor: '#009385'
+        backgroundColor: '#f86624'
     },
     textView: {
         paddingTop: 5,

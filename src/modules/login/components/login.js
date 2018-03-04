@@ -32,6 +32,7 @@ export default class Login extends React.Component {
             this.state = {username: '', password: '', credentialCheckBox: false};
         }
 
+        this.firstRun = false;
         LocalStorage.loadFirstRun((err, flag) => {
             if (err) return Logger.error(err);
             this.firstRun = flag === null ? true : flag;

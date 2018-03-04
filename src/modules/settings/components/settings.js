@@ -1,5 +1,5 @@
 import React from 'react'
-import {List, ListItem, Left, Icon, Body, Right, Text, Switch, Button, View} from "native-base";
+import {List, ListItem, Left, Icon, Body, Right, Text, Switch, View} from "native-base";
 import SettingsModal from "./modal";
 import {NavigationActions} from "react-navigation";
 import {LocalStorage} from "../../../tools/localStorage";
@@ -15,7 +15,7 @@ export default class Settings extends React.Component {
 
         LocalStorage.loadSettings((err, res) => {
             if (err) {
-                self.state = {switchValue: false};
+                self.setState = {switchValue: false};
                 Logger.warn(err);
             }
             if (res === null) {

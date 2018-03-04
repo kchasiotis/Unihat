@@ -60,8 +60,8 @@ export function login(username, password, chkBox) {
                 if (env.backgroundCheck) {
                     LocalStorage.loadSettings((err, settings) => {
                         if (err) return Logger.error(err);
+                        if (settings === null || settings === undefined) return;
                         if (settings !== null && settings.backgroundCheck === false) return;
-                        if (settings === null) return;
 
                         Scheduler.run();
                     });
