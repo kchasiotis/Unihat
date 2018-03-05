@@ -22,7 +22,7 @@ export default class SettingsModal extends Component {
                             σφάλματα μπορείτε να τις απενεργοποιήσετε από τις ρυθμίσεις.</Text>
                     </View>
                     <View>
-                        <Button warning onPress={this._toggleModal} bordered full><Text>OK</Text></Button>
+                        <Button warning onPress={this._toggleModal} bordered full><Text style={{color:'#f86624'}}>OK</Text></Button>
                     </View>
                 </View>
             </Modal>

@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, StatusBar, Keyboard, ImageBackground} from 'react-native';
 
-import {Item, Icon, Input, Button, Text, Badge} from 'native-base';
+import {Item, Icon, Input, Button, Text} from 'native-base';
 import Spinner from 'react-native-loading-spinner-overlay';
 import CredentialCheckbox from './credentialCheckbox';
 import {CredentialStorage, LocalStorage} from '../../../tools/localStorage';
@@ -9,7 +9,6 @@ import {Logger} from '../../../tools/logger';
 
 import env from '../../../../environment'
 import 'react-native-console-time-polyfill';
-import {NavigationActions} from 'react-navigation'
 import {LoginState} from '../actionTypes'
 
 export default class Login extends React.Component {
@@ -85,14 +84,7 @@ export default class Login extends React.Component {
     componentDidUpdate() {
         // Dispatch to main screen on log in
         if (this.props.loginState === LoginState.LOGGED_IN) {
-            const resetAction = NavigationActions.reset({
-                index: 0,
-                actions: [
-                    NavigationActions.navigate({routeName: 'main', params: {firstRun: this.firstRun}})
-                ]
-            });
-
-            this.props.navigation.dispatch(resetAction)
+            this.props.navigation.navigate('main', {firstRun: this.firstRun});
         }
     }
 

@@ -4,7 +4,7 @@ import React from 'react';
 // UI components imports
 import {Login} from '../../login'
 import LoggedNav from './loggedNav';
-import {StackNavigator} from 'react-navigation';
+import {SwitchNavigator} from 'react-navigation';
 
 export default class Main extends React.Component {
     render() {
@@ -12,7 +12,7 @@ export default class Main extends React.Component {
 
         let mainNavOptions = {header: null};
 
-        const MainNavigator = StackNavigator({
+        const MainNavigator = SwitchNavigator({
             login: {screen: Login, navigationOptions: loginNavOptions},
             main: {screen: LoggedNav, navigationOptions: mainNavOptions},
         });
