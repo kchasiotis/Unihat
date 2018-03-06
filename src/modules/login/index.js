@@ -1,4 +1,4 @@
-import Login from './components/login'
+import LoginComponent from './components/login'
 
 import {connect} from 'react-redux'
 import * as actionTypes from './actionTypes';
@@ -28,7 +28,7 @@ const mapDispatchToProps = dispatch => {
 const loginRedux = connect(
     mapStateToProps,
     mapDispatchToProps
-)(Login);
+)(LoginComponent);
 
 
 export {loginRedux as Login};
