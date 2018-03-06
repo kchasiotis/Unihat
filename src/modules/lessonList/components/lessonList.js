@@ -4,9 +4,8 @@ import {ListItem, Right, Text, Badge, Body, View} from 'native-base';
 
 import {Crawler} from '../../../tools/crawler';
 import {Logger} from '../../../tools/logger';
-import {CredentialStorage, LocalStorage} from '../../../tools/localStorage';
+import {CredentialStorage} from '../../../tools/localStorage';
 import lesson from '../../lesson/components/lesson';
-import env from '../../../../environment'
 import {lessonStateColor} from '../../../tools/colors'
 
 const LoadingList = ({loading}) => {
@@ -84,37 +83,6 @@ class LessonList extends React.Component {
     componentWillReceiveProps() {
         this.setState({loading: true});
     }
-
-    componentDidMount() {
-        if (this.props.routeName === 'exGrades') AppState.addEventListener('change', this._handleAppStateChange);
-        if (env.debug && env.openFilter) this.props.navigation.navigate('filter');
-    }
-
-    componentWillUnmount() {
-        if (this.props.routeName === 'exGrades') AppState.removeEventListener('change', this._handleAppStateChange);
-    }
-
-    _handleAppStateChange = (nextAppState) => {
-        if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
-            LocalStorage.loadRefreshGradesCond((error, refresh) => {
-                if (error) {
-                    Logger.error(error);
-                    return;
-                }
-
-                if (refresh) {
-                    this.props.navigation.navigate('exGrades');
-                    this.setState({refreshing: true});
-                    LocalStorage.loadLessonsLists((err, lessons) => {
-                        this.props.updateLessonsLists(lessons);
-                        this.setState({refreshing: false});
-                        LocalStorage.setRefreshLessonsListsCond(false);
-                    });
-                }
-            })
-        }
-        this.setState({appState: nextAppState});
-    };
 
     onEndReached = () => {
         this.setState({loading: false});
