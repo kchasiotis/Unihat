@@ -77,7 +77,24 @@ function applyFilters(lessons, state) {
             break;
     }
 
-    return lessons;
+    let group = null;
+    let sections = [];
+    let groupIndex = -1;
+    let assignSuffix = {enrollDate: 'Ημ. δήλωσης: ', grade: 'Βαθμός: ', semester: 'ο εξάμηνο'};
+
+    for (let i = 0; i < lessons.length; i++) {
+        if (group !== lessons[i][sort.by]) {
+            group = lessons[i][sort.by];
+            sections.push({
+                title: sort.by === 'semester' ? group + assignSuffix[sort.by] : assignSuffix[sort.by] + group,
+                data: []
+            });
+            groupIndex++;
+        }
+        sections[groupIndex].data.push(lessons[i]);
+    }
+
+    return sections;
 }
 
 export {filter}

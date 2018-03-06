@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList, RefreshControl, AppState, Image} from 'react-native';
+import {FlatList, RefreshControl, AppState, Image, SectionList} from 'react-native';
 import {ListItem, Right, Text, Badge, Body, View} from 'native-base';
 
 import {Crawler} from '../../../tools/crawler';
@@ -121,41 +121,84 @@ class LessonList extends React.Component {
     };
 
     render() {
-        return (
-            <FlatList
-                style={{backgroundColor: 'white'}}
-                keyExtractor={(item) => (item.id)}
-                ListEmptyComponent={<EmptyList/>}
-                ListFooterComponent={<LoadingList loading={this.state.loading && this.props.lessons.length > 10}/>}
-                onEndReached={() => this.onEndReached()}
-                refreshControl={
-                    <RefreshControl
-                        refreshing={this.state.refreshing}
-                        onRefresh={this.refreshLessons}
-                        title="Pull to refresh"
-                        colors={['#3F51B5', 'green']}
-                        progressBackgroundColor='#fff'
-                    />
-                }
-                data={this.props.lessons}
-                renderItem={({item}) =>
-                    <ListItem onPress={this.openLesson(item)} style={{backgroundColor: 'white'}}>
-                        <Body>
-                        <Text>{item.title}</Text>
-                        </Body>
-                        <Right>
-                            {
-                                item.grade !== null ?
-                                    <Badge style={{backgroundColor: lessonStateColor(item.state)}}>
-                                        <Text>{item.grade}</Text>
-                                    </Badge> :
-                                    null
-                            }
-                        </Right>
-                    </ListItem>
-                }
-            />
-        );
+        if (this.props.routeName === 'aGrades')
+            return (
+                <SectionList
+                    style={{backgroundColor: 'white'}}
+                    keyExtractor={(item) => (item.id)}
+                    ListEmptyComponent={<EmptyList/>}
+                    ListFooterComponent={<LoadingList loading={this.state.loading && this.props.lessons.length > 10}/>}
+                    onEndReached={() => this.onEndReached()}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={this.state.refreshing}
+                            onRefresh={this.refreshLessons}
+                            title="Pull to refresh"
+                            colors={['#3F51B5', 'green']}
+                            progressBackgroundColor='#fff'
+                        />
+                    }
+                    sections={this.props.lessons}
+                    renderSectionHeader={({section}) => <View><Text style={{
+                        paddingLeft: 10,
+                        backgroundColor: '#697268',
+                        color: 'white'
+                    }}>{section.title}</Text></View>}
+                    renderItem={({item}) =>
+                        <ListItem onPress={this.openLesson(item)} style={{backgroundColor: 'white'}}>
+                            <Body>
+                            <Text>{item.title}</Text>
+                            </Body>
+                            <Right>
+                                {
+                                    item.grade !== null ?
+                                        <Badge style={{backgroundColor: lessonStateColor(item.state)}}>
+                                            <Text>{item.grade}</Text>
+                                        </Badge> :
+                                        null
+                                }
+                            </Right>
+                        </ListItem>
+                    }
+                />
+            );
+        else {
+            return (
+                <FlatList
+                    style={{backgroundColor: 'white'}}
+                    keyExtractor={(item) => (item.id)}
+                    ListEmptyComponent={<EmptyList/>}
+                    ListFooterComponent={<LoadingList loading={this.state.loading && this.props.lessons.length > 10}/>}
+                    onEndReached={() => this.onEndReached()}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={this.state.refreshing}
+                            onRefresh={this.refreshLessons}
+                            title="Pull to refresh"
+                            colors={['#3F51B5', 'green']}
+                            progressBackgroundColor='#fff'
+                        />
+                    }
+                    data={this.props.lessons}
+                    renderItem={({item}) =>
+                        <ListItem onPress={this.openLesson(item)} style={{backgroundColor: 'white'}}>
+                            <Body>
+                            <Text>{item.title}</Text>
+                            </Body>
+                            <Right>
+                                {
+                                    item.grade !== null ?
+                                        <Badge style={{backgroundColor: lessonStateColor(item.state)}}>
+                                            <Text>{item.grade}</Text>
+                                        </Badge> :
+                                        null
+                                }
+                            </Right>
+                        </ListItem>
+                    }
+                />
+            )
+        }
     }
 }
 
