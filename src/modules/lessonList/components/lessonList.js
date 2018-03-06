@@ -110,6 +110,7 @@ class LessonList extends React.Component {
                     renderSectionHeader={({section}) => <View><Text style={{
                         paddingLeft: 10,
                         backgroundColor: '#697268',
+                        fontWeight: 'bold',
                         color: 'white'
                     }}>{section.title}</Text></View>}
                     renderItem={({item}) =>
