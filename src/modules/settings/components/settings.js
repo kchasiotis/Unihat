@@ -16,7 +16,7 @@ export default class Settings extends React.Component {
         LocalStorage.loadSettings((err, res) => {
             if (err) {
                 self.setState = {switchValue: false};
-                Logger.warn(err);
+                return Logger.warn(err);
             }
             if (res === null) {
                 self.setState({switchValue: false});
@@ -24,7 +24,7 @@ export default class Settings extends React.Component {
             }
 
             self.setState({switchValue: res.backgroundCheck});
-        })
+        });
     }
 
     reset = () => {
@@ -34,7 +34,7 @@ export default class Settings extends React.Component {
                 NavigationActions.navigate({routeName: 'screenNavigator'})
             ]
         });
-        this.props.navigation.dispatch(resetAction)
+        this.props.navigation.dispatch(resetAction);
     };
 
     onValueChange = () => {
