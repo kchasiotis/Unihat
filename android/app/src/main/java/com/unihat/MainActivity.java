@@ -3,10 +3,10 @@ package com.unihat;
 import com.facebook.react.ReactActivity;
 
 public class MainActivity extends ReactActivity {
-//    @Override
-//    public void invokeDefaultOnBackPressed() {
-//        moveTaskToBack(true);
-//    }
+    @Override
+    public void invokeDefaultOnBackPressed() {
+        moveTaskToBack(true);
+    }
 
     /**
      * Returns the name of the main component registered from JavaScript.
