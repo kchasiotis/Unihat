@@ -33,7 +33,7 @@
     "react-native": "0.53.3",
     "react-native-background-job": "^2.1.1",
     "react-native-console-time-polyfill": "0.0.6",
-    "react-native-keychain": "3.0.0-rc.3",
+    "react-native-keychain": "2.0.0",
     "react-native-loading-spinner-overlay": "~0.5.2",
     "react-native-modal": "^5.4.0",
     "react-native-push-notification": "^3.0.2",
