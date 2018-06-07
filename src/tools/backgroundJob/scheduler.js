@@ -9,6 +9,7 @@ export default class Scheduler {
             timeout: 15000,
             period: 60 * 60 * 1000,
             override: true,
+            allowExecutionInForeground: true,
             networkType: BackgroundJob.NETWORK_TYPE_UNMETERED
         };
 
@@ -18,6 +19,7 @@ export default class Scheduler {
             timeout: 15000,
             period: env.debug && env.shortSchedule ? 5 * 1000 : 12 * 60 * 60 * 1000,
             override: true,
+            allowExecutionInForeground: true,
             networkType: BackgroundJob.NETWORK_TYPE_ANY
         };
         BackgroundJob.schedule(newGradeCheckScheduleWifi);
