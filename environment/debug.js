@@ -9,6 +9,7 @@ const env = {
     backgroundCheck: true,
     logger: true,
     openFilter: false,
+    firstRunSettings: false,
     serverUrl: config.serverUrl,
     mockPage: ['examsOpen', 'examsClosed'][0],
     drawerRoute: ['aGrades', 'exGrades', 'chartScreen'][0],

@@ -4,7 +4,8 @@ const env = {
     debug: false,
     serverUrl: config.serverUrl,
     logger: false,
-    backgroundCheck: true
+    backgroundCheck: true,
+    firstRunSettings: false
 };
 
 export default env;

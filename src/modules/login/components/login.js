@@ -84,7 +84,7 @@ export default class Login extends React.Component {
     componentDidUpdate() {
         // Dispatch to main screen on log in
         if (this.props.loginState === LoginState.LOGGED_IN) {
-            this.props.navigation.navigate('main', {firstRun: this.firstRun});
+            this.props.navigation.navigate('main', env.firstRunSettings ? {firstRun: this.firstRun} : {});
         }
     }
 
