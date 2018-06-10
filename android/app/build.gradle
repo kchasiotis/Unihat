@@ -90,14 +90,14 @@ def enableSeparateBuildPerCPUArchitecture = true
 def enableProguardInReleaseBuilds = false
 
 android {
-    compileSdkVersion 23
+    compileSdkVersion 26
     buildToolsVersion "25.0.2"
 
     defaultConfig {
         applicationId "com.unihat"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 11
+        versionCode 13
         versionName "1.0"
         ndk {
             abiFilters "armeabi-v7a", "x86"
